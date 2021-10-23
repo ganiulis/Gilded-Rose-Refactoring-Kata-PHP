@@ -1,7 +1,9 @@
 # GildedRose Kata - PHP Version
 
-Branching works like this:
+My own take on the Gilded Rose Refactoring Kata exercise, done in PHP 8.0.
 
+## Git Branch Workflow
+![git branch workflow](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP/blob/main/git-workflow-diagram.png)
 
 See the [top level readme](../README.md) for general information about this exercise. This is the PHP version of the
 GildedRose Kata.
