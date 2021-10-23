@@ -1,5 +1,8 @@
 # GildedRose Kata - PHP Version
 
+Branching works like this:
+
+
 See the [top level readme](../README.md) for general information about this exercise. This is the PHP version of the
 GildedRose Kata.
 
