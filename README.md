@@ -1,47 +1,57 @@
 # GildedRose Kata - PHP Version
 
-My own take on the Gilded Rose Refactoring Kata exercise, done in PHP 8.0.
+My own take on the Gilded Rose Refactoring Kata exercise, done in PHP-FPM.
 
 ## Git Branch Workflow
 ![git branch workflow](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP/blob/main/git-workflow-diagram.png)
 
-See the [top level readme](../README.md) for general information about this exercise. This is the PHP version of the
-GildedRose Kata.
+See the [original readme](https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/main/README.md) for general information about this exercise. This is the PHP version of the GildedRose Kata.
 
 ## Installation
+
+### Requirements
+
+This project needs Git and Docker Desktop:
+
+- [Git](https://git-scm.com/downloads)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
 The kata uses:
 
 - [PHP 7.3 or 7.4 or 8.0+](https://www.php.net/downloads.php)
 - [Composer](https://getcomposer.org)
 
-Recommended:
-
-- [Git](https://git-scm.com/downloads)
+### Instructions
 
 Clone the repository
 
-```sh
-git clone git@github.com:emilybache/GildedRose-Refactoring-Kata.git
+```shell script
+git clone https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP
 ```
 
-or
+Install Docker containers via docker-compose
 
 ```shell script
-git clone https://github.com/emilybache/GildedRose-Refactoring-Kata.git
+docker-compose up -d
 ```
 
-Install all the dependencies using composer
+Check if the containers have succesfully installed
 
 ```shell script
-cd ./GildedRose-Refactoring-Kata/php
+docker ps
+```
+
+Go to port 8080 in your browser to check if the index page has successfully launched. This will be used for later features, right now stands as an empty page.
+
+Launch the PHP CLI via Docker Desktop and install all the dependencies using composer
+
+```shell script
 composer install
 ```
 
 ## Dependencies
 
 The project uses composer to install:
-
 - [PHPUnit](https://phpunit.de/)
 - [ApprovalTests.PHP](https://github.com/approvals/ApprovalTests.php)
 - [PHPStan](https://github.com/phpstan/phpstan)
@@ -137,5 +147,3 @@ PHPUnit `composer phpstan` can be run:
 ```shell script
 ps
 ```
-
-**Happy coding**!
