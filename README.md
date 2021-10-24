@@ -1,4 +1,4 @@
-# GildedRose Kata - PHP Version
+# Gilded Rose Kata - PHP Version
 
 My own take on the PHP version of the Gilded Rose Refactoring Kata exercise.
 
@@ -13,8 +13,9 @@ See the [original readme](https://github.com/emilybache/GildedRose-Refactoring-K
 * [Installation](#installation)
     + [Requirements](#requirements)
     + [Instructions](#instructions)
+* [Container Images](#container-images)
 * [Dependencies](#dependencies)
-* [Folders](#folders)
+* [File & Folder Structure](#file--folder-structure)
 * [Testing](#testing)
     + [Tests with Coverage Report](#tests-with-coverage-report)
 * [Code Standard](#code-standard)
@@ -29,7 +30,7 @@ See the [original readme](https://github.com/emilybache/GildedRose-Refactoring-K
 
 ## Gilded Rose Requirements Specification
 
-Read the [original requirements text file](https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/main/GildedRoseRequirements.txt) to check out what exactly is happening with this code.
+See the [original requirements text file](https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/main/GildedRoseRequirements.txt) to check out what exactly is happening with this code.
 
 ## Why PHP?
 
@@ -57,31 +58,33 @@ Source: [https://trunkbaseddevelopment.com/](https://trunkbaseddevelopment.com/)
 
 ### Requirements
 
-This project needs Git and Docker Desktop:
+This project needs Composer, Docker Desktop and Git:
 
-- [Git](https://git-scm.com/downloads) - version control
+- [Composer](https://getcomposer.org) - PHP dependency manager
 - [Docker Desktop](https://www.docker.com/products/docker-desktop) - containerization
+- [Git](https://git-scm.com/downloads) - version control
 
 The kata itself uses:
 
-- [PHP 8.0 FastCGI Process Manager](https://www.php.net/downloads.php) - see [PHP-FPM](#php-fpm) for reason behind using this instead of regular PHP 8.0
-- [Composer](https://getcomposer.org) - PHP dependency manager
+- [PHP 8.0 FPM](https://www.php.net/downloads.php) - see [PHP-FPM](#php-fpm) for reasons behind using this instead of regular PHP 8.0
 
 Both of which are automatically installed through the Docker Desktop container.
 
 ### Instructions
 
-Clone the repository:
+Clone the repository using `git`:
 
 ```shell script
 git clone https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP
 ```
 
-Install Docker containers via docker-compose:
+Install Docker containers using `docker-compose`:
 
 ```shell script
 docker-compose up -d --build
 ```
+
+The `-d` command option enables *Detached* mode: runs containers in the background and prints new container names. The `--build` command option builds images before starting the containers. Source: [https://docs.docker.com/compose/reference/up/](https://docs.docker.com/compose/reference/up/)
 
 Check if the containers have succesfully installed:
 
@@ -89,35 +92,49 @@ Check if the containers have succesfully installed:
 docker ps
 ```
 
-Launch the PHP CLI via Docker Desktop and install the required dependencies using composer:
+Install the required dependencies using `composer`:
 
 ```shell script
-composer install
+cd app && composer update && composer install
 ```
 
-You are now able to play around with how the code works via the PHP CLI.
+You are now able to play around with how the code works through the now-running CLI of `php-fpm` in Docker Desktop.
+
+If you want to terminate the Docker container:
+
+```shell script
+docker-compose down
+```
+
+## Container Images
+
+This project uses `docker-compose` to set up these images:
+- [PHP 8.0 FPM](https://hub.docker.com/_/php/) with [Composer 2.1](https://hub.docker.com/_/composer) - see [PHP-FPM](#php-fpm) for reasons behind using this instead of regular PHP 8.0
 
 ## Dependencies
 
-This project uses `composer install` to install these dependencies:
-- [PHPUnit](https://phpunit.de/)
-- [ApprovalTests.PHP](https://github.com/approvals/ApprovalTests.php)
-- [PHPStan](https://github.com/phpstan/phpstan)
-- [Easy Coding Standard (ECS)](https://github.com/symplify/easy-coding-standard)
-- [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/wiki)
+This project uses `composer install` to install these dev dependencies:
+- [PHPUnit](https://phpunit.de/) - unit testing framework
+- [ApprovalTests.PHP](https://github.com/approvals/ApprovalTests.php) - assertion and verification library to aid unit testing
+- [PHPStan](https://github.com/phpstan/phpstan) - finds code errors without needing to run any code beforehand
+- [Easy Coding Standard](https://github.com/symplify/easy-coding-standard) - checks code and applies a defined coding standard
+- [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/wiki) - detects and automatically corrects violations of a defined coding standard
 
-## Folders
+## File & Folder Structure
 
-- `src` - contains the two classes:
-    - `Item.php` - this class should not be changed
-    - `GildedRose.php` - this class needs to be refactored, and the new feature added
-- `tests` - contains the tests
-    - `GildedRoseTest.php` - starter test
-        - Tip: ApprovalTests has been included as a dev dependency, see the PHP version of
-          the [Theatrical Players Refactoring Kata](https://github.com/emilybache/Theatrical-Players-Refactoring-Kata/)
-          for an example
-- `Fixture`
-    - `texttest_fixture.php` this could be used by an ApprovalTests, or run from the command line
+- `app/` - main code lives here
+    - `fixtures/` - fixtures live here
+        - `texttest_fixture.php` - can be used by `ApprovalTests` or alternatively run from a command line
+    - `src/` - source folder which contains a few classes
+        - `Item.php` - this class should *not* be changed
+        - `GildedRose.php` - this class needs to be refactored and the new *'Conjured'* feature added
+    - `tests/` - contains all code tests
+        - `GildedRoseTest.php` - starter test
+            - For more information, see the [PHP version of the Theatrical Players Refactoring Kata](https://github.com/emilybache/Theatrical-Players-Refactoring-Kata/tree/main/php)
+        - `approvals/` - contains test data for `ApprovalTests`
+- `docker/` - categorized `Dockerfile` files live here
+- `docker-compose.yml` - main `docker-compose` file
+- `.env` - used in conjunction with `docker-compose.yml` to set `UID` and `GID` to `1000` instead of `root`
 
 ## Testing
 
@@ -216,4 +233,4 @@ If you have any questions or want to get in touch with me, send me a message thr
 
 This project follows the [2.0 version of the Apache License](https://www.apache.org/licenses/LICENSE-2.0).
 
-Read the [LICENSE file](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP/blob/main/LICENSE) for more information.
+See the [LICENSE file](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP/blob/main/LICENSE) for more information.
