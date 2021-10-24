@@ -86,13 +86,13 @@ docker-compose up -d --build
 
 The `-d` command option enables *Detached* mode: runs containers in the background and prints new container names. The `--build` command option builds images before starting the containers. Source: [https://docs.docker.com/compose/reference/up/](https://docs.docker.com/compose/reference/up/)
 
-Check if the images have succesfully installed:
+Check if the container images have succesfully installed:
 
 ```shell script
 docker ps
 ```
 
-Install the required dependencies using `composer`:
+Install the required PHP dependencies using `composer`:
 
 ```shell script
 cd app && composer update && composer install
