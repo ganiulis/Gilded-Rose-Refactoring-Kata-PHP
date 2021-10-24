@@ -5,6 +5,7 @@ My own take on the PHP version of the Gilded Rose Refactoring Kata exercise.
 See the [original readme](https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/main/README.md) for general information regarding this exercise.
 
 ## Table of Contents
+  * [Gilded Rose Requirements Specification](#gilded-rose-requirements-specification)
   * [Why PHP?](#why-php)
     + [PHP-FPM](#php-fpm)
   * [Version Control Development Model](#version-control-development-model)
@@ -25,13 +26,19 @@ See the [original readme](https://github.com/emilybache/GildedRose-Refactoring-K
   * [Wiki](#wiki)
   * [Contact](#contact)
 
+---
+
+## Gilded Rose Requirements Specification
+
+Read the [original requirements text file](https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/main/GildedRoseRequirements.txt) to check out what exactly is happening with this code.
+
 ## Why PHP?
 
 I've been working with PHP as a back-end language for several months now and built a few personal and private websites which include PHP in their code. It does its job and has some neat associated frameworks like [Symfony](https://symfony.com/) and [Laravel](https://laravel.com/).
 
 ### PHP-FPM
 
-This project specifically uses the [PHP 8.0 FastCGI Process Manager](https://www.php.net/downloads.php). It's an alternative to regular PHP 8.0+ as [PHP-FPM is faster than traditional CGI-based methods](https://www.basezap.com/difference-php-cgi-php-fpm/) and can handle heavier loads, which is useful for high-traffic websites and systems.
+This project specifically uses the [PHP 8.0 FastCGI Process Manager](https://www.php.net/downloads.php). It's an alternative to regular PHP 8.0+ as [PHP-FPM is faster than traditional CGI-based methods](https://www.basezap.com/difference-php-cgi-php-fpm/) and can handle heavier loads, which is useful for high-traffic websites and systems. Not essential, but nice to have.
 
 ## Version Control Development Model
 
@@ -40,7 +47,6 @@ This project follows the Trunk-Based Development model.
 ![git branch workflow](https://trunkbaseddevelopment.com/trunk1c.png)
 
 For this project, [main](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP/tree/main) is the Trunk branch.
-
 
 ### Why Trunk-Based Development?
 
