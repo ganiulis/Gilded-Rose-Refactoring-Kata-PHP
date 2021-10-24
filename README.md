@@ -1,11 +1,52 @@
 # GildedRose Kata - PHP Version
 
-My own take on the Gilded Rose Refactoring Kata exercise, done in PHP-FPM.
+My own take on the PHP version of the Gilded Rose Refactoring Kata exercise.
 
-## Git Branch Workflow
-![git branch workflow](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP/blob/main/git-workflow-diagram.png)
+See the [original readme](https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/main/README.md) for general information regarding this exercise.
 
-See the [original readme](https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/main/README.md) for general information about this exercise. This is the PHP version of the GildedRose Kata.
+## Table of Contents
+  * [Why PHP?](#why-php)
+    + [PHP-FPM](#php-fpm)
+  * [Version Control Development Model](#version-control-development-model)
+    + [Why Trunk-Based Development?](#why-trunk-based-development)
+  * [Installation](#installation)
+    + [Requirements](#requirements)
+    + [Instructions](#instructions)
+  * [Dependencies](#dependencies)
+  * [Folders](#folders)
+  * [Testing](#testing)
+    + [Tests with Coverage Report](#tests-with-coverage-report)
+  * [Code Standard](#code-standard)
+    + [Check Code](#check-code)
+    + [Fix Code](#fix-code)
+  * [Static Analysis](#static-analysis)
+  * [Issues](#issues)
+  * [Projects](#projects)
+  * [Wiki](#wiki)
+  * [Contact](#contact)
+
+## Why PHP?
+
+I've been working with PHP as a back-end language for several months now and built a few personal and private websites which include PHP in their code. It does its job and has some neat associated frameworks like [Symfony](https://symfony.com/) and [Laravel](https://laravel.com/).
+
+### PHP-FPM
+
+This project specifically uses the [PHP 8.0 FastCGI Process Manager](https://www.php.net/downloads.php). It's an alternative to regular PHP 8.0+ as [PHP-FPM is faster than traditional CGI-based methods](https://www.basezap.com/difference-php-cgi-php-fpm/) and can handle heavier loads, which is useful for high-traffic websites and systems.
+
+## Version Control Development Model
+
+This project follows the Trunk-Based Development model.
+
+![git branch workflow](https://trunkbaseddevelopment.com/trunk1c.png)
+
+For this project, [main](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP/tree/main) is the Trunk branch.
+
+
+### Why Trunk-Based Development?
+
+This model is easier to set up and iterate when the project team is small (i.e. it's only me who's working on it).
+
+Source: [https://trunkbaseddevelopment.com/](https://trunkbaseddevelopment.com/)
 
 ## Installation
 
@@ -13,45 +54,47 @@ See the [original readme](https://github.com/emilybache/GildedRose-Refactoring-K
 
 This project needs Git and Docker Desktop:
 
-- [Git](https://git-scm.com/downloads)
-- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- [Git](https://git-scm.com/downloads) - version control
+- [Docker Desktop](https://www.docker.com/products/docker-desktop) - containerization
 
-The kata uses:
+The kata itself uses:
 
-- [PHP 7.3 or 7.4 or 8.0+](https://www.php.net/downloads.php)
-- [Composer](https://getcomposer.org)
+- [PHP 8.0 FastCGI Process Manager](https://www.php.net/downloads.php) - see [PHP-FPM](#php-fpm) for reason behind using this instead of regular PHP 8.0
+- [Composer](https://getcomposer.org) - PHP dependency manager
+
+Both of which are automatically installed through the Docker Desktop container.
 
 ### Instructions
 
-Clone the repository
+Clone the repository:
 
 ```shell script
 git clone https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP
 ```
 
-Install Docker containers via docker-compose
+Install Docker containers via docker-compose:
 
 ```shell script
 docker-compose up -d --build
 ```
 
-Check if the containers have succesfully installed
+Check if the containers have succesfully installed:
 
 ```shell script
 docker ps
 ```
 
-Go to port 8080 in your browser to check if the index page has successfully launched. This will be used for later features, right now stands as an empty page.
-
-Launch the PHP CLI via Docker Desktop and install all the dependencies using composer
+Launch the PHP CLI via Docker Desktop and install the required dependencies using composer:
 
 ```shell script
 composer install
 ```
 
+You are now able to play around with how the code works via the PHP CLI.
+
 ## Dependencies
 
-The project uses composer to install:
+This project uses `composer install` to install these dependencies:
 - [PHPUnit](https://phpunit.de/)
 - [ApprovalTests.PHP](https://github.com/approvals/ApprovalTests.php)
 - [PHPStan](https://github.com/phpstan/phpstan)
@@ -64,7 +107,7 @@ The project uses composer to install:
     - `Item.php` - this class should not be changed
     - `GildedRose.php` - this class needs to be refactored, and the new feature added
 - `tests` - contains the tests
-    - `GildedRoseTest.php` - starter test.
+    - `GildedRoseTest.php` - starter test
         - Tip: ApprovalTests has been included as a dev dependency, see the PHP version of
           the [Theatrical Players Refactoring Kata](https://github.com/emilybache/Theatrical-Players-Refactoring-Kata/)
           for an example
@@ -147,3 +190,19 @@ PHPUnit `composer phpstan` can be run:
 ```shell script
 ps
 ```
+
+## Issues
+
+Visit the [GitHub issues page](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP/issues) to see what's planned next for this repository.
+
+## Projects
+
+To be done.
+
+## Wiki
+
+To be done.
+
+## Contact
+
+If you have any questions or want to get in touch with me, send me a message through [ganiulis.com](https://ganiulis.com/).
