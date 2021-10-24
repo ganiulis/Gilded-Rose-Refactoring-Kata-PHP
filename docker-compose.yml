@@ -6,5 +6,7 @@ services:
     ports:
       - 9000
     volumes:
-      - ./app:/var/www/html
+      - ./app:/var/www/html:rw
     user: "${UID}:${GID}"
+    tmpfs:
+    - /.composer
