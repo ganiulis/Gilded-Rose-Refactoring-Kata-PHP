@@ -78,7 +78,7 @@ Clone the repository using `git`:
 git clone https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP
 ```
 
-Install Docker containers using `docker-compose`:
+Install Docker container using `docker-compose`:
 
 ```shell script
 docker-compose up -d --build
@@ -86,7 +86,7 @@ docker-compose up -d --build
 
 The `-d` command option enables *Detached* mode: runs containers in the background and prints new container names. The `--build` command option builds images before starting the containers. Source: [https://docs.docker.com/compose/reference/up/](https://docs.docker.com/compose/reference/up/)
 
-Check if the containers have succesfully installed:
+Check if the images have succesfully installed:
 
 ```shell script
 docker ps
