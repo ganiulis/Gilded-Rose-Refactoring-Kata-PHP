@@ -26,8 +26,6 @@ See the [original readme](https://github.com/emilybache/GildedRose-Refactoring-K
   * [Wiki](#wiki)
   * [Contact](#contact)
 
----
-
 ## Gilded Rose Requirements Specification
 
 Read the [original requirements text file](https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/main/GildedRoseRequirements.txt) to check out what exactly is happening with this code.
