@@ -216,4 +216,4 @@ If you have any questions or want to get in touch with me, send me a message thr
 
 This project follows the [The 2.0 version of the Apache License](https://www.apache.org/licenses/LICENSE-2.0).
 
-Read the [License file](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP/blob/main/LICENSE) for more information.
+Read the [LICENSE file](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP/blob/main/LICENSE) for more information.
