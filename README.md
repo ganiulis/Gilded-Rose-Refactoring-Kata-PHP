@@ -5,26 +5,27 @@ My own take on the PHP version of the Gilded Rose Refactoring Kata exercise.
 See the [original readme](https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/main/README.md) for general information regarding this exercise.
 
 ## Table of Contents
-  * [Gilded Rose Requirements Specification](#gilded-rose-requirements-specification)
-  * [Why PHP?](#why-php)
+* [Gilded Rose Requirements Specification](#gilded-rose-requirements-specification)
+* [Why PHP?](#why-php)
     + [PHP-FPM](#php-fpm)
-  * [Version Control Development Model](#version-control-development-model)
+* [Version Control Development Model](#version-control-development-model)
     + [Why Trunk-Based Development?](#why-trunk-based-development)
-  * [Installation](#installation)
+* [Installation](#installation)
     + [Requirements](#requirements)
     + [Instructions](#instructions)
-  * [Dependencies](#dependencies)
-  * [Folders](#folders)
-  * [Testing](#testing)
+* [Dependencies](#dependencies)
+* [Folders](#folders)
+* [Testing](#testing)
     + [Tests with Coverage Report](#tests-with-coverage-report)
-  * [Code Standard](#code-standard)
+* [Code Standard](#code-standard)
     + [Check Code](#check-code)
     + [Fix Code](#fix-code)
-  * [Static Analysis](#static-analysis)
-  * [Issues](#issues)
-  * [Projects](#projects)
-  * [Wiki](#wiki)
-  * [Contact](#contact)
+* [Static Analysis](#static-analysis)
+* [Issues](#issues)
+* [Projects](#projects)
+* [Wiki](#wiki)
+* [Contact](#contact)
+* [License](#license)
 
 ## Gilded Rose Requirements Specification
 
@@ -210,3 +211,9 @@ To be done.
 ## Contact
 
 If you have any questions or want to get in touch with me, send me a message through [ganiulis.com](https://ganiulis.com/).
+
+## License
+
+This project follows the [The 2.0 version of the Apache License](https://www.apache.org/licenses/LICENSE-2.0).
+
+Read the [License file](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP/blob/main/LICENSE) for more information.
