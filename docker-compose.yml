@@ -8,5 +8,3 @@ services:
     volumes:
       - ./app:/var/www/html:rw
     user: "${UID}:${GID}"
-    tmpfs:
-    - /.composer

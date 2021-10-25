@@ -60,12 +60,12 @@ Source: [https://trunkbaseddevelopment.com/](https://trunkbaseddevelopment.com/)
 
 This project needs Composer, Docker Desktop and Git:
 
-- [Composer](https://getcomposer.org) - PHP dependency manager
-- [Docker Desktop](https://www.docker.com/products/docker-desktop) - containerization
 - [Git](https://git-scm.com/downloads) - version control
+- [Docker Desktop](https://www.docker.com/products/docker-desktop) - containerization
 
 The kata itself uses:
 
+- [Composer](https://getcomposer.org) - PHP dependency manager
 - [PHP 8.0 FPM](https://www.php.net/downloads.php) - see [PHP-FPM](#php-fpm) for reasons behind using this instead of regular PHP 8.0
 
 Both of which are automatically installed through the Docker Desktop container.
@@ -92,13 +92,13 @@ Check if the container images have succesfully installed:
 docker ps
 ```
 
-Install the required PHP dependencies using `composer`:
+Launch the `php-fpm` CLI in Docker and install the required PHP dependencies using `composer`:
 
 ```shell script
-cd app && composer update && composer install
+composer install
 ```
 
-You are now able to play around with how the code works through the now-running CLI of `php-fpm` in Docker Desktop.
+You are now able to play around with how the code works through the `php-fpm` CLI.
 
 If you want to terminate the Docker container:
 
@@ -110,6 +110,7 @@ docker-compose down
 
 This project uses `docker-compose` to set up these images:
 - [PHP 8.0 FPM](https://hub.docker.com/_/php/) with [Composer 2.1](https://hub.docker.com/_/composer) - see [PHP-FPM](#php-fpm) for reasons behind using this instead of regular PHP 8.0
+    - `git`, `zip` and `unzip` are also installed along with the image
 
 ## Dependencies
 
