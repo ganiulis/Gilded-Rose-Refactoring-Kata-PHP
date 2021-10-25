@@ -84,7 +84,9 @@ Install Docker container using `docker-compose`:
 docker-compose up -d --build
 ```
 
-The `-d` command option enables *Detached* mode: runs containers in the background and prints new container names. The `--build` command option builds images before starting the containers. Source: [https://docs.docker.com/compose/reference/up/](https://docs.docker.com/compose/reference/up/)
+The `-d` command option enables *Detached* mode: runs containers in the background and prints new container names. The `--build` command option builds images before starting the containers.
+
+Source: [https://docs.docker.com/compose/reference/up/](https://docs.docker.com/compose/reference/up/)
 
 Check if the container images have succesfully installed:
 
@@ -100,7 +102,7 @@ composer install
 
 You are now able to play around with how the code works through the `php-fpm` CLI.
 
-If you want to terminate the Docker container:
+If you wish to terminate the Docker container:
 
 ```shell script
 docker-compose down
@@ -135,7 +137,6 @@ This project uses `composer install` to install these dev dependencies:
         - `approvals/` - contains test data for `ApprovalTests`
 - `docker/` - categorized `Dockerfile` files live here
 - `docker-compose.yml` - main `docker-compose` file
-- `.env` - used in conjunction with `docker-compose.yml` to set `UID` and `GID` to `1000` instead of `root`
 
 ## Testing
 
