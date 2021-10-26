@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ApprovalTest extends TestCase
 {
-    public function testTestFixture()
+    public function testTestFixture(): void
     {
         // executes fixtures file for 31 days and stores the results in $output array
         exec('php fixtures/texttest_fixture.php 31', $output);
