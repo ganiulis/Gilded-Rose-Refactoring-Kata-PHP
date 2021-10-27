@@ -57,7 +57,7 @@ final class GildedRose
                     $item->sell_in -= 1;
                     break;
 
-                case (preg_match('/\bConjured\b/i', $item->name) ? true : false) :
+                case 'Conjured Mana Cake':
                     if ($item->sell_in < 1 && $item->quality > 3)
                     {
                         $item->quality -= 4;
