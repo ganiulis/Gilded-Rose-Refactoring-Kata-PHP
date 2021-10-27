@@ -58,8 +58,9 @@ final class GildedRose
                     }
                     $item->sell_in -= 1;
                     break;
-
+                
                 case 'Conjured Item':
+
                     if ($item->sell_in < 1 && $item->quality > 3)
                     {
                         $item->quality -= 4;
