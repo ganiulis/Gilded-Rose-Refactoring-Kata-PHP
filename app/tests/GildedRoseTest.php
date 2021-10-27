@@ -13,37 +13,64 @@ class GildedRoseTest extends TestCase
     /**
      * @dataProvider provideItemData
      */
-    public function testItem($expectedResult, $input): void
+    public function testItem($name, $sellIn, $quality): void
     {
-        $gildedRose = new GildedRose([$input]);
+        $itemTest = new Item($name, $sellIn['SellIn test'], $quality['Quality test']);
+        $itemResult = new Item($name, $sellIn['SellIn result'], $quality['Quality result']);
+
+        $gildedRose = new GildedRose([$itemTest]);
         
         $gildedRose->updateQuality();
 
-        $this->assertEquals($expectedResult, $input);
+        $this->assertEquals($itemResult, $itemTest);
     }
 
     public function provideItemData()
     {
         return [
             [
-                new Item('Mana Cake', 5, 6),
-                new Item('Mana Cake', 6, 7)
+                'Mana Cake',
+                [
+                    'SellIn test' => 6, 
+                    'SellIn result' => 5
+                ],
+                [
+                    'Quality test' => 2, 
+                    'Quality result' => 1
+                ]
             ],
             [
-                new Item('Water, nonConjured', 1, 4),
-                new Item('Water, nonConjured', 2, 5),
+                'Conjured Cake',
+                [
+                    'SellIn test' => 6, 
+                    'SellIn result' => 5
+                ],
+                [
+                    'Quality test' => 2, 
+                    'Quality result' => 0
+                ]
             ],
             [
-                new Item('Just Cake', 6, 0),
-                new Item('Just Cake', 7, 0)
+                'nonConjured Cake',
+                [
+                    'SellIn test' => 6, 
+                    'SellIn result' => 5
+                ],
+                [
+                    'Quality test' => 2, 
+                    'Quality result' => 1
+                ]
             ],
             [
-                new Item('Water', 4, 1),
-                new Item('Water', 5, 2)
-            ],
-            [
-                new Item('Big preconjured Mana Cake', 0, 5),
-                new Item('Big preconjured Mana Cake', 1, 6)
+                'Water',
+                [
+                    'SellIn test' => 0, 
+                    'SellIn result' => -1
+                ],
+                [
+                    'Quality test' => 2, 
+                    'Quality result' => 0
+                ]
             ]
         ];
     }
