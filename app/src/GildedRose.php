@@ -18,9 +18,11 @@ final class GildedRose
 
     public function updateQuality(): void
     {
-        foreach ($this->items as $item) 
+        foreach ($this->items as $item)
         {
-            switch($item->name)
+            $itemType = preg_match('/\bConjured\b/i', $item->name) ? 'Conjured Item' : $item->name;
+            
+            switch($itemType)
             {
                 case 'Aged Brie':
                     if ($item->sell_in < 1 && $item->quality < 49)
@@ -57,7 +59,7 @@ final class GildedRose
                     $item->sell_in -= 1;
                     break;
 
-                case (preg_match('/\bConjured\b/i', $item->name) ? true : false):
+                case 'Conjured Item':
                     if ($item->sell_in < 1 && $item->quality > 3)
                     {
                         $item->quality -= 4;
