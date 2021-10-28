@@ -54,7 +54,7 @@ For this project, [main](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kat
 
 This model is easier to set up and iterate when the project team is small (i.e. it's only me who's working on it).
 
-Source: [https://trunkbaseddevelopment.com/](https://trunkbaseddevelopment.com/)
+Source: https://trunkbaseddevelopment.com/
 
 ## Installation
 
@@ -70,7 +70,7 @@ The kata itself uses:
 - [Composer](https://getcomposer.org) - PHP dependency manager
 - [PHP 8.0 FPM](https://www.php.net/downloads.php) - see [PHP-FPM](#php-fpm) for reasons behind using this instead of regular PHP 8.0
 
-Both of which are automatically installed through the Docker Desktop container.
+Both of which are installed through Docker.
 
 ### Instructions
 
@@ -80,7 +80,7 @@ Clone the repository using `git`:
 git clone https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP
 ```
 
-Install Docker container using `docker-compose`:
+Build Docker container using `docker-compose`:
 
 ```shell script
 docker-compose up -d --build
@@ -88,7 +88,7 @@ docker-compose up -d --build
 
 The `-d` command option enables *Detached* mode: runs containers in the background and prints new container names. The `--build` command option builds images before starting the containers.
 
-Source: [https://docs.docker.com/compose/reference/up/](https://docs.docker.com/compose/reference/up/)
+Source: https://docs.docker.com/compose/reference/up/
 
 Check if the container images have succesfully installed:
 
@@ -169,8 +169,9 @@ browser.
 
 ## Code Standard
 
-Easy Coding Standard (ECS) is configured for style and code standards, **PSR-12** is used. The current code is not upto
-standard!
+Easy Coding Standard is configured for style and code standards as described by the [PSR-12](https://www.php-fig.org/psr/psr-12/) specification.
+
+Source: https://www.php-fig.org/psr/psr-12/
 
 ### Check Code
 
