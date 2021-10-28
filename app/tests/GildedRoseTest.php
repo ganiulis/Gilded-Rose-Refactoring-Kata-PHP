@@ -36,7 +36,7 @@ class GildedRoseTest extends TestCase
 
     public function provideItemData(): array 
     {
-        return array(
+        return [
             [
                 'Typical item - SellIn and Quality both drop by 1' => [
                     'Name' => 'Mana Cake',        
@@ -100,6 +100,6 @@ class GildedRoseTest extends TestCase
                     'Quality' => ['test' => 3, 'expected' => 0]
                 ]
             ]
-        );
+        ];
     }
 }
