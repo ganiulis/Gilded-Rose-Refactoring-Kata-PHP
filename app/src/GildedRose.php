@@ -11,6 +11,11 @@ final class GildedRose
      */
     private $items;
 
+    private const AGED_BRIE = 'Aged Brie';
+    private const BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert';
+    private const CONJURED = 'Conjured Item';
+    private const SULFURAS = 'Sulfuras, Hand of Ragnaros';
+
     public function __construct(array $items)
     {
         $this->items = $items;
@@ -19,10 +24,10 @@ final class GildedRose
     public function updateQuality(): void
     {
         foreach ($this->items as $item) {
-            $itemType = preg_match('/\bConjured\b/i', $item->name) ? 'Conjured Item' : $item->name;
+            $itemType = preg_match('/\bConjured\b/i', $item->name) ? self::CONJURED : $item->name;
             
             switch($itemType) {
-                case 'Aged Brie':
+                case self::AGED_BRIE:
                     if ($item->sell_in < 1 && $item->quality < 49) {
                         $item->quality += 2;
                     } elseif ($item->quality < 50) {
@@ -30,7 +35,7 @@ final class GildedRose
                     }
                     $item->sell_in -= 1;
                     break;
-                case 'Backstage passes to a TAFKAL80ETC concert':
+                case self::BACKSTAGE_PASSES:
                     if ($item->sell_in < 1) {
                         $item->quality = 0;
                     } else {
@@ -44,7 +49,7 @@ final class GildedRose
                     }
                     $item->sell_in -= 1;
                     break;
-                case 'Conjured Item':
+                case self::CONJURED:
                     if ($item->sell_in < 1) {
                         if ($item->quality > 3) {
                             $item->quality -= 4;
@@ -58,7 +63,7 @@ final class GildedRose
                     }
                     $item->sell_in -= 1;
                     break;
-                case 'Sulfuras, Hand of Ragnaros':
+                case self::SULFURAS:
                     break;
                 default:
                     if ($item->sell_in < 1 && $item->quality > 1) {
