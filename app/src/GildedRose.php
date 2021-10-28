@@ -61,9 +61,16 @@ final class GildedRose
                 
                 case 'Conjured Item':
 
-                    if ($item->sell_in < 1 && $item->quality > 3)
+                    if ($item->sell_in < 1)
                     {
-                        $item->quality -= 4;
+                        if ($item->quality > 3)
+                        {
+                            $item->quality -= 4;
+                        }
+                        elseif ($item->quality > 0)
+                        {
+                            $item->quality = 0;
+                        }
                     }
                     elseif ($item->quality > 1)
                     {
