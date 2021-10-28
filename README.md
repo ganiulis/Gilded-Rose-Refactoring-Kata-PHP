@@ -60,7 +60,7 @@ Source: [https://trunkbaseddevelopment.com/](https://trunkbaseddevelopment.com/)
 
 ### Requirements
 
-This project needs Composer, Docker Desktop and Git:
+This project needs Docker Desktop and Git:
 
 - [Git](https://git-scm.com/downloads) - version control
 - [Docker Desktop](https://www.docker.com/products/docker-desktop) - containerization
