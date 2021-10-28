@@ -18,41 +18,28 @@ final class GildedRose
 
     public function updateQuality(): void
     {
-        foreach ($this->items as $item)
-        {
+        foreach ($this->items as $item) {
             $itemType = preg_match('/\bConjured\b/i', $item->name) ? 'Conjured Item' : $item->name;
             
-            switch($itemType)
-            {
+            switch($itemType) {
                 case 'Aged Brie':
-                    if ($item->sell_in < 1 && $item->quality < 49)
-                    {
+                    if ($item->sell_in < 1 && $item->quality < 49) {
                         $item->quality += 2;
-                    }
-                    elseif ($item->quality < 50)
-                    {
+                    } elseif ($item->quality < 50) {
                         $item->quality += 1;
                     }
                     $item->sell_in -= 1;
                     break;
 
                 case 'Backstage passes to a TAFKAL80ETC concert':
-                    if ($item->sell_in < 1)
-                    {
+                    if ($item->sell_in < 1) {
                         $item->quality = 0;
-                    }
-                    else
-                    {
-                        if ($item->sell_in < 6 && $item->quality < 48)
-                        {
+                    } else {
+                        if ($item->sell_in < 6 && $item->quality < 48) {
                             $item->quality += 3;
-                        }
-                        elseif ($item->sell_in < 11 && $item->quality < 49)
-                        {
+                        } elseif ($item->sell_in < 11 && $item->quality < 49) {
                             $item->quality += 2;
-                        }
-                        elseif ($item->quality < 50)
-                        {
+                        } elseif ($item->quality < 50) {
                             $item->quality += 1;
                         }
                     }
@@ -60,24 +47,15 @@ final class GildedRose
                     break;
                 
                 case 'Conjured Item':
-
-                    if ($item->sell_in < 1)
-                    {
-                        if ($item->quality > 3)
-                        {
+                    if ($item->sell_in < 1) {
+                        if ($item->quality > 3) {
                             $item->quality -= 4;
-                        }
-                        elseif ($item->quality > 0)
-                        {
+                        } elseif ($item->quality > 0) {
                             $item->quality = 0;
                         }
-                    }
-                    elseif ($item->quality > 1)
-                    {
+                    } elseif ($item->quality > 1) {
                         $item->quality -= 2;
-                    }
-                    elseif ($item->quality > 0)
-                    {
+                    } elseif ($item->quality > 0) {
                         $item->quality -= 1;
                     }
                     $item->sell_in -= 1;
@@ -87,17 +65,13 @@ final class GildedRose
                     break;
 
                 default:
-                    if ($item->sell_in < 1 && $item->quality > 1)
-                    {
+                    if ($item->sell_in < 1 && $item->quality > 1) {
                         $item->quality -= 2;
-                    }
-                    elseif ($item->quality > 0)
-                    {
+                    } elseif ($item->quality > 0) {
                         $item->quality -= 1;
                     }
                     $item->sell_in -= 1;
                     break;
-
             }
         }
     }
