@@ -13,9 +13,19 @@ class GildedRoseTest extends TestCase
     /**
      * @dataProvider provideItemData
      */
-    public function testItem(array $testData): void {
-        $itemTest = new Item($testData['Name'], $testData['SellIn']['test'], $testData['Quality']['test']);
-        $itemExpected = new Item($testData['Name'], $testData['SellIn']['expected'], $testData['Quality']['expected']);
+    public function testItem(array $testData): void
+    {
+        $itemTest = new Item(
+            $testData['Name'],
+            $testData['SellIn']['test'],
+            $testData['Quality']['test']
+        );
+
+        $itemExpected = new Item(
+            $testData['Name'],
+            $testData['SellIn']['expected'],
+            $testData['Quality']['expected']
+        );
 
         $gildedRose = new GildedRose([$itemTest]);
         
@@ -24,7 +34,8 @@ class GildedRoseTest extends TestCase
         $this->assertEquals($itemExpected, $itemTest);
     }
 
-    public function provideItemData(): array {
+    public function provideItemData(): array 
+    {
         return array(
             [
                 'Typical item - SellIn and Quality both drop by 1' => [

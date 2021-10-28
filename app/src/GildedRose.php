@@ -30,7 +30,6 @@ final class GildedRose
                     }
                     $item->sell_in -= 1;
                     break;
-
                 case 'Backstage passes to a TAFKAL80ETC concert':
                     if ($item->sell_in < 1) {
                         $item->quality = 0;
@@ -45,7 +44,6 @@ final class GildedRose
                     }
                     $item->sell_in -= 1;
                     break;
-                
                 case 'Conjured Item':
                     if ($item->sell_in < 1) {
                         if ($item->quality > 3) {
@@ -60,10 +58,8 @@ final class GildedRose
                     }
                     $item->sell_in -= 1;
                     break;
-
                 case 'Sulfuras, Hand of Ragnaros':
                     break;
-
                 default:
                     if ($item->sell_in < 1 && $item->quality > 1) {
                         $item->quality -= 2;
