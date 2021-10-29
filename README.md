@@ -124,6 +124,7 @@ This project uses `composer install` to install these dev dependencies:
 - [PHPStan](https://github.com/phpstan/phpstan) - finds code errors without needing to run any code beforehand
 - [Easy Coding Standard](https://github.com/symplify/easy-coding-standard) - checks code and applies a defined coding standard
 - [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/wiki) - detects and automatically corrects violations of a defined coding standard
+- [Symfony Console Component](https://symfony.com/doc/current/components/console.html) - allows for PHP to receive inputs from the console
 
 ## File & Folder Structure
 
