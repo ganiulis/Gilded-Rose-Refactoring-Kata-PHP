@@ -74,7 +74,7 @@ class CreateNewItemCommand extends Command
             '=============================',
             '<info>Item processed!</info>',
             '<comment>Name:</comment>            ' . $item[0]->name,
-            '<comment>Expiration:</comment>      ' . $item[0]->sell_in,
+            '<comment>Expiration:</comment>      ' . $item[0]->sell_in . ' days',
             '<comment>Current quality:</comment> ' . $item[0]->quality,
             '<comment>Days passed:</comment>     ' . $days . ' days',
             '============================='
