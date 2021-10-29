@@ -20,10 +20,10 @@ class CreateNewItemCommand extends Command
     private const DEFAULT_DESCRIPTION = 'Process a new item';
     private const HELP_DESCRIPTION = 'This command allows you to try processing a new item via updateQuality() method for n days';
 
-    private const NAME_QUESTION = 'What is the name of the item? ';
-    private const SELL_IN_QUESTION = 'In how many days will the item expire? (int) ';
-    private const QUALITY_QUESTION = 'What is the quality of the item? (int) ';
-    private const DAYS_QUESTION = 'How many days should pass? (int) ';
+    private const NAME_QUESTION = 'What is the name of the item?';
+    private const SELL_IN_QUESTION = 'In how many days will the item expire? (int)';
+    private const QUALITY_QUESTION = 'What is the quality of the item? (int)';
+    private const DAYS_QUESTION = 'How many days should pass? (int)';
 
     private const HORIZONTAL_BAR_OUTPUT = '=============================';
     private const PROCESS_SUCCESS_OUTPUT = '<info>Item processed!</info>';
@@ -37,10 +37,10 @@ class CreateNewItemCommand extends Command
         $this
             ->setDescription($this::DEFAULT_DESCRIPTION)
             ->setHelp($this::HELP_DESCRIPTION)
-            ->addArgument('name', InputArgument::OPTIONAL)
-            ->addArgument('sell_in', InputArgument::OPTIONAL)
-            ->addArgument('quality', InputArgument::OPTIONAL)
-            ->addArgument('days', InputArgument::OPTIONAL)
+            ->addArgument('name', InputArgument::OPTIONAL, $this::NAME_QUESTION)
+            ->addArgument('sell_in', InputArgument::OPTIONAL, $this::SELL_IN_QUESTION)
+            ->addArgument('quality', InputArgument::OPTIONAL, $this::QUALITY_QUESTION)
+            ->addArgument('days', InputArgument::OPTIONAL, $this::DAYS_QUESTION)
         ;
     }
 
@@ -84,10 +84,10 @@ class CreateNewItemCommand extends Command
         $output->writeln([
             $this::HORIZONTAL_BAR_OUTPUT,
             $this::PROCESS_SUCCESS_OUTPUT,
-            $this::NAME_OUTPUT . $item[0]->name,
-            $this::SELL_IN_OUTPUT . $item[0]->sell_in . ' days',
-            $this::QUALITY_OUTPUT . $item[0]->quality,
-            $this::DAYS_OUTPUT . $days . ' days',
+            $this::NAME_OUTPUT . ' ' . $item[0]->name,
+            $this::SELL_IN_OUTPUT . ' ' . $item[0]->sell_in . ' days',
+            $this::QUALITY_OUTPUT . ' ' . $item[0]->quality,
+            $this::DAYS_OUTPUT . ' ' . $days . ' days',
             $this::HORIZONTAL_BAR_OUTPUT
         ]);
 
