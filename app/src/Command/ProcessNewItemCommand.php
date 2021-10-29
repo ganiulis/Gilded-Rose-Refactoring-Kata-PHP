@@ -21,6 +21,11 @@ class CreateNewItemCommand extends Command
     private const DEFAULT_DESCRIPTION = 'Process a new item';
     private const HELP_DESCRIPTION = 'This command allows you to try processing a new item via updateQuality() method for n days';
 
+    private const NAME_QUESTION = 'What is the name of the item? ';
+    private const SELL_IN_QUESTION = 'In how many days will the item expire? (int) ';
+    private const QUALITY_QUESTION = 'What is the quality of the item? (int) ';
+    private const DAYS_QUESTION = 'How many days should pass? (int) ';
+
     protected function configure(): void
     {
         $this
@@ -43,22 +48,22 @@ class CreateNewItemCommand extends Command
         $helper = $this->getHelper('question');
 
         if (!isset($name)) {
-            $itemNameQuestion = new Question('What is the name of the item? ');
+            $itemNameQuestion = new Question($this::NAME_QUESTION);
             $name = $helper->ask($input, $output, $itemNameQuestion);
         }
 
         while (!isset($sellIn) || !is_numeric($sellIn)) {
-            $itemSellInQuestion = new Question('In how many days will the item expire? (int) ');
+            $itemSellInQuestion = new Question($this::SELL_IN_QUESTION);
             $sellIn = $helper->ask($input, $output, $itemSellInQuestion);
         }
 
         while (!isset($quality) || !is_numeric($quality)) {
-            $itemQualityQuestion = new Question('What is the quality of the item? (int) ');
+            $itemQualityQuestion = new Question($this::QUALITY_QUESTION);
             $quality = $helper->ask($input, $output, $itemQualityQuestion);
         }
 
         while (!isset($days) || !is_numeric($days)) {
-            $itemDaysPassedQuestion = new Question('How many days should pass? (int) ');
+            $itemDaysPassedQuestion = new Question($this::DAYS_QUESTION);
             $days = $helper->ask($input, $output, $itemDaysPassedQuestion);
         }
 
