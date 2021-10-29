@@ -26,6 +26,13 @@ class CreateNewItemCommand extends Command
     private const QUALITY_QUESTION = 'What is the quality of the item? (int) ';
     private const DAYS_QUESTION = 'How many days should pass? (int) ';
 
+    private const HORIZONTAL_BAR_OUTPUT = '=============================';
+    private const PROCESS_SUCCESS_OUTPUT = '<info>Item processed!</info>';
+    private const NAME_OUTPUT = '<comment>Name:</comment>            ';
+    private const SELL_IN_OUTPUT = '<comment>Expiration:</comment>      ';
+    private const QUALITY_OUTPUT = '<comment>Current quality:</comment> ';
+    private const DAYS_OUTPUT = '<comment>Days passed:</comment>     ';
+
     protected function configure(): void
     {
         $this
@@ -76,13 +83,13 @@ class CreateNewItemCommand extends Command
         }
 
         $output->writeln([
-            '=============================',
-            '<info>Item processed!</info>',
-            '<comment>Name:</comment>            ' . $item[0]->name,
-            '<comment>Expiration:</comment>      ' . $item[0]->sell_in . ' days',
-            '<comment>Current quality:</comment> ' . $item[0]->quality,
-            '<comment>Days passed:</comment>     ' . $days . ' days',
-            '============================='
+            $this::HORIZONTAL_BAR_OUTPUT,
+            $this::PROCESS_SUCCESS_OUTPUT,
+            $this::NAME_OUTPUT . $item[0]->name,
+            $this::SELL_IN_OUTPUT . $item[0]->sell_in . ' days',
+            $this::QUALITY_OUTPUT . $item[0]->quality,
+            $this::DAYS_OUTPUT . $days . ' days',
+            $this::HORIZONTAL_BAR_OUTPUT
         ]);
 
         return Command::SUCCESS;
