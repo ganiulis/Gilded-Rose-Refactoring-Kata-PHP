@@ -31,7 +31,6 @@
         "test-coverage": "phpunit --coverage-html build/coverage",
         "check-cs": "ecs check",
         "fix-cs": "ecs check --fix",
-        "phpstan": "phpstan analyse --ansi",
-        "process-new-item": "php src/Command/ProcessNewItemCommand.php app:process-new-item"
+        "phpstan": "phpstan analyse --ansi"
     }
 }
