@@ -13,7 +13,7 @@ class ApprovalTest extends TestCase
     {
         exec('php fixtures/texttest_fixture.php 31', $output);
 
-        $implodedFixture = implode("\r\n", $output);
+        $implodedFixture = implode("\n", $output);
 
         Approvals::verifyString($implodedFixture);
     }
