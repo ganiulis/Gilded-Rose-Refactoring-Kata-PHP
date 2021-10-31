@@ -31,7 +31,7 @@ class GildedRoseTest extends TestCase
         
         $gildedRose->updateQuality();
 
-        $this->assertEquals($itemExpected, $itemTest);
+        $this->assertEquals($itemExpected, $itemTest, "Something is wrong with the tested items' data input! Or with the logic within the GildedRose.php src file.");
     }
 
     public function provideItemData(): array 
