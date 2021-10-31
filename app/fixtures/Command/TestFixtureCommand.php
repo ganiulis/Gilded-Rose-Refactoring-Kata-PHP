@@ -44,19 +44,19 @@ class TestFixtureCommand extends Command
 
         $app = new GildedRose($items);
 
-        $output->writeln('OMGHAI!');
+        $output->write('OMGHAI!', true);
 
         $days = $input->getOption('days');
         
         for ($i = 0; $i < $days; $i++) {
             $output->writeln([
                 "-------- day ${i} --------",
-                'name, sellIn, quality'
+                "name, sellIn, quality"
             ]);
             foreach ($items as $item) {
-                    $output->writeln($item);
+                    $output->write($item, true);
                 }
-            $output->writeln('');
+            $output->write('', true);
             $app->updateQuality();            
         }
 
