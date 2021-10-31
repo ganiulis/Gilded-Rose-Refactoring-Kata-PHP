@@ -11,8 +11,6 @@ class ApprovalCommandTest extends TestCase
     public function testTestFixtureCommand(): void
     {
         $expectedFixture = file_get_contents(__DIR__ . '/approvals/ApprovalTest.testTestFixture.approved.txt');
-
-        // $expectedFixtureFileArray = explode("\r\n", $testFixtureFile);
         
         exec('php fixtures/Command/TestFixtureCommand.php test-fixture --days=31', $output);
 
