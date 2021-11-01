@@ -12,7 +12,7 @@ class ApprovalCommandTest extends TestCase
     {
         $expectedFixture = file_get_contents(__DIR__ . '/approvals/ApprovalTest.testTestFixture.approved.txt');
         
-        exec('php fixtures/Command/TestFixtureCommand.php test-fixture --days=31', $output);
+        exec('php command/fixturetest test-fixture --days=31', $output);
 
         $actualFixture = implode("\r\n", $output);
 
