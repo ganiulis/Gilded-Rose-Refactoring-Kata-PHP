@@ -19,7 +19,7 @@ class TestFixtureCommand extends Command
         $this
             ->setDescription('Fixture testing through the terminal')
             ->setHelp('This command allows you to try processing the test fixture for n days')
-            ->addOption('days', 'd', $this->requirePassword ? InputOption::VALUE_REQUIRED : InputOption::VALUE_OPTIONAL, 'How many days will the fixture be updated for?')
+            ->addOption('days', 'd', InputOption::VALUE_OPTIONAL, 'How many days will the fixture be updated for?')
         ;
     }
 
