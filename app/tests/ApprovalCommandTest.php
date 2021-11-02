@@ -16,6 +16,6 @@ class ApprovalCommandTest extends TestCase
 
         $actualFixture = implode("\r\n", $output);
 
-        $this->assertEquals($expectedFixture, $actualFixture, 'Fixture command line output (actual) does not match approvals text file input (expected)!');
+        $this->assertEquals($expectedFixture, $actualFixture, 'Fixture test command line output does not match expected output!');
     }
 }
