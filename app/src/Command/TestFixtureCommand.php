@@ -1,8 +1,9 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+declare(strict_types=1);
 
-use Symfony\Component\Console\Application;
+namespace GildedRose\Command;
+
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -11,12 +12,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use GildedRose\GildedRose;
 use GildedRose\Item;
 
-$application = new Application('Gilded Rose CLI Fixture Processor', '0.1.0');
-
 class TestFixtureCommand extends Command
 {
     protected static $defaultName = 'test-fixture';
-    
+
     protected function configure(): void
     {
         $this
@@ -29,7 +28,7 @@ class TestFixtureCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $days = $input->getOption('days');
-    
+
         $output->writeln('OMGHAI!');
 
         $items = [
@@ -61,7 +60,3 @@ class TestFixtureCommand extends Command
         return Command::SUCCESS;
     }
 }
-
-$application->add(new TestFixtureCommand());
-
-$application->run();
