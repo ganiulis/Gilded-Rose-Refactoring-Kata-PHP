@@ -15,6 +15,8 @@ class ApprovalTest extends TestCase
 
         $implodedFixture = implode("\n", $output);
 
-        Approvals::verifyString($implodedFixture);
+        $actualFixture = $implodedFixture . "\n";
+
+        Approvals::verifyString($actualFixture);
     }
 }

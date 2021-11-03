@@ -9,12 +9,14 @@ use PHPUnit\Framework\TestCase;
 
 class ApprovalDefaultTest extends TestCase
 {
-    public function testTestFixture(): void
+    public function testTestDefaultFixture(): void
     {
         exec('php fixtures/texttest_fixture.php', $output);
 
         $implodedFixture = implode("\n", $output);
 
-        Approvals::verifyString($implodedFixture);
+        $actualFixture = $implodedFixture . "\n";
+
+        Approvals::verifyString($actualFixture);
     }
 }
