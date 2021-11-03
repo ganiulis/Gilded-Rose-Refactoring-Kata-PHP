@@ -8,9 +8,13 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 use GildedRose\GildedRose;
 use GildedRose\Item;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 class TestFixtureCommand extends Command
 {
@@ -27,21 +31,23 @@ class TestFixtureCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
+
+        $encodedFixtureData = file_get_contents(__DIR__ . "\\..\\..\\data\\testfixture.csv");
+
+        $decodedFixtureData = $serializer->decode($encodedFixtureData, 'csv');
+        
+        for ($i = 0; $i < count($decodedFixtureData); $i++) {
+            $items[] = new Item(
+                $decodedFixtureData[$i]['name'],
+                intval($decodedFixtureData[$i]['sellIn']),
+                intval($decodedFixtureData[$i]['quality'])
+            );
+        }
+
         $days = $input->getOption('days');
 
         $output->writeln('OMGHAI!');
-
-        $items = [
-            new Item('+5 Dexterity Vest', 10, 20),
-            new Item('Aged Brie', 2, 0),
-            new Item('Elixir of the Mongoose', 5, 7),
-            new Item('Sulfuras, Hand of Ragnaros', 0, 80),
-            new Item('Sulfuras, Hand of Ragnaros', -1, 80),
-            new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20),
-            new Item('Backstage passes to a TAFKAL80ETC concert', 10, 49),
-            new Item('Backstage passes to a TAFKAL80ETC concert', 5, 49),
-            new Item('Conjured Mana Cake', 3, 6),
-        ];
 
         $app = new GildedRose($items);
 
