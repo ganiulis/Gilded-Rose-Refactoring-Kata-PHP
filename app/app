@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use GildedRose\Command\TestFixtureCommand;
+use Symfony\Component\Console\Application;
+
+$application = new Application('Gilded Rose CLI', '0.1.0');
+
+$commands = [
+    new TestFixtureCommand()
+    // register new commands here
+    ];
+
+for ($i = 0; $i < count($commands); $i++) {
+    $application->add($commands[$i]);
+}
+
+$application->run();

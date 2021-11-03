@@ -7,11 +7,11 @@ namespace Tests;
 use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
 
-class ApprovalTest extends TestCase
+class ApprovalDefaultTest extends TestCase
 {
-    public function testTestFixture(): void
+    public function testTestDefaultFixture(): void
     {
-        exec('php fixtures/texttest_fixture.php 31', $output);
+        exec('php fixtures/texttest_fixture.php', $output);
 
         $implodedFixture = implode("\n", $output);
 
