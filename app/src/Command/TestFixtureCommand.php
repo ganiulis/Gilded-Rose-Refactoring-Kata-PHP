@@ -9,8 +9,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 use GildedRose\GildedRose;
 use GildedRose\Item;
@@ -30,11 +28,11 @@ class TestFixtureCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
+        $encoder = new CsvEncoder();
 
         $encodedFixtureData = file_get_contents(__DIR__ . "\\..\\..\\data\\testfixture.csv");
 
-        $decodedFixtureData = $serializer->decode($encodedFixtureData, 'csv');
+        $decodedFixtureData = $encoder->decode($encodedFixtureData, 'csv');
 
         $items = [];
         
