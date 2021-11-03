@@ -14,7 +14,6 @@ use Symfony\Component\Serializer\Serializer;
 
 use GildedRose\GildedRose;
 use GildedRose\Item;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 class TestFixtureCommand extends Command
 {
@@ -36,6 +35,8 @@ class TestFixtureCommand extends Command
         $encodedFixtureData = file_get_contents(__DIR__ . "\\..\\..\\data\\testfixture.csv");
 
         $decodedFixtureData = $serializer->decode($encodedFixtureData, 'csv');
+
+        $items = [];
         
         for ($i = 0; $i < count($decodedFixtureData); $i++) {
             $items[] = new Item(
