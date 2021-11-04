@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
 
 use GildedRose\DataDecoder;
