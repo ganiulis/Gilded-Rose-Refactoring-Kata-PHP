@@ -11,6 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use GildedRose\GildedRose;
 use GildedRose\Item;
+use GildedRose\DataDecoder;
 
 class TestFixtureCommand extends Command
 {
@@ -29,21 +30,21 @@ class TestFixtureCommand extends Command
     {
         $days = $input->getOption('days');
 
+        $decoder = new DataDecoder();
+
+        $decodedFixtureData = $decoder->retrieveData('testfixture.csv', 'csv');
+
+        foreach ($decodedFixtureData as $dataItem) {
+            $items[] = new Item(
+                $dataItem['name'],
+                intval($dataItem['sellIn']),
+                intval($dataItem['quality'])
+            );
+        }
+
         $output->writeln('OMGHAI!');
 
-        $items = [
-            new Item('+5 Dexterity Vest', 10, 20),
-            new Item('Aged Brie', 2, 0),
-            new Item('Elixir of the Mongoose', 5, 7),
-            new Item('Sulfuras, Hand of Ragnaros', 0, 80),
-            new Item('Sulfuras, Hand of Ragnaros', -1, 80),
-            new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20),
-            new Item('Backstage passes to a TAFKAL80ETC concert', 10, 49),
-            new Item('Backstage passes to a TAFKAL80ETC concert', 5, 49),
-            new Item('Conjured Mana Cake', 3, 6),
-        ];
-
-        $app = new GildedRose($items);
+        $itemsUpdater = new GildedRose($items);
 
         for ($i = 0; $i < $days; $i++) {
             $output->writeln([
@@ -54,7 +55,7 @@ class TestFixtureCommand extends Command
                 $output->writeln($item);
             }
             $output->writeln('');
-            $app->updateQuality();
+            $itemsUpdater->updateQuality();
         }
 
         return Command::SUCCESS;
