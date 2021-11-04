@@ -8,10 +8,10 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 use GildedRose\GildedRose;
 use GildedRose\Item;
+use GildedRose\DataDecoder;
 
 class TestFixtureCommand extends Command
 {
@@ -28,27 +28,23 @@ class TestFixtureCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $encoder = new CsvEncoder();
+        $days = $input->getOption('days');
 
-        $encodedFixtureData = file_get_contents(__DIR__ . "\\..\\..\\data\\testfixture.csv");
+        $decoder = new DataDecoder();
 
-        $decodedFixtureData = $encoder->decode($encodedFixtureData, 'csv');
+        $decodedFixtureData = $decoder->retrieveData('testfixture.csv', 'csv');
 
-        $items = [];
-        
-        for ($i = 0; $i < count($decodedFixtureData); $i++) {
+        foreach ($decodedFixtureData as $dataItem) {
             $items[] = new Item(
-                $decodedFixtureData[$i]['name'],
-                intval($decodedFixtureData[$i]['sellIn']),
-                intval($decodedFixtureData[$i]['quality'])
+                $dataItem['name'],
+                intval($dataItem['sellIn']),
+                intval($dataItem['quality'])
             );
         }
 
-        $days = $input->getOption('days');
-
         $output->writeln('OMGHAI!');
 
-        $app = new GildedRose($items);
+        $itemsUpdater = new GildedRose($items);
 
         for ($i = 0; $i < $days; $i++) {
             $output->writeln([
@@ -59,7 +55,7 @@ class TestFixtureCommand extends Command
                 $output->writeln($item);
             }
             $output->writeln('');
-            $app->updateQuality();
+            $itemsUpdater->updateQuality();
         }
 
         return Command::SUCCESS;
