@@ -5,20 +5,11 @@ declare(strict_types=1);
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use GildedRose\GildedRose;
-use GildedRose\Item;
-use GildedRose\DataDecoder;
+use GildedRose\Repository\ItemRepository;
 
-$decoder = new DataDecoder();
+$itemRepository = new ItemRepository;
 
-$decodedFixtureData = $decoder->retrieveData('testfixture.csv', 'csv');
-
-foreach ($decodedFixtureData as $dataItem) {
-    $items[] = new Item(
-        $dataItem['name'],
-        intval($dataItem['sellIn']),
-        intval($dataItem['quality'])
-    );
-}
+$items = $itemRepository->getFixtureItems();
 
 $itemsUpdater = new GildedRose($items);
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GildedRose\Command;
+Namespace GildedRose\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -10,8 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use GildedRose\GildedRose;
-use GildedRose\Item;
-use GildedRose\DataDecoder;
+use GildedRose\Repository\ItemRepository;
 
 class TestFixtureCommand extends Command
 {
@@ -30,17 +29,9 @@ class TestFixtureCommand extends Command
     {
         $days = $input->getOption('days');
 
-        $decoder = new DataDecoder();
+        $itemRepository = new ItemRepository;
 
-        $decodedFixtureData = $decoder->retrieveData('testfixture.csv', 'csv');
-
-        foreach ($decodedFixtureData as $dataItem) {
-            $items[] = new Item(
-                $dataItem['name'],
-                intval($dataItem['sellIn']),
-                intval($dataItem['quality'])
-            );
-        }
+        $items = $itemRepository->getFixtureItems();
 
         $output->writeln('OMGHAI!');
 

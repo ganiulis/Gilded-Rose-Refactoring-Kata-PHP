@@ -2,18 +2,20 @@
 
 declare(strict_types=1);
 
-namespace GildedRose;
+Namespace GildedRose\DataProcessing;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use GildedRose\DataProcessing\DataDecoderInterface;
 
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 /**
  * Custom reusable datafile decoder helper class.
  */
-class DataDecoder {
-
-    private const DATA_DIR = __DIR__ . "\\..\\data\\";
+class DataDecoder implements DataDecoderInterface
+{
+    private const DATA_DIR = __DIR__ . "\\..\\..\\data\\";
     /**
      * Returns an array of decoded data from the app/data folder.
      * 
@@ -22,7 +24,8 @@ class DataDecoder {
      * @param string $dataFile The filename for the file to be decoded
      * @param string $dataType The type of data to be retrieved
      */
-    public function retrieveData(String $dataFile, String $dataType): array {
+    public function decodeFile(string $dataFile, string $dataType): array
+    {
         switch($dataType) {
             case 'csv':
                 $encoder = new CsvEncoder();

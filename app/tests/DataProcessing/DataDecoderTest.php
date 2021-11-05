@@ -6,7 +6,7 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 
-use GildedRose\DataDecoder;
+use GildedRose\DataProcessing\DataDecoder;
 
 class DataDecoderTest extends TestCase
 {
@@ -14,7 +14,7 @@ class DataDecoderTest extends TestCase
     {
         $decoder = new DataDecoder();
 
-        $decodedFixtureData = $decoder->retrieveData('testfixture.csv', 'csv');
+        $decodedFixtureData = $decoder->decodeFile('testfixture.csv', 'csv');
 
         $this->assertIsArray($decodedFixtureData, 'DataDecoder class does not return an array!');
         $this->assertNotEmpty($decodedFixtureData, 'DataDecoder class is empty!');
