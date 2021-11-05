@@ -8,10 +8,13 @@ use GildedRose\DataProcessing\ItemNormalizer;
 
 class ItemRepository
 {
+    public function __construct()
+    {
+        $this->arrayNormalizer = new ItemArrayNormalizer(new ItemNormalizer, new DataDecoder);
+    }
+
     public function getFixtureItems(): array
     {
-        $data = new ItemArrayNormalizer(new ItemNormalizer, new DataDecoder);
-
-        return $data->denormalizeItems('testfixture.csv', 'csv');
+        return $this->arrayNormalizer->denormalizeItems('testfixture.csv', 'csv');
     }
 }
