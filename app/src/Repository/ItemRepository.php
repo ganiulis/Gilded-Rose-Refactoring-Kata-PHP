@@ -20,16 +20,16 @@ class ItemRepository
         $this->datafileDir = $datafileDir;
     }
 
-    private function getDataFilePath(): string
+    private function getRealDataPath($path): string
     {
-        $pathInfo = new SplFileInfo($this->datafileDir);
-        return $pathInfo->getRealPath();
+        $info = new SplFileInfo($path);
+        return $info->getRealPath();
     }
 
     public function getItemsArray(): array
     {   
-        $dataContent = file_get_contents($this->getDataFilePath());
-        $decodedItemsData = $this->encoder->decode($dataContent, 'csv');
-        return $this->arrayNormalizer->denormalizeItems($decodedItemsData);
+        $content = file_get_contents($this->getRealDataPath($this->datafileDir));
+        $decodedItems = $this->encoder->decode($content, 'csv');
+        return $this->arrayNormalizer->denormalizeItems($decodedItems);
     }
 }
