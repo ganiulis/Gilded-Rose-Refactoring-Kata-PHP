@@ -2,6 +2,9 @@
 
 Namespace GildedRose\DataProcessing;
 
+use GildedRose\DataProcessing\DataDecoderInterface;
+use GildedRose\DataProcessing\ItemNormalizerInterface;
+
 /**
  * Takes a decoded data array and returns an array of Item objects
  */
