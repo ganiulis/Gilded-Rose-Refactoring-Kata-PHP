@@ -2,12 +2,10 @@
 
 Namespace GildedRose\DataProcessing;
 
-use GildedRose\Item;
-
 /**
  * Currently only obligates to include denormalization for Item entity data.
  */
-interface ItemNormalizerInterface
+interface NormalizerInterface
 {
-    public function denormalizeItem(array $decodedData): Item;
+    public function denormalizeItem(array $decodedData);
 }

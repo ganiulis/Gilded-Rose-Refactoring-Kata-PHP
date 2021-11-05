@@ -2,19 +2,25 @@
 
 Namespace GildedRose\Repository;
 
-use GildedRose\DataProcessing\DataDecoder;
-use GildedRose\DataProcessing\ItemArrayNormalizer;
-use GildedRose\DataProcessing\ItemNormalizer;
+use GildedRose\DataProcessing\ArrayNormalizer;
+use SplFileInfo;
+
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 class ItemRepository
 {
-    public function __construct()
-    {
-        $this->arrayNormalizer = new ItemArrayNormalizer(new ItemNormalizer, new DataDecoder);
+    public function __construct(
+        CsvEncoder $encoder,
+        ArrayNormalizer $arrayNormalizer
+    ) {
+        $this->encoder = $encoder;
+        $this->arrayNormalizer = $arrayNormalizer;
     }
 
-    public function getFixtureItems(): array
-    {
-        return $this->arrayNormalizer->denormalizeItems('testfixture.csv', 'csv');
+    public function getItemsArray(string $datafilePath): array
+    {   
+        $dir = new SplFileInfo($datafilePath);
+        $decodedItemsData = $this->encoder->decode(file_get_contents($dir), 'csv');
+        return $this->arrayNormalizer->denormalizeItems($decodedItemsData);
     }
 }

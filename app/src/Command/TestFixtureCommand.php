@@ -8,9 +8,12 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 use GildedRose\GildedRose;
 use GildedRose\Repository\ItemRepository;
+use GildedRose\DataProcessing\ArrayNormalizer;
+use GildedRose\DataProcessing\Normalizer;
 
 class TestFixtureCommand extends Command
 {
@@ -29,9 +32,9 @@ class TestFixtureCommand extends Command
     {
         $days = $input->getOption('days');
 
-        $itemRepository = new ItemRepository;
+        $itemRepository = new ItemRepository(new CsvEncoder, new ArrayNormalizer(new Normalizer));
 
-        $items = $itemRepository->getFixtureItems();
+        $items = $itemRepository->getItemsArray('/app/data/testfixture.csv');
 
         $output->writeln('OMGHAI!');
 

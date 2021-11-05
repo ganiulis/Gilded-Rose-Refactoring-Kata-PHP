@@ -3,12 +3,12 @@
 Namespace GildedRose\DataProcessing;
 
 use GildedRose\Item;
-use GildedRose\DataProcessing\ItemNormalizerInterface;
+use GildedRose\DataProcessing\NormalizerInterface;
 
 /**
  * Takes a decoded data item and returns an Item object
  */
-class ItemNormalizer implements ItemNormalizerInterface
+class Normalizer implements NormalizerInterface
 {
     public function denormalizeItem(array $decodedData): Item
     {
