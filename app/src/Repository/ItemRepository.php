@@ -3,7 +3,6 @@
 Namespace GildedRose\Repository;
 
 use GildedRose\DataProcessing\ArrayNormalizer;
-use SplFileInfo;
 
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
@@ -11,16 +10,17 @@ class ItemRepository
 {
     public function __construct(
         CsvEncoder $encoder,
-        ArrayNormalizer $arrayNormalizer
+        ArrayNormalizer $arrayNormalizer,
+        string $datafileDir
     ) {
         $this->encoder = $encoder;
         $this->arrayNormalizer = $arrayNormalizer;
+        $this->datafileDir = $datafileDir;
     }
 
-    public function getItemsArray(string $datafilePath): array
+    public function getItemsArray(): array
     {   
-        $dir = new SplFileInfo($datafilePath);
-        $decodedItemsData = $this->encoder->decode(file_get_contents($dir), 'csv');
+        $decodedItemsData = $this->encoder->decode(file_get_contents($this->datafileDir), 'csv');
         return $this->arrayNormalizer->denormalizeItems($decodedItemsData);
     }
 }

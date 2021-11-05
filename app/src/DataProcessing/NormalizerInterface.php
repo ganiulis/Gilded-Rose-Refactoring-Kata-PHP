@@ -7,5 +7,5 @@ Namespace GildedRose\DataProcessing;
  */
 interface NormalizerInterface
 {
-    public function denormalizeItem(array $decodedData);
+    public function denormalize(array $decodedData);
 }

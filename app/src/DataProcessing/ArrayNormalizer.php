@@ -18,7 +18,7 @@ class ArrayNormalizer
     {
         $items = [];
         foreach ($arrayItems as $item) {
-            $items[] = $this->Normalizer->denormalizeItem($item);
+            $items[] = $this->Normalizer->denormalize($item);
         }
         return $items;
     }

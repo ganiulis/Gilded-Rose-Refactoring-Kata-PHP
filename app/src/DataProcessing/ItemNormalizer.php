@@ -8,9 +8,9 @@ use GildedRose\DataProcessing\NormalizerInterface;
 /**
  * Takes a decoded data item and returns an Item object
  */
-class Normalizer implements NormalizerInterface
+class ItemNormalizer implements NormalizerInterface
 {
-    public function denormalizeItem(array $decodedData): Item
+    public function denormalize(array $decodedData): Item
     {
         return new Item($decodedData['name'], intval($decodedData['sellIn']), intval($decodedData['quality']));
     }

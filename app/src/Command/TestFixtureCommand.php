@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use GildedRose\GildedRose;
 use GildedRose\Repository\ItemRepository;
 use GildedRose\DataProcessing\ArrayNormalizer;
-use GildedRose\DataProcessing\Normalizer;
+use GildedRose\DataProcessing\ItemNormalizer;
 
 class TestFixtureCommand extends Command
 {
@@ -32,9 +32,9 @@ class TestFixtureCommand extends Command
     {
         $days = $input->getOption('days');
 
-        $itemRepository = new ItemRepository(new CsvEncoder, new ArrayNormalizer(new Normalizer));
+        $itemRepository = new ItemRepository(new CsvEncoder, new ArrayNormalizer(new ItemNormalizer), '/app/data/testfixture.csv');
 
-        $items = $itemRepository->getItemsArray('/app/data/testfixture.csv');
+        $items = $itemRepository->getItemsArray();
 
         $output->writeln('OMGHAI!');
 
