@@ -17,7 +17,9 @@ class TestFixtureCommand extends Command
     protected static $defaultName = 'test-fixture';
 
     /**
-     * Tester for fixtures.
+     * Tester for the Item repository class. Used for testing fixture files.
+     *
+     * @param ItemRepository $itemRepository the actual Item repository class
      */
     public function __construct(ItemRepository $itemRepository)
     {
