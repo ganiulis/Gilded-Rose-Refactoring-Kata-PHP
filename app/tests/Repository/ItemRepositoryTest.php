@@ -13,9 +13,9 @@ use SplFileInfo;
 
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
-class ItemFixtureRepositoryTest extends TestCase
+class ItemRepositoryTest extends TestCase
 {
-    public function testItemFixtureRepository()
+    public function testItemRepository()
     {
         $actualFileInfo = new SplFileInfo(__DIR__ . '/../../data/testfixture.csv');
         $actualFilePath = $actualFileInfo->getRealPath();
