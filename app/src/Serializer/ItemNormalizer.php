@@ -1,6 +1,6 @@
 <?php
 
-Namespace GildedRose\Serializer;
+namespace GildedRose\Serializer;
 
 use GildedRose\Serializer\NormalizerInterface;
 use GildedRose\Item;

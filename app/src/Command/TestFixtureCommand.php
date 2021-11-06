@@ -2,22 +2,30 @@
 
 declare(strict_types=1);
 
-Namespace GildedRose\Command;
+namespace GildedRose\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
-use GildedRose\Serializer\ItemNormalizer;
-use GildedRose\Serializer\ItemsNormalizer;
 use GildedRose\GildedRose;
 use GildedRose\Repository\ItemRepository;
 
 class TestFixtureCommand extends Command
 {
     protected static $defaultName = 'test-fixture';
+
+    /**
+     * Tester for updateQuality method.
+     *
+     * @param ItemRepository $itemRepository able to use getItems() through this class
+     */
+    public function __construct(ItemRepository $itemRepository)
+    {
+        parent::__construct();
+        $this->itemRepository = $itemRepository;
+    }
 
     protected function configure(): void
     {
@@ -32,13 +40,11 @@ class TestFixtureCommand extends Command
     {
         $days = $input->getOption('days');
 
-        $itemRepository = new ItemRepository(new CsvEncoder, new ItemsNormalizer(new ItemNormalizer), '/app/data/testfixture.csv');
-
-        $items = $itemRepository->getItems();
-
-        $output->writeln('OMGHAI!');
+        $items = $this->itemRepository->getItems();
 
         $itemsUpdater = new GildedRose($items);
+
+        $output->writeln('OMGHAI!');
 
         for ($i = 0; $i < $days; $i++) {
             $output->writeln([

@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Repository;
+
 use GildedRose\Serializer\ItemNormalizer;
 use GildedRose\Serializer\ItemsNormalizer;
 use GildedRose\Item;
@@ -7,13 +9,22 @@ use GildedRose\Repository\ItemRepository;
 
 use PHPUnit\Framework\TestCase;
 
+use SplFileInfo;
+
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 class ItemFixtureRepositoryTest extends TestCase
 {
     public function testItemFixtureRepository()
     {
-        $itemRepository = new ItemRepository(new CsvEncoder, new ItemsNormalizer(new ItemNormalizer), '/app/data/testfixture.csv');
+        $actualFileInfo = new SplFileInfo(__DIR__ . '/../../data/testfixture.csv');
+        $actualFilePath = $actualFileInfo->getRealPath();
+
+        $itemRepository = new ItemRepository(
+            new CsvEncoder,
+            new ItemsNormalizer(new ItemNormalizer),
+            $actualFilePath
+        );
 
         $actualFixture = $itemRepository->getItems();
         

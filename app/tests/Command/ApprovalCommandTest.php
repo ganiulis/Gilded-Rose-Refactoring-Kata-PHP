@@ -2,23 +2,39 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Tests\Command;
 
 use GildedRose\Command\TestFixtureCommand;
+use GildedRose\Repository\ItemRepository;
+use GildedRose\Serializer\ItemNormalizer;
+use GildedRose\Serializer\ItemsNormalizer;
+
+use PHPUnit\Framework\TestCase;
 
 use SplFileInfo;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 class ApprovalCommandTest extends TestCase
 {
     public function testTestFixtureCommand(): void
     {
-        $application = new Application('Gilded Rose CLI fixture tester', '0.1.0');
+        $actualFileInfo = new SplFileInfo(__DIR__ . '/../../data/testfixture.csv');
+        $actualFilePath = $actualFileInfo->getRealPath();
 
-        $command = $application->add(new TestFixtureCommand());
+        $application = new Application('Gilded Rose CLI fixture tester', '0.1.1');
+
+        $command = $application->add(
+            new TestFixtureCommand(
+                new ItemRepository(
+                    new CsvEncoder,
+                    new ItemsNormalizer(new ItemNormalizer),
+                    $actualFilePath
+                )
+            )
+        );
 
         $commandTester = new CommandTester($command);
 
@@ -28,10 +44,10 @@ class ApprovalCommandTest extends TestCase
 
         $actualFixture = str_replace("\n", "\r\n", $output);
 
-        $info = new SplFileInfo('tests/approvals/ApprovalTest.testTestFixture.approved.txt');
-        $dir = $info->getRealPath();
-        $expectedFixture = file_get_contents($dir);
-        
+        $expectedFixtureInfo = new SplFileInfo(__DIR__ . '/../approvals/ApprovalTest.testTestFixture.approved.txt');
+        $expectedFixturePath = $expectedFixtureInfo->getRealPath();
+        $expectedFixture = file_get_contents($expectedFixturePath);
+
         $this->assertEquals($expectedFixture, $actualFixture, 'Fixture test command line output does not match expected output!');
     }
 }

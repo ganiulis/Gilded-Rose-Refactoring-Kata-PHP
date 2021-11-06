@@ -1,11 +1,11 @@
 <?php
 
-Namespace GildedRose\Serializer;
+namespace GildedRose\Serializer;
 
 /**
  * Currently only obligates to include denormalization for arrays.
  */
 interface NormalizerInterface
 {
-    public function denormalize(array $array): object;
+    public function denormalize(array $data): object;
 }
