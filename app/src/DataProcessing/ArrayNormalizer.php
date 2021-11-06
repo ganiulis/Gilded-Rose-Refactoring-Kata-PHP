@@ -14,10 +14,10 @@ class ArrayNormalizer
         $this->Normalizer = $normalizer;
     }
 
-    public function denormalizeItems(array $arrayItems): array
+    public function denormalizeItems(array $itemsArray): array
     {
         $items = [];
-        foreach ($arrayItems as $item) {
+        foreach ($itemsArray as $item) {
             $items[] = $this->Normalizer->denormalize($item);
         }
         return $items;

@@ -27,7 +27,7 @@ class ApprovalCommandTest extends TestCase
 
         $actualFixture = str_replace("\n", "\r\n", $output);
 
-        $expectedFixture = file_get_contents(__DIR__ . '/approvals/ApprovalTest.testTestFixture.approved.txt');
+        $expectedFixture = file_get_contents(__DIR__ . '/../approvals/ApprovalTest.testTestFixture.approved.txt');
         
         $this->assertEquals($expectedFixture, $actualFixture, 'Fixture test command line output does not match expected output!');
     }
