@@ -29,9 +29,7 @@ class ApprovalCommandDefaultTest extends TestCase
         $actualFixture = str_replace("\n", "\r\n", $output);
 
         $info = new SplFileInfo('tests/approvals/ApprovalDefaultTest.testTestDefaultFixture.approved.txt');
-
         $dir = $info->getRealPath();
-
         $expectedFixture = file_get_contents($dir);
         
         $this->assertEquals($expectedFixture, $actualFixture, 'Fixture test default command line output does not match expected output!');

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use GildedRose\DataProcessing\ItemNormalizer;
-use GildedRose\DataProcessing\ItemsNormalizer;
+use GildedRose\Serializer\ItemNormalizer;
+use GildedRose\Serializer\ItemsNormalizer;
 use GildedRose\GildedRose;
 use GildedRose\Repository\ItemRepository;
 

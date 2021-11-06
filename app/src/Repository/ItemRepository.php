@@ -2,7 +2,7 @@
 
 Namespace GildedRose\Repository;
 
-use GildedRose\DataProcessing\ItemsNormalizer;
+use GildedRose\Serializer\ItemsNormalizer;
 
 use SplFileInfo;
 

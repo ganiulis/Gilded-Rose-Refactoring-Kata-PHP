@@ -1,6 +1,6 @@
 <?php
 
-Namespace GildedRose\DataProcessing;
+Namespace GildedRose\Serializer;
 
 /**
  * Currently only obligates to include denormalization for arrays.

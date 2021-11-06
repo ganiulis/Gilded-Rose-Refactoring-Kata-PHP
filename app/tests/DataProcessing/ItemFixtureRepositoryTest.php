@@ -1,7 +1,7 @@
 <?php
 
-use GildedRose\DataProcessing\ItemNormalizer;
-use GildedRose\DataProcessing\ItemsNormalizer;
+use GildedRose\Serializer\ItemNormalizer;
+use GildedRose\Serializer\ItemsNormalizer;
 use GildedRose\Item;
 use GildedRose\Repository\ItemRepository;
 
