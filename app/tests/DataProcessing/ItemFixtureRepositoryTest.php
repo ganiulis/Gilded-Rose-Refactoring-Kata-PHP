@@ -1,7 +1,7 @@
 <?php
 
-use GildedRose\DataProcessing\ArrayNormalizer;
 use GildedRose\DataProcessing\ItemNormalizer;
+use GildedRose\DataProcessing\ItemsNormalizer;
 use GildedRose\Item;
 use GildedRose\Repository\ItemRepository;
 
@@ -13,9 +13,9 @@ class ItemFixtureRepositoryTest extends TestCase
 {
     public function testItemFixtureRepository()
     {
-        $itemRepository = new ItemRepository(new CsvEncoder, new ArrayNormalizer(new ItemNormalizer), '/app/data/testfixture.csv');
+        $itemRepository = new ItemRepository(new CsvEncoder, new ItemsNormalizer(new ItemNormalizer), '/app/data/testfixture.csv');
 
-        $actualFixture = $itemRepository->getItemsArray();
+        $actualFixture = $itemRepository->getItems();
         
         $this->assertEquals(9, count($actualFixture), 'Fixture array count mismatch!');
         $this->assertIsArray($actualFixture, 'Fixture array is not array type!');

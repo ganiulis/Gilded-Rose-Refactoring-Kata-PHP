@@ -2,16 +2,16 @@
 
 Namespace GildedRose\DataProcessing;
 
-use GildedRose\Item;
 use GildedRose\DataProcessing\NormalizerInterface;
+use GildedRose\Item;
 
 /**
  * Takes a decoded data item and returns an Item object
  */
 class ItemNormalizer implements NormalizerInterface
 {
-    public function denormalize(array $decodedData): Item
+    public function denormalize(array $itemArray): Item
     {
-        return new Item($decodedData['name'], intval($decodedData['sellIn']), intval($decodedData['quality']));
+        return new Item($itemArray['name'], intval($itemArray['sellIn']), intval($itemArray['quality']));
     }
 }

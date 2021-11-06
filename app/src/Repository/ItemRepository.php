@@ -2,7 +2,7 @@
 
 Namespace GildedRose\Repository;
 
-use GildedRose\DataProcessing\ArrayNormalizer;
+use GildedRose\DataProcessing\ItemsNormalizer;
 
 use SplFileInfo;
 
@@ -12,11 +12,11 @@ class ItemRepository
 {
     public function __construct(
         CsvEncoder $encoder,
-        ArrayNormalizer $arrayNormalizer,
+        ItemsNormalizer $itemsNormalizer,
         string $datafileDir
     ) {
         $this->encoder = $encoder;
-        $this->arrayNormalizer = $arrayNormalizer;
+        $this->itemsNormalizer = $itemsNormalizer;
         $this->datafileDir = $datafileDir;
     }
 
@@ -26,11 +26,11 @@ class ItemRepository
         return $info->getRealPath();
     }
 
-    public function getItemsArray(): array
+    public function getItems(): array
     {   
         $filepath = $this->getRealDataPath($this->datafileDir);
         $content = file_get_contents($filepath);
         $decodedItems = $this->encoder->decode($content, 'csv');
-        return $this->arrayNormalizer->denormalizeItems($decodedItems);
+        return $this->itemsNormalizer->denormalize($decodedItems);
     }
 }

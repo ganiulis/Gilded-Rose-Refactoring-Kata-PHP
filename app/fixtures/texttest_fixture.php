@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use GildedRose\DataProcessing\ArrayNormalizer;
 use GildedRose\DataProcessing\ItemNormalizer;
+use GildedRose\DataProcessing\ItemsNormalizer;
 use GildedRose\GildedRose;
 use GildedRose\Repository\ItemRepository;
 
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
-$itemRepository = new ItemRepository(new CsvEncoder, new ArrayNormalizer(new ItemNormalizer), '/app/data/testfixture.csv');
+$itemRepository = new ItemRepository(new CsvEncoder, new ItemsNormalizer(new ItemNormalizer), '/app/data/testfixture.csv');
 
-$items = $itemRepository->getItemsArray();
+$items = $itemRepository->getItems();
 
 $itemsUpdater = new GildedRose($items);
 

@@ -3,9 +3,9 @@
 Namespace GildedRose\DataProcessing;
 
 /**
- * Currently only obligates to include denormalization for Item entity data.
+ * Currently only obligates to include denormalization for arrays.
  */
 interface NormalizerInterface
 {
-    public function denormalize(array $decodedData);
+    public function denormalize(array $array);
 }

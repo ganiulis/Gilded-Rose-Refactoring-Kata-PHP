@@ -7,14 +7,14 @@ use GildedRose\DataProcessing\NormalizerInterface;
 /**
  * Currently only denormalizes Item data into an array of Item entities
  */
-class ArrayNormalizer
+class ItemsNormalizer implements NormalizerInterface
 {
     public function __construct(NormalizerInterface $normalizer)
     {
         $this->Normalizer = $normalizer;
     }
 
-    public function denormalizeItems(array $itemsArray): array
+    public function denormalize(array $itemsArray): array
     {
         $items = [];
         foreach ($itemsArray as $item) {
