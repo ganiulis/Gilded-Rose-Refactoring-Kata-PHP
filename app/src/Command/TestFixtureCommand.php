@@ -17,9 +17,7 @@ class TestFixtureCommand extends Command
     protected static $defaultName = 'test-fixture';
 
     /**
-     * Tester for updateQuality method.
-     *
-     * @param ItemRepository $itemRepository able to use getItems() through this class
+     * Tester for fixtures.
      */
     public function __construct(ItemRepository $itemRepository)
     {
