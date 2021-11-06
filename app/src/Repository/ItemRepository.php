@@ -31,6 +31,6 @@ class ItemRepository
         $filepath = $this->getRealDataPath($this->datafileDir);
         $content = file_get_contents($filepath);
         $decodedItems = $this->encoder->decode($content, 'csv');
-        return $this->itemsNormalizer->denormalize($decodedItems);
+        return $this->itemsNormalizer->denormalizeItems($decodedItems);
     }
 }
