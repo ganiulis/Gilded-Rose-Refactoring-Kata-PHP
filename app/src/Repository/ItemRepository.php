@@ -28,7 +28,8 @@ class ItemRepository
 
     public function getItemsArray(): array
     {   
-        $content = file_get_contents($this->getRealDataPath($this->datafileDir));
+        $filepath = $this->getRealDataPath($this->datafileDir);
+        $content = file_get_contents($filepath);
         $decodedItems = $this->encoder->decode($content, 'csv');
         return $this->arrayNormalizer->denormalizeItems($decodedItems);
     }
