@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use GildedRose\Command\TestFixtureCommand;
+
+use SplFileInfo;
+
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use GildedRose\Command\TestFixtureCommand;
 
 class ApprovalCommandDefaultTest extends TestCase
 {
@@ -25,7 +28,11 @@ class ApprovalCommandDefaultTest extends TestCase
 
         $actualFixture = str_replace("\n", "\r\n", $output);
 
-        $expectedFixture = file_get_contents(__DIR__ . '/../approvals/ApprovalDefaultTest.testTestDefaultFixture.approved.txt');
+        $info = new SplFileInfo('tests/approvals/ApprovalDefaultTest.testTestDefaultFixture.approved.txt');
+
+        $dir = $info->getRealPath();
+
+        $expectedFixture = file_get_contents($dir);
         
         $this->assertEquals($expectedFixture, $actualFixture, 'Fixture test default command line output does not match expected output!');
     }
