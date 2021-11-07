@@ -2,37 +2,61 @@
 
 namespace Tests\Repository;
 
+use GildedRose\Data\FileContentRetriever;
 use GildedRose\Item;
+use GildedRose\Serializer\ItemsNormalizer;
 use GildedRose\Repository\ItemRepository;
 
 use PHPUnit\Framework\TestCase;
+
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 class ItemRepositoryTest extends TestCase
 {
     public function testItemRepository(): void
     {
-        $denormalizedItems = [
-            new Item('+5 Dexterity Vest', 10, 20),
-            new Item('Aged Brie', 2, 0),
-            new Item('Elixir of the Mongoose', 5, 7),
-            new Item("Sulfuras, Hand of Ragnaros", 0, 80),
-            new Item("Sulfuras, Hand of Ragnaros", -1, 80),
-            new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20),
-            new Item('Backstage passes to a TAFKAL80ETC concert', 10, 49),
-            new Item('Backstage passes to a TAFKAL80ETC concert', 5, 49),
-            new Item('Conjured Mana Cake', 3, 6)
+        $filepath = 'filepath/to/content';
+        $fileContent = 'content in a string';
+        $fileType = 'filetype';
+        $decodedContent = ['this', 'is', 'an', 'array'];
+        $expectedContent = [
+            new Item('foo', 1, 2),
+            new Item('bar', 0, 1),
         ];
 
-        $mockRepository = $this->getMockBuilder(ItemRepository::class)
-            ->disableOriginalConstructor()
-            ->disableOriginalClone()
-            ->disableArgumentCloning()
-            ->disallowMockingUnknownTypes()
+        $mockRetriever = $this->getMockBuilder(FileContentRetriever::class)
             ->getMock();
-        
-        $mockRepository->method('getItems')
-            ->willReturn($denormalizedItems);
 
-        $this->assertSame($denormalizedItems, $mockRepository->getItems());
+        $mockRetriever->method('retrieveContent')
+            ->with($filepath)
+            ->willReturn($fileContent);
+
+        $mockEncoder = $this->getMockBuilder(CsvEncoder::class)
+            ->getMock();
+
+        $mockEncoder->method('decode')
+            ->with($fileContent, $fileType)
+            ->willReturn($decodedContent);
+
+        $mockNormalizer = $this->getMockBuilder(ItemsNormalizer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $mockNormalizer->method('denormalizeItems')
+            ->with($decodedContent)
+            ->willReturn($expectedContent);
+
+        $repository = new ItemRepository(
+            $mockRetriever,
+            $mockEncoder,
+            $mockNormalizer,
+            $filepath,
+            $fileType
+        );
+
+        $actualContent = $repository->getItems();
+
+        $this->assertIsArray($actualContent, 'Return type for ItemRepository class is not an array!');
+        $this->assertEquals($expectedContent, $actualContent, 'ItemRepository class does not return expected Content');
     }
 }

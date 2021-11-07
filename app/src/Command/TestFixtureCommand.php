@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use GildedRose\GildedRose;
+use GildedRose\ItemsProcessor;
 use GildedRose\Repository\ItemRepository;
 
 class TestFixtureCommand extends Command
@@ -42,21 +42,9 @@ class TestFixtureCommand extends Command
 
         $items = $this->itemRepository->getItems();
 
-        $itemsUpdater = new GildedRose($items);
+        $itemsProcessor = new ItemsProcessor($items);
 
-        $output->writeln('OMGHAI!');
-
-        for ($i = 0; $i < $days; $i++) {
-            $output->writeln([
-                "-------- day ${i} --------",
-                'name, sellIn, quality'
-            ]);
-            foreach ($items as $item) {
-                $output->writeln($item);
-            }
-            $output->writeln('');
-            $itemsUpdater->updateQuality();
-        }
+        $itemsProcessor->processItems(intval($days));
 
         return Command::SUCCESS;
     }

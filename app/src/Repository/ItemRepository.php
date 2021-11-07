@@ -3,7 +3,8 @@
 namespace GildedRose\Repository;
 
 use GildedRose\Serializer\ItemsNormalizer;
-use Symfony\Component\Serializer\Encoder\EncoderInterface;
+use GildedRose\Data\ContentRetrieverInterface;
+use Symfony\Component\Serializer\Encoder\DecoderInterface;
 
 /**
  * Instantiates a repository class for Item object.
@@ -13,20 +14,24 @@ use Symfony\Component\Serializer\Encoder\EncoderInterface;
 class ItemRepository
 {
     /**
-     * @param EncoderInterface $encoder encoder class taken from Symfony
+     * @param ContentRetrieverInterface $contentRetriever data retriever class
+     * @param DecoderInterface $encoder encoder class taken from Symfony
      * @param ItemsNormalizer $itemsNormalizer normalizer class
-     * @param string $filepath needs an absolute filepath
+     * @param string $contentDir data content
+     * @param string $contentType encoded content type
      */
     public function __construct(
-        EncoderInterface $encoder,
+        ContentRetrieverInterface $contentRetriever,
+        DecoderInterface $encoder,
         ItemsNormalizer $itemsNormalizer,
-        string $filepath,
-        string $filetype
+        string $contentDir,
+        string $contentType
     ) {
+        $this->contentRetriever = $contentRetriever;
         $this->encoder = $encoder;
         $this->itemsNormalizer = $itemsNormalizer;
-        $this->filepath = $filepath;
-        $this->filetype = $filetype;
+        $this->contentDir = $contentDir;
+        $this->contentType = $contentType;
     }
 
     /**
@@ -36,9 +41,8 @@ class ItemRepository
      */
     public function getItems(): array
     {   
-        $content = file_get_contents($this->filepath);
-        $decodedItems = $this->encoder->decode($content, $this->filetype);
-
+        $retrievedItems = $this->contentRetriever->retrieveContent($this->contentDir);
+        $decodedItems = $this->encoder->decode($retrievedItems, $this->contentType);
         return $this->itemsNormalizer->denormalizeItems($decodedItems);
     }
 }

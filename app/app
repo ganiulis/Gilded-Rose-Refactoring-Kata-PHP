@@ -3,6 +3,7 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+use GildedRose\Data\FileContentRetriever;
 use GildedRose\Command\TestFixtureCommand;
 use GildedRose\Repository\ItemRepository;
 use GildedRose\Serializer\ItemNormalizer;
@@ -13,24 +14,23 @@ use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 $application = new Application('Gilded Rose CLI', '0.1.1');
 
-$fileInfo = new SplFileInfo(__DIR__ . '/data/testfixture.csv');
-
-$filePath = $fileInfo->getRealPath();
+$filepath = __DIR__ . '/data/testfixture.csv';
 
 $commands = [
     new TestFixtureCommand(
         new ItemRepository(
+            new FileContentRetriever,
             new CsvEncoder, 
             new ItemsNormalizer(new ItemNormalizer),
-            $filePath,
+            $filepath,
             'csv'
         )
     )
     // register new commands here
     ];
 
-for ($i = 0; $i < count($commands); $i++) {
-    $application->add($commands[$i]);
+foreach ($commands as $command) {
+    $application->add($command);
 }
 
 $application->run();
