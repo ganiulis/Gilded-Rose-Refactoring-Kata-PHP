@@ -49,11 +49,10 @@ class ItemRepositoryTest extends TestCase
         $repository = new ItemRepository(
             $mockRetriever,
             $mockEncoder,
-            $mockNormalizer,
-            $filepath,
-            $fileType
+            $mockNormalizer
         );
 
+        $repository->setItems($filepath, $fileType);
         $actualContent = $repository->getItems();
 
         $this->assertIsArray($actualContent, 'Return type for ItemRepository class is not an array!');

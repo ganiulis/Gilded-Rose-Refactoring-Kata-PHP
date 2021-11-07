@@ -13,16 +13,15 @@ use GildedRose\Serializer\ItemsNormalizer;
 
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
-$filepath = __DIR__ . '/../data/testfixture.csv';
-
 $itemRepository = new ItemRepository(
     new FileContentRetriever,
     new CsvEncoder, 
-    new ItemsNormalizer(new ItemNormalizer),
-    $filepath,
-    'csv'
+    new ItemsNormalizer(new ItemNormalizer)
 );
 
+$filepath = __DIR__ . '/../data/testfixture.csv';
+
+$itemRepository->setItems($filepath, 'csv');
 $items = $itemRepository->getItems();
 
 $itemsProcessor = new ItemsProcessor(new GildedRose());

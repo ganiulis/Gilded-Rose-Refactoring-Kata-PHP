@@ -39,10 +39,13 @@ class TestFixtureCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $days = $input->getOption('days');
+        $filepath = __DIR__ . '/../../data/testfixture.csv';
 
+        $this->itemRepository->setItems($filepath, 'csv');
         $items = $this->itemRepository->getItems();
 
+        $days = $input->getOption('days');
+        
         $itemsProcessor = new ItemsProcessor(new GildedRose());
 
         $itemsProcessor->processItems($items, intval($days));

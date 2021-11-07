@@ -14,16 +14,13 @@ use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 $application = new Application('Gilded Rose CLI', '0.1.1');
 
-$filepath = __DIR__ . '/data/testfixture.csv';
 
 $commands = [
     new TestFixtureCommand(
         new ItemRepository(
             new FileContentRetriever,
             new CsvEncoder, 
-            new ItemsNormalizer(new ItemNormalizer),
-            $filepath,
-            'csv'
+            new ItemsNormalizer(new ItemNormalizer)
         )
     )
     // register new commands here
