@@ -25,11 +25,11 @@ $itemRepository = new ItemRepository(
 
 $items = $itemRepository->getItems();
 
-$itemsProcessor = new ItemsProcessor(new GildedRose(), $items);
+$itemsProcessor = new ItemsProcessor(new GildedRose());
 
 $days = 2;
 if (count($argv) > 1) {
     $days = (int) $argv[1];
 }
 
-$itemsProcessor->processItems(intval($days));
+$itemsProcessor->processItems($items, intval($days));

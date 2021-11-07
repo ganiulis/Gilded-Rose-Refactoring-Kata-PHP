@@ -43,9 +43,9 @@ class TestFixtureCommand extends Command
 
         $items = $this->itemRepository->getItems();
 
-        $itemsProcessor = new ItemsProcessor(new GildedRose(), $items);
+        $itemsProcessor = new ItemsProcessor(new GildedRose());
 
-        $itemsProcessor->processItems(intval($days));
+        $itemsProcessor->processItems($items, intval($days));
 
         return Command::SUCCESS;
     }
