@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Encoder\EncoderInterface;
 class ItemRepository
 {
     /**
-     * @param EncoderInterface $encoder currently only csv data is allowed
+     * @param EncoderInterface $encoder encoder class taken from Symfony
      * @param ItemsNormalizer $itemsNormalizer normalizer class
      * @param string $filepath needs an absolute filepath
      */

@@ -2,15 +2,10 @@
 
 namespace Tests\Repository;
 
-use GildedRose\Serializer\ItemsNormalizer;
 use GildedRose\Item;
 use GildedRose\Repository\ItemRepository;
 
 use PHPUnit\Framework\TestCase;
-
-use SplFileInfo;
-
-use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 class ItemRepositoryTest extends TestCase
 {
