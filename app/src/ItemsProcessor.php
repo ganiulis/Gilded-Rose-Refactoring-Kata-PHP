@@ -11,8 +11,9 @@ use GildedRose\GildedRose;
  */
 class ItemsProcessor
 {
-    public function __construct(array $items)
+    public function __construct(GildedRose $gildedRose, array $items)
     {
+        $this->gildedRose = $gildedRose;
         $this->items = $items;
     }
 
@@ -25,8 +26,6 @@ class ItemsProcessor
      */
     public function processItems(int $days = 2): void
     {
-        $itemsUpdater = new GildedRose($this->items);
-
         echo 'OMGHAI!' . PHP_EOL;
 
         for ($i = 0; $i < $days; $i++) {
@@ -36,7 +35,7 @@ class ItemsProcessor
                 echo $item . PHP_EOL;
             }
             echo PHP_EOL;
-            $itemsUpdater->updateQuality();
+            $this->gildedRose->updateQuality($this->items);
         }
     }
 }

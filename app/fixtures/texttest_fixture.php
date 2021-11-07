@@ -5,6 +5,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use GildedRose\Data\FileContentRetriever;
+use GildedRose\GildedRose;
 use GildedRose\ItemsProcessor;
 use GildedRose\Repository\ItemRepository;
 use GildedRose\Serializer\ItemNormalizer;
@@ -24,7 +25,7 @@ $itemRepository = new ItemRepository(
 
 $items = $itemRepository->getItems();
 
-$itemsProcessor = new ItemsProcessor($items);
+$itemsProcessor = new ItemsProcessor(new GildedRose(), $items);
 
 $days = 2;
 if (count($argv) > 1) {

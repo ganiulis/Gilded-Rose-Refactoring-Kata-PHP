@@ -6,24 +6,14 @@ namespace GildedRose;
 
 final class GildedRose
 {
-    /**
-     * @var Item[]
-     */
-    private $items;
-
     private const AGED_BRIE = 'Aged Brie';
     private const BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert';
     private const CONJURED = 'Conjured Item';
     private const SULFURAS = 'Sulfuras, Hand of Ragnaros';
 
-    public function __construct(array $items)
+    public function updateQuality(array $items): array
     {
-        $this->items = $items;
-    }
-
-    public function updateQuality(): void
-    {
-        foreach ($this->items as $item) {
+        foreach ($items as $item) {
             $itemType = preg_match('/\bConjured\b/i', $item->name) ? self::CONJURED : $item->name;
             
             switch($itemType) {
@@ -75,5 +65,6 @@ final class GildedRose
                     break;
             }
         }
+        return $items;
     }
 }
