@@ -31,7 +31,8 @@ class ApprovalCommandTest extends TestCase
                 new ItemRepository(
                     new CsvEncoder,
                     new ItemsNormalizer(new ItemNormalizer),
-                    $actualFilePath
+                    $actualFilePath,
+                    'csv'
                 )
             )
         );

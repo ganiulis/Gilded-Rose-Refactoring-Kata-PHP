@@ -11,7 +11,15 @@ use GildedRose\Repository\ItemRepository;
 
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
-$itemRepository = new ItemRepository(new CsvEncoder, new ItemsNormalizer(new ItemNormalizer), '/app/data/testfixture.csv');
+$actualFileInfo = new SplFileInfo(__DIR__ . '/../data/testfixture.csv');
+$actualFilePath = $actualFileInfo->getRealPath();
+
+$itemRepository = new ItemRepository(
+    new CsvEncoder,
+    new ItemsNormalizer(new ItemNormalizer),
+    $actualFilePath,
+    'csv'
+);
 
 $items = $itemRepository->getItems();
 

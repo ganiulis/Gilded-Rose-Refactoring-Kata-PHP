@@ -2,7 +2,6 @@
 
 namespace Tests\Repository;
 
-use GildedRose\Serializer\ItemNormalizer;
 use GildedRose\Serializer\ItemsNormalizer;
 use GildedRose\Item;
 use GildedRose\Repository\ItemRepository;
@@ -15,25 +14,30 @@ use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 class ItemRepositoryTest extends TestCase
 {
-    public function testItemRepository()
+    public function testItemRepository(): void
     {
-        $actualFileInfo = new SplFileInfo(__DIR__ . '/../../data/testfixture.csv');
-        $actualFilePath = $actualFileInfo->getRealPath();
+        $denormalizedItems = [
+            new Item('+5 Dexterity Vest', 10, 20),
+            new Item('Aged Brie', 2, 0),
+            new Item('Elixir of the Mongoose', 5, 7),
+            new Item("Sulfuras, Hand of Ragnaros", 0, 80),
+            new Item("Sulfuras, Hand of Ragnaros", -1, 80),
+            new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20),
+            new Item('Backstage passes to a TAFKAL80ETC concert', 10, 49),
+            new Item('Backstage passes to a TAFKAL80ETC concert', 5, 49),
+            new Item('Conjured Mana Cake', 3, 6)
+        ];
 
-        $itemRepository = new ItemRepository(
-            new CsvEncoder,
-            new ItemsNormalizer(new ItemNormalizer),
-            $actualFilePath
-        );
-
-        $actualFixture = $itemRepository->getItems();
+        $mockRepository = $this->getMockBuilder(ItemRepository::class)
+            ->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->disallowMockingUnknownTypes()
+            ->getMock();
         
-        $this->assertEquals(9, count($actualFixture), 'Fixture array count mismatch!');
-        $this->assertIsArray($actualFixture, 'Fixture array is not array type!');
+        $mockRepository->method('getItems')
+            ->willReturn($denormalizedItems);
 
-        foreach ($actualFixture as $item) {
-            $this->assertIsObject($item, 'Entity in array is not object type!');
-            $this->assertInstanceOf(Item::class, $item, 'Entity class type is not Item class!');
-        }
+        $this->assertSame($denormalizedItems, $mockRepository->getItems());
     }
 }

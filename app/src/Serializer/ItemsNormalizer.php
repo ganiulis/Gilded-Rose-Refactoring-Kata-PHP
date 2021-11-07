@@ -11,14 +11,14 @@ class ItemsNormalizer
 {
     public function __construct(NormalizerInterface $normalizer)
     {
-        $this->Normalizer = $normalizer;
+        $this->normalizer = $normalizer;
     }
 
     public function denormalizeItems(array $itemsArray): array
     {
         $items = [];
         foreach ($itemsArray as $item) {
-            $items[] = $this->Normalizer->denormalize($item);
+            $items[] = $this->normalizer->denormalize($item);
         }
         return $items;
     }

@@ -22,7 +22,8 @@ $commands = [
         new ItemRepository(
             new CsvEncoder, 
             new ItemsNormalizer(new ItemNormalizer),
-            $filePath
+            $filePath,
+            'csv'
         )
     )
     // register new commands here
