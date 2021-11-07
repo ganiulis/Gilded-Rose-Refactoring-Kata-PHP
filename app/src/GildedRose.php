@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace GildedRose;
 
+/**
+ * Used for updating an array of Items.
+ */
 final class GildedRose
 {
     private const AGED_BRIE = 'Aged Brie';
@@ -11,6 +14,12 @@ final class GildedRose
     private const CONJURED = 'Conjured Item';
     private const SULFURAS = 'Sulfuras, Hand of Ragnaros';
 
+    /**
+     * Updated quality of selected array of Items
+     *
+     * @param array $items Items array to be updated
+     * @return array updated Items array
+     */
     public function updateQuality(array $items): array
     {
         foreach ($items as $item) {
