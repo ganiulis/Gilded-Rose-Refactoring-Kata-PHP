@@ -34,7 +34,7 @@ class ItemsProcessor
                 echo $item . PHP_EOL;
             }
             echo PHP_EOL;
-            $this->gildedRose->updateQuality($items);
+            $this->gildedRose->updateItems($items);
         }
     }
 }
