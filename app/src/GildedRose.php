@@ -25,6 +25,17 @@ final class GildedRose
             new Updater\DefaultUpdater
         ];
     }
+
+    private function updateItem(Item $item): void
+    {
+        foreach ($this->itemUpdaters as $itemUpdater) {
+            if ($itemUpdater->supportsItem($item)) {
+                $itemUpdater->updateItem($item);
+                break;
+            }
+        }
+    }
+
     /**
      * Updates quality of selected array of Items
      *
@@ -34,12 +45,7 @@ final class GildedRose
     public function updateItems(array $items): array
     {
         foreach ($items as $item) {
-            foreach ($this->itemUpdaters as $itemUpdater) {
-                if ($itemUpdater->supportsItem($item)) {
-                    $itemUpdater->updateItem($item);
-                    break;
-                }
-            }
+            $this->updateItem($item);
         }
         return $items;
     }
