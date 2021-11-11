@@ -14,11 +14,7 @@ class SulfurasUpdater implements UpdaterInterface
      */
     public function supportsItem(Item $item): bool
     {
-        if (strcasecmp('Sulfuras, Hand of Ragnaros', $item->name) === 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return strcasecmp('Sulfuras, Hand of Ragnaros', $item->name) === 0;
     }
 
     /**

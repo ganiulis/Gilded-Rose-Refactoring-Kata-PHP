@@ -6,13 +6,15 @@ use GildedRose\Item;
 
 class BackstageUpdater implements UpdaterInterface
 {
+    /**
+     * Performs a case-insensitive check on the Item name
+     *
+     * @param Item $item
+     * @return boolean
+     */
     public function supportsItem(Item $item): bool
     {
-        if (strcasecmp('Backstage passes to a TAFKAL80ETC concert', $item->name) === 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return strcasecmp('Backstage passes to a TAFKAL80ETC concert', $item->name) === 0;
     }
     
     public function updateItem(Item $item): Item

@@ -14,11 +14,7 @@ class BrieUpdater implements UpdaterInterface
      */
     public function supportsItem(Item $item): bool
     {
-        if (strcasecmp('Aged Brie', $item->name) === 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return strcasecmp('Aged Brie', $item->name) === 0;
     }
 
     public function updateItem(Item $item): Item
