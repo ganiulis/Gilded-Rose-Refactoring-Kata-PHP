@@ -2,18 +2,18 @@
 
 namespace GildedRose;
 
-use GildedRose\GildedRose;
+use GildedRose\Updater\StockProcessor;
 
 /**
- * Processes items with the given processor class.
+ * Processes Items with the given processor class.
  * 
  * Currently only supports the GildedRose class with updateQuality method.
  */
-class ItemsProcessor
+class StockManager
 {
-    public function __construct(GildedRose $gildedRose)
+    public function __construct(StockProcessor $stockProcessor)
     {
-        $this->gildedRose = $gildedRose;
+        $this->stockProcessor = $stockProcessor;
     }
 
     /**
@@ -23,7 +23,7 @@ class ItemsProcessor
      * @param integer $days hoow many days will the item be updated for
      * @return void the processor currently only prints out items in a list-like format
      */
-    public function processItems(array $items, int $days = 2): void
+    public function process(array $items, int $days = 2): void
     {
         echo 'OMGHAI!' . PHP_EOL;
 
@@ -34,7 +34,7 @@ class ItemsProcessor
                 echo $item . PHP_EOL;
             }
             echo PHP_EOL;
-            $this->gildedRose->updateItems($items);
+            $this->stockProcessor->updateAll($items);
         }
     }
 }

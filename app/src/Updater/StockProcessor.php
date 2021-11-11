@@ -2,21 +2,22 @@
 
 declare(strict_types=1);
 
-namespace GildedRose;
+namespace GildedRose\Updater;
 
+use GildedRose\Item;
 use GildedRose\Updater;
 
 /**
  * Used for updating an array of Items.
  */
-final class GildedRose
+final class StockProcessor
 {
     /**
      * Initializes a list of Updater classes before Items are to be updated
      */
     public function __construct()
     {
-        $this->itemUpdaters = [
+        $this->updaters = [
             new Updater\BackstageUpdater,
             new Updater\BrieUpdater,
             new Updater\ConjuredUpdater,
@@ -32,11 +33,11 @@ final class GildedRose
      * @param Item $item
      * @return void
      */
-    private function updateItem(Item $item): void
+    private function update(Item $item): void
     {
-        foreach ($this->itemUpdaters as $itemUpdater) {
-            if ($itemUpdater->supportsItem($item)) {
-                $itemUpdater->updateItem($item);
+        foreach ($this->updaters as $updater) {
+            if ($updater->supports($item)) {
+                $updater->update($item);
                 break;
             }
         }
@@ -48,10 +49,10 @@ final class GildedRose
      * @param array $items Items array to be updated
      * @return array updated Items array
      */
-    public function updateItems(array $items): array
+    public function updateAll(array $items): array
     {
         foreach ($items as $item) {
-            $this->updateItem($item);
+            $this->update($item);
         }
         return $items;
     }

@@ -9,9 +9,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use GildedRose\GildedRose;
-use GildedRose\ItemsProcessor;
+use GildedRose\StockManager;
 use GildedRose\Repository\ItemRepository;
+use GildedRose\Updater\StockProcessor;
 
 class TestFixtureCommand extends Command
 {
@@ -46,9 +46,9 @@ class TestFixtureCommand extends Command
 
         $days = $input->getOption('days');
         
-        $itemsProcessor = new ItemsProcessor(new GildedRose());
+        $stockManager = new StockManager(new StockProcessor());
 
-        $itemsProcessor->processItems($items, intval($days));
+        $stockManager->process($items, intval($days));
 
         return Command::SUCCESS;
     }

@@ -12,7 +12,7 @@ class SulfurasUpdater implements UpdaterInterface
      * @param Item $item
      * @return boolean
      */
-    public function supportsItem(Item $item): bool
+    public function supports(Item $item): bool
     {
         return strcasecmp('Sulfuras, Hand of Ragnaros', $item->name) === 0;
     }
@@ -23,7 +23,7 @@ class SulfurasUpdater implements UpdaterInterface
      * @param Item $item
      * @return Item
      */
-    public function updateItem(Item $item): Item
+    public function update(Item $item): Item
     {
         return $item;
     }

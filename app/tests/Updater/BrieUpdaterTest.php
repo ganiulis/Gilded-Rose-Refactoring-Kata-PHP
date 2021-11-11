@@ -32,7 +32,7 @@ class BrieUpdaterTest extends TestCase
 
     $updater = new BrieUpdater();
     
-    $updater->updateItem($actualItem);
+    $updater->update($actualItem);
 
     $this->assertEquals($expectedItem, $actualItem, 'Actual and expected items do not match after passing through BrieUpdater!');
    }

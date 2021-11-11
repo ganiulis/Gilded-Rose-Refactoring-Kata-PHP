@@ -12,12 +12,12 @@ class ConjuredUpdater implements UpdaterInterface
      * @param Item $item
      * @return boolean returns true if `conjured` is found in Item name
      */
-    public function supportsItem(Item $item): bool
+    public function supports(Item $item): bool
     {
         return preg_match('/\bConjured\b/i', $item->name);
     }
 
-    public function updateItem(Item $item): Item
+    public function update(Item $item): Item
     {
         if ($item->sell_in < 1) {
             if ($item->quality > 3) {

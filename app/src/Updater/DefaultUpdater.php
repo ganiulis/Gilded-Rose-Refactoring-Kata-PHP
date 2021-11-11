@@ -12,12 +12,12 @@ class DefaultUpdater implements UpdaterInterface
      * @param Item $item
      * @return boolean output always equates to true
      */
-    public function supportsItem(Item $item): bool
+    public function supports(Item $item): bool
     {
         return true;
     }
 
-    public function updateItem(Item $item): Item
+    public function update(Item $item): Item
     {
         if ($item->sell_in < 1 && $item->quality > 1) {
             $item->quality -= 2;
