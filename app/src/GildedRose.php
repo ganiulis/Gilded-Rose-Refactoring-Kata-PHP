@@ -32,7 +32,7 @@ final class GildedRose
      * @param Item $item
      * @return void
      */
-    private function selectUpdaterAndUpdateItem(Item $item): void
+    private function updateItem(Item $item): void
     {
         foreach ($this->itemUpdaters as $itemUpdater) {
             if ($itemUpdater->supportsItem($item)) {
@@ -51,7 +51,7 @@ final class GildedRose
     public function updateItems(array $items): array
     {
         foreach ($items as $item) {
-            $this->selectUpdaterAndUpdateItem($item);
+            $this->updateItem($item);
         }
         return $items;
     }
