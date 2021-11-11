@@ -4,37 +4,31 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use GildedRose\Data\FileContentRetriever;
 use GildedRose\GildedRose;
-use GildedRose\Item;
-use GildedRose\DataDecoder;
+use GildedRose\ItemsProcessor;
+use GildedRose\Repository\ItemRepository;
+use GildedRose\Serializer\ItemNormalizer;
+use GildedRose\Serializer\ItemsNormalizer;
 
-$decoder = new DataDecoder();
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
-$decodedFixtureData = $decoder->retrieveData('testfixture.csv', 'csv');
+$itemRepository = new ItemRepository(
+    new FileContentRetriever,
+    new CsvEncoder, 
+    new ItemsNormalizer(new ItemNormalizer)
+);
 
-foreach ($decodedFixtureData as $dataItem) {
-    $items[] = new Item(
-        $dataItem['name'],
-        intval($dataItem['sellIn']),
-        intval($dataItem['quality'])
-    );
-}
+$filepath = __DIR__ . '/../data/testfixture.csv';
 
-$itemsUpdater = new GildedRose($items);
+$itemRepository->setItems($filepath, 'csv');
+$items = $itemRepository->getItems();
+
+$itemsProcessor = new ItemsProcessor(new GildedRose());
 
 $days = 2;
 if (count($argv) > 1) {
     $days = (int) $argv[1];
 }
 
-echo 'OMGHAI!' . PHP_EOL;
-
-for ($i = 0; $i < $days; $i++) {
-    echo "-------- day ${i} --------" . PHP_EOL;
-    echo 'name, sellIn, quality' . PHP_EOL;
-    foreach ($items as $item) {
-        echo $item . PHP_EOL;
-    }
-    echo PHP_EOL;
-    $itemsUpdater->updateQuality();
-}
+$itemsProcessor->processItems($items, intval($days));

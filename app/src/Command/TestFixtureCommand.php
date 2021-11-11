@@ -10,12 +10,23 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use GildedRose\GildedRose;
-use GildedRose\Item;
-use GildedRose\DataDecoder;
+use GildedRose\ItemsProcessor;
+use GildedRose\Repository\ItemRepository;
 
 class TestFixtureCommand extends Command
 {
     protected static $defaultName = 'test-fixture';
+
+    /**
+     * Tester for the Item repository class. Used for testing fixture files.
+     *
+     * @param ItemRepository $itemRepository the actual Item repository class
+     */
+    public function __construct(ItemRepository $itemRepository)
+    {
+        parent::__construct();
+        $this->itemRepository = $itemRepository;
+    }
 
     protected function configure(): void
     {
@@ -28,35 +39,16 @@ class TestFixtureCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $filepath = __DIR__ . '/../../data/testfixture.csv';
+
+        $this->itemRepository->setItems($filepath, 'csv');
+        $items = $this->itemRepository->getItems();
+
         $days = $input->getOption('days');
+        
+        $itemsProcessor = new ItemsProcessor(new GildedRose());
 
-        $decoder = new DataDecoder();
-
-        $decodedFixtureData = $decoder->retrieveData('testfixture.csv', 'csv');
-
-        foreach ($decodedFixtureData as $dataItem) {
-            $items[] = new Item(
-                $dataItem['name'],
-                intval($dataItem['sellIn']),
-                intval($dataItem['quality'])
-            );
-        }
-
-        $output->writeln('OMGHAI!');
-
-        $itemsUpdater = new GildedRose($items);
-
-        for ($i = 0; $i < $days; $i++) {
-            $output->writeln([
-                "-------- day ${i} --------",
-                'name, sellIn, quality'
-            ]);
-            foreach ($items as $item) {
-                $output->writeln($item);
-            }
-            $output->writeln('');
-            $itemsUpdater->updateQuality();
-        }
+        $itemsProcessor->processItems($items, intval($days));
 
         return Command::SUCCESS;
     }

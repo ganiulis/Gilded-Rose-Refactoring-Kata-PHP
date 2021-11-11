@@ -3,18 +3,31 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+use GildedRose\Data\FileContentRetriever;
 use GildedRose\Command\TestFixtureCommand;
-use Symfony\Component\Console\Application;
+use GildedRose\Repository\ItemRepository;
+use GildedRose\Serializer\ItemNormalizer;
+use GildedRose\Serializer\ItemsNormalizer;
 
-$application = new Application('Gilded Rose CLI', '0.1.0');
+use Symfony\Component\Console\Application;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
+
+$application = new Application('Gilded Rose CLI', '0.1.1');
+
 
 $commands = [
-    new TestFixtureCommand()
+    new TestFixtureCommand(
+        new ItemRepository(
+            new FileContentRetriever,
+            new CsvEncoder, 
+            new ItemsNormalizer(new ItemNormalizer)
+        )
+    )
     // register new commands here
     ];
 
-for ($i = 0; $i < count($commands); $i++) {
-    $application->add($commands[$i]);
+foreach ($commands as $command) {
+    $application->add($command);
 }
 
 $application->run();
