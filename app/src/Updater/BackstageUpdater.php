@@ -6,6 +6,15 @@ use GildedRose\Item;
 
 class BackstageUpdater implements UpdaterInterface
 {
+    public function supportsItem(Item $item): bool
+    {
+        if (strcasecmp('Backstage passes to a TAFKAL80ETC concert', $item->name) === 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public function updateItem(Item $item): Item
     {
         if ($item->sell_in < 1) {

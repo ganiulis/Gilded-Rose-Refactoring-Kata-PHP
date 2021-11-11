@@ -6,6 +6,17 @@ use GildedRose\Item;
 
 class DefaultUpdater implements UpdaterInterface
 {
+    /**
+     * Supports any passed item
+     *
+     * @param Item $item
+     * @return boolean output always equates to true
+     */
+    public function supportsItem(Item $item): bool
+    {
+        return true;
+    }
+
     public function updateItem(Item $item): Item
     {
         if ($item->sell_in < 1 && $item->quality > 1) {

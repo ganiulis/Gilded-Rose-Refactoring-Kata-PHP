@@ -11,13 +11,22 @@ use GildedRose\Updater;
  */
 final class GildedRose
 {
-    private const AGED_BRIE = 'Aged Brie';
-    private const BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert';
-    private const CONJURED = 'Conjured Item';
-    private const SULFURAS = 'Sulfuras, Hand of Ragnaros';
-
     /**
-     * Updated quality of selected array of Items
+     * Initializes a list of Updater classes before Items are to be updated
+     */
+    public function __construct()
+    {
+        $this->itemUpdaters = [
+            new Updater\BackstageUpdater,
+            new Updater\BrieUpdater,
+            new Updater\ConjuredUpdater,
+            new Updater\SulfurasUpdater,
+            // add new updater classes here above DefaultUpdater
+            new Updater\DefaultUpdater
+        ];
+    }
+    /**
+     * Updates quality of selected array of Items
      *
      * @param array $items Items array to be updated
      * @return array updated Items array
@@ -25,26 +34,12 @@ final class GildedRose
     public function updateItems(array $items): array
     {
         foreach ($items as $item) {
-            $itemType = preg_match('/\bConjured\b/i', $item->name) ? self::CONJURED : $item->name;
-
-            switch($itemType) {
-                case self::AGED_BRIE:
-                    $this->itemUpdater = new Updater\BrieUpdater;
-                    break;
-                case self::BACKSTAGE_PASSES:
-                    $this->itemUpdater = new Updater\BackstageUpdater;
-                    break;
-                case self::CONJURED:
-                    $this->itemUpdater = new Updater\ConjuredUpdater;
-                    break;
-                case self::SULFURAS:
-                    $this->itemUpdater = new Updater\SulfurasUpdater;
-                    break;
-                default:
-                    $this->itemUpdater = new Updater\DefaultUpdater;
+            foreach ($this->itemUpdaters as $itemUpdater) {
+                if ($itemUpdater->supportsItem($item)) {
+                    $itemUpdater->updateItem($item);
                     break;
                 }
-            $this->itemUpdater->updateItem($item);
+            }
         }
         return $items;
     }
