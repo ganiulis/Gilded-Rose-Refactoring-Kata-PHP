@@ -26,6 +26,12 @@ final class GildedRose
         ];
     }
 
+    /**
+     * Cycles through all updater classes until the correct one is selected and updates Item data
+     *
+     * @param Item $item
+     * @return void
+     */
     private function updateItem(Item $item): void
     {
         foreach ($this->itemUpdaters as $itemUpdater) {
