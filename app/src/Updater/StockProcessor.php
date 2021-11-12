@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace GildedRose\Updater;
 
+use Exception;
 use GildedRose\Item;
 use GildedRose\Updater;
 
@@ -13,18 +14,26 @@ use GildedRose\Updater;
 class StockProcessor
 {
     /**
-     * Initializes a list of Updater classes before Items are to be updated
+     * Initializes a list of Updater classes which can manipulate Items.
+     * 
+     * @param array|null $updaters changes the default list of Updater classes. New list of Updaters must have UpdaterInterface implemented
      */
-    public function __construct()
-    {
-        $this->updaters = [
-            new Updater\BackstageUpdater,
-            new Updater\BrieUpdater,
-            new Updater\ConjuredUpdater,
-            new Updater\SulfurasUpdater,
-            // add new updater classes here above DefaultUpdater
-            new Updater\DefaultUpdater
-        ];
+    public function __construct(array $updaters = null)
+    {   
+        if ($updaters === null) {
+            $this->updaters = [
+                new Updater\BackstageUpdater,
+                new Updater\BrieUpdater,
+                new Updater\ConjuredUpdater,
+                new Updater\SulfurasUpdater,
+                // add new updater classes here above DefaultUpdater
+                new Updater\DefaultUpdater
+            ];
+        } elseif (!$updaters[0] instanceof UpdaterInterface) {
+            throw new Exception('Invalid class parameter for StockProcessor class! Only include objects which implement UpdaterInterface.');
+        } else {
+            $this->updaters = $updaters;
+        }
     }
 
     /**

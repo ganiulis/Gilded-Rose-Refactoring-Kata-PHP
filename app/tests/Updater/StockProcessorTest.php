@@ -3,6 +3,7 @@
 namespace Tests\Updater;
 
 use GildedRose\Item;
+use GildedRose\Updater\ConjuredUpdater;
 use GildedRose\Updater\StockProcessor;
 use PHPUnit\Framework\TestCase;
 
