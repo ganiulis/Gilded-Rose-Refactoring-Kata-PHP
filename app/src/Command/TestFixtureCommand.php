@@ -11,7 +11,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use GildedRose\StockManager;
 use GildedRose\Repository\ItemRepository;
-use GildedRose\Updater\StockProcessor;
 
 class TestFixtureCommand extends Command
 {
@@ -46,9 +45,19 @@ class TestFixtureCommand extends Command
 
         $days = $input->getOption('days');
         
-        $stockManager = new StockManager(new StockProcessor());
+        $stockManager = new StockManager();
 
-        $stockManager->process($items, intval($days));
+        echo 'OMGHAI!' . PHP_EOL;
+
+        for ($i = 0; $i < intval($days); $i++) {
+            echo "-------- day ${i} --------" . PHP_EOL;
+            echo 'name, sellIn, quality' . PHP_EOL;
+            foreach ($items as $item) {
+                echo $item . PHP_EOL;
+            }
+            echo PHP_EOL;
+            $stockManager->updateAll($items);
+        }
 
         return Command::SUCCESS;
     }

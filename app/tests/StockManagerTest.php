@@ -1,45 +1,74 @@
-<?php
+<?php 
 
-declare(strict_types=1);
+namespace Tests\Updater;
 
-namespace Tests;
-
-use ApprovalTests\Approvals;
 use GildedRose\Item;
 use GildedRose\StockManager;
-use GildedRose\Updater\StockProcessor;
 use PHPUnit\Framework\TestCase;
 
-class StockManagerTest extends TestCase
+class StockProcesssorTest extends TestCase
 {
-    public function testStockManager(): void
+    public function testUpdateAll(): void
     {
-        $days = 5;
-        $items = [
-            new Item('foo', 0, 3),
-            new Item('bar', 1, 2),
-            new Item('zim', 2, 1),
-            new Item('gir', 3, 0),
-            new Item('dib', 4, -1)
+        $manager = new StockManager();
+
+        $testItems = $this->provideItems();
+
+        $actualItems = [];
+        $expectedItems = [];
+
+        foreach ($testItems as $testItem) {
+            $actualItems[] = new Item(
+                $testItem['Name'],
+                $testItem['SellIn']['actual'],
+                $testItem['Quality']['actual']
+            );
+            
+            $expectedItems[] = new Item(
+                $testItem['Name'],
+                $testItem['SellIn']['expected'],
+                $testItem['Quality']['expected']
+            );
+        }
+
+        $manager->updateAll($actualItems);
+
+        $this->assertEquals($expectedItems, $actualItems, 'Actual and expected items do not match after passing through StockProcessor!');
+    }
+
+    private function provideItems(): array 
+    {
+        return [
+            [
+                'Name' => 'Apple pie',        
+                'SellIn' => ['actual' => 2, 'expected' => 1],
+                'Quality' => ['actual' => 2, 'expected' => 1]
+            ],
+            [
+                'Name' => 'Conjured banana pie', 
+                'SellIn' => ['actual' => 2, 'expected' => 1],
+                    'Quality' => ['actual' => 4, 'expected' => 2]
+            ],
+            [
+                'Name' => 'Cherry nonconjured pie',
+                'SellIn' => ['actual' => 2, 'expected' => 1],
+                'Quality' => ['actual' => 2, 'expected' => 1]
+            ],
+            [
+                'Name' => 'Aged brie',
+                'SellIn' => ['actual' => 0, 'expected' => -1],
+                'Quality' => ['actual' => 0, 'expected' => 2]
+            ],
+            [
+                'Name' => 'Sulfuras, Hand of Ragnaros',
+                'SellIn' => ['actual' => 1, 'expected' => 1],
+                'Quality' => ['actual' => 80, 'expected' => 80]
+            ],
+            [
+                'Name' => 'Backstage passes to a TAFKAL80ETC concert',
+                'SellIn' => ['actual' => 10, 'expected' => 9],
+                'Quality' => ['actual' => 48, 'expected' => 50]
+            ]
         ];
-
-        $mockStockProcessor = $this->getMockBuilder(StockProcessor::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        
-        $mockStockProcessor
-            ->expects($this->exactly($days))
-            ->method('updateAll')
-            ->with($items);
-
-        $stockManager = new StockManager($mockStockProcessor);
-        
-        ob_start();
-        
-        $stockManager->process($items, $days);
-        
-        $output = ob_get_clean();
-
-        Approvals::verifyString($output);
     }
 }

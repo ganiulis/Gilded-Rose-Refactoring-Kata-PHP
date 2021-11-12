@@ -1,40 +1,73 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GildedRose;
 
-use GildedRose\Updater\StockProcessor;
+use GildedRose\Item;
+use GildedRose\Updater;
+use GildedRose\Updater\UpdaterInterface;
 
 /**
- * Processes Items with the given processor class.
- * 
- * Currently only supports the GildedRose class with updateQuality method.
+ * Used for updating an array of Items.
  */
 class StockManager
 {
-    public function __construct(StockProcessor $stockProcessor)
+    /**
+     * Initializes a list of Updater classes which can manipulate Items.
+     */
+    public function __construct()
+    {   
+        $this->defaultUpdater = new Updater\DefaultUpdater;
+
+        $updaters = [
+            'Backstage passes to a TAFKAL80ETC concert' => new Updater\BackstageUpdater,
+            'Aged Brie' => new Updater\BrieUpdater,
+            'Any Conjured item' => new Updater\ConjuredUpdater,
+            'Sulfuras, Hand of Ragnaros' => new Updater\SulfurasUpdater
+            // add new updater classes here
+        ];
+
+        foreach (array_values($updaters) as $updater) {
+            $this->addUpdater($updater);
+        }
+    }
+
+    private function addUpdater(UpdaterInterface $updaterInterface): void
     {
-        $this->stockProcessor = $stockProcessor;
+        $this->updaters[] = $updaterInterface;
     }
 
     /**
-     * processes and prints out Item types with the help of the GildedRose class
+     * Cycles through all non-default Updater classes until the correct one is selected and updates Item data.
      *
-     * @param array $items the array of items, must be of Item class
-     * @param integer $days hoow many days will the item be updated for
-     * @return void the processor currently only prints out items in a list-like format
+     * @param Item $item
+     * @return boolean returns false if no Updater was found
      */
-    public function process(array $items, int $days = 2): void
+    private function update(Item $item): bool
     {
-        echo 'OMGHAI!' . PHP_EOL;
-
-        for ($i = 0; $i < $days; $i++) {
-            echo "-------- day ${i} --------" . PHP_EOL;
-            echo 'name, sellIn, quality' . PHP_EOL;
-            foreach ($items as $item) {
-                echo $item . PHP_EOL;
+        foreach ($this->updaters as $updater) {
+            if ($updater->supports($item)) {
+                $updater->update($item);
+                return true;
             }
-            echo PHP_EOL;
-            $this->stockProcessor->updateAll($items);
         }
+        return false;
+    }
+
+    /**
+     * Updates quality of selected array of Items. Checks through non-default Updaters first before calling DefaultUpdater.
+     *
+     * @param array $items Items array to be updated
+     * @return array updated Items array
+     */
+    public function updateAll(array $items): array
+    {
+        foreach ($items as $item) {
+            if(!$this->update($item)) {
+                $this->defaultUpdater->update($item);
+            };
+        }
+        return $items;
     }
 }
