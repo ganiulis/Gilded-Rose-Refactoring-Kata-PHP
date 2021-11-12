@@ -15,21 +15,29 @@ class StockManager
 {
     /**
      * Initializes a list of Updater classes which can manipulate Items.
+     * 
+     * @param array|null $additionalUpdaters replaces non-default updater classes with a new array of updater classes
      */
-    public function __construct()
+    public function __construct(array $additionalUpdaters = null)
     {   
         $this->defaultUpdater = new Updater\DefaultUpdater;
 
-        $updaters = [
-            'Backstage passes to a TAFKAL80ETC concert' => new Updater\BackstageUpdater,
-            'Aged Brie' => new Updater\BrieUpdater,
-            'Any Conjured item' => new Updater\ConjuredUpdater,
-            'Sulfuras, Hand of Ragnaros' => new Updater\SulfurasUpdater
-            // add new updater classes here
-        ];
-
-        foreach (array_values($updaters) as $updater) {
-            $this->addUpdater($updater);
+        if(isset($additionalUpdaters)) {
+            foreach ($additionalUpdaters as $updater) {
+                $this->addUpdater($updater);
+            }
+        } else {
+            $updaters = [
+                'Backstage passes to a TAFKAL80ETC concert' => new Updater\BackstageUpdater,
+                'Aged Brie' => new Updater\BrieUpdater,
+                'Any Conjured item' => new Updater\ConjuredUpdater,
+                'Sulfuras, Hand of Ragnaros' => new Updater\SulfurasUpdater
+                // add new updater classes here
+            ];
+            
+            foreach (array_values($updaters) as $updater) {
+                $this->addUpdater($updater);
+            }
         }
     }
 
