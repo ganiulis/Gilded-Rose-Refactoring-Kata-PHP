@@ -10,7 +10,7 @@ use GildedRose\Updater;
 /**
  * Used for updating an array of Items.
  */
-final class StockProcessor
+class StockProcessor
 {
     /**
      * Initializes a list of Updater classes before Items are to be updated
