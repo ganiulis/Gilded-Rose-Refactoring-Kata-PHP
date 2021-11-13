@@ -19,6 +19,11 @@ class StockPrinter
     {
         echo $intro . PHP_EOL;
     }
+    
+    private function printItem(Item $item): void
+    {
+        echo $item . PHP_EOL;
+    }
 
     /**
      * Prints a summary of a certain day's Items.
@@ -35,10 +40,5 @@ class StockPrinter
             $this->printItem($item);
         }
         echo PHP_EOL;
-    }
-
-    private function printItem(Item $item): void
-    {
-        echo $item . PHP_EOL;
     }
 }
