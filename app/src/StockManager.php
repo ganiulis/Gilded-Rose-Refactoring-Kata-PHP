@@ -16,8 +16,8 @@ class StockManager
     /**
      * Initializes a list of Updater classes which can manipulate Items.
      * 
-     * @param array|null $customUpdaters to add any additional or custom Updater classes to the list of Updaters
      * @param boolean $flushUpdaters flushes original list of updaters so that only customUpdaters and DefaultUpdater class are left. $flushUpdaters is useful when you want to test out StockManager with a specific list of Updater classes
+     * @param array|null $customUpdaters to add any additional or custom Updater classes to the list of Updaters
      */
     public function __construct(bool $flushUpdaters = false, array $customUpdaters = null)
     {   
