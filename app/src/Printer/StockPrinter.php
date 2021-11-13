@@ -22,7 +22,7 @@ class StockPrinter
     /**
      * Prints a summary of a certain day's Items.
      *
-     * @param array $items must be of Item class
+     * @param array $items array must be a list of Item classes
      * @param integer $day the day of the receipt
      * @return void
      */
