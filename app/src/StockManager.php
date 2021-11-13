@@ -16,28 +16,32 @@ class StockManager
     /**
      * Initializes a list of Updater classes which can manipulate Items.
      * 
-     * @param array|null $additionalUpdaters replaces non-default updater classes with a new array of updater classes
+     * @param array|null $customUpdaters to add any additional or custom Updater classes to the list of Updaters
+     * @param boolean $flushUpdaters flushes original list of updaters so that only customUpdaters and DefaultUpdater class are left. $flushUpdaters is useful when you want to test out StockManager with a specific list of Updater classes
      */
-    public function __construct(array $additionalUpdaters = null)
+    public function __construct(bool $flushUpdaters = false, array $customUpdaters = null)
     {   
         $this->defaultUpdater = new Updater\DefaultUpdater;
 
-        if(isset($additionalUpdaters)) {
-            foreach ($additionalUpdaters as $updater) {
-                $this->addUpdater($updater);
-            }
-        } else {
-            $updaters = [
+        if (!$flushUpdaters) {
+            $this->addUpdaters([
                 'Backstage passes to a TAFKAL80ETC concert' => new Updater\BackstageUpdater,
                 'Aged Brie' => new Updater\BrieUpdater,
                 'Any Conjured item' => new Updater\ConjuredUpdater,
                 'Sulfuras, Hand of Ragnaros' => new Updater\SulfurasUpdater
                 // add new updater classes here
-            ];
-            
-            foreach (array_values($updaters) as $updater) {
-                $this->addUpdater($updater);
-            }
+            ]);
+        }
+
+        if(isset($customUpdaters)) {
+            $this->addUpdaters($customUpdaters);
+        }
+    }
+
+    private function addUpdaters(array $updaters): void
+    {
+        foreach (array_values($updaters) as $updater) {
+            $this->addUpdater($updater);
         }
     }
 
@@ -46,21 +50,17 @@ class StockManager
         $this->updaters[] = $updaterInterface;
     }
 
-    /**
-     * Cycles through all non-default Updater classes until the correct one is selected and updates Item data.
-     *
-     * @param Item $item
-     * @return boolean returns false if no Updater was found
-     */
-    private function update(Item $item): bool
+    private function update(Item $item): void
     {
-        foreach ($this->updaters as $updater) {
-            if ($updater->supports($item)) {
-                $updater->update($item);
-                return true;
+        if (isset($this->updaters)) {
+            foreach ($this->updaters as $updater) {
+                if ($updater->supports($item)) {
+                    $updater->update($item);
+                    return;
+                }
             }
         }
-        return false;
+        $this->defaultUpdater->update($item);
     }
 
     /**
@@ -72,9 +72,7 @@ class StockManager
     public function updateAll(array $items): array
     {
         foreach ($items as $item) {
-            if(!$this->update($item)) {
-                $this->defaultUpdater->update($item);
-            };
+            $this->update($item);
         }
         return $items;
     }

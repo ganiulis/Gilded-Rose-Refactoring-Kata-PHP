@@ -14,7 +14,6 @@ use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 $application = new Application('Gilded Rose CLI', '0.1.1');
 
-
 $commands = [
     new TestFixtureCommand(
         new ItemRepository(

@@ -11,6 +11,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use GildedRose\StockManager;
 use GildedRose\Repository\ItemRepository;
+use GildedRose\Updater\ConjuredUpdater;
+use GildedRose\Updater\SulfurasUpdater;
 
 class TestFixtureCommand extends Command
 {
