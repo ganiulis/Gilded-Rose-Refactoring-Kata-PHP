@@ -50,6 +50,12 @@ class StockManager
         }
     }
 
+    /**
+     * Updates quality of one Item. Checks through non-default Updaters first before calling DefaultUpdater.
+     *
+     * @param Item $item Item to be updated
+     * @return void
+     */
     public function update(Item $item): void
     {
         if (isset($this->updaters)) {
