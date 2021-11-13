@@ -38,6 +38,11 @@ class StockManager
         }
     }
 
+    private function addUpdater(UpdaterInterface $updaterInterface): void
+    {
+        $this->updaters[] = $updaterInterface;
+    }
+
     private function addUpdaters(array $updaters): void
     {
         foreach (array_values($updaters) as $updater) {
@@ -45,12 +50,7 @@ class StockManager
         }
     }
 
-    private function addUpdater(UpdaterInterface $updaterInterface): void
-    {
-        $this->updaters[] = $updaterInterface;
-    }
-
-    private function update(Item $item): void
+    public function update(Item $item): void
     {
         if (isset($this->updaters)) {
             foreach ($this->updaters as $updater) {
