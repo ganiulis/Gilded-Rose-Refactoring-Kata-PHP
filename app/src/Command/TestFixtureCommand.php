@@ -46,7 +46,7 @@ class TestFixtureCommand extends Command
 
         $days = $input->getOption('days');
         
-        $stockManager = new StockManager();
+        $stockManager = new StockManager;
 
         $printer = new StockPrinter;
 

@@ -12,11 +12,12 @@ class StockPrinter
     /**
      * OMGHAI!
      *
+     * @param string $intro changes default OMGHAI! into a different string
      * @return void
      */
-    public function printIntro(): void
+    public function printIntro(string $intro = 'OMGHAI!'): void
     {
-        echo 'OMGHAI!' . PHP_EOL;
+        echo $intro . PHP_EOL;
     }
 
     /**

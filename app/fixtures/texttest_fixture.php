@@ -23,7 +23,7 @@ $filepath = __DIR__ . '/../data/testfixture.csv';
 $itemRepository->setItems($filepath, 'csv');
 $items = $itemRepository->getItems();
 
-$stockManager = new StockManager();
+$stockManager = new StockManager;
 
 $days = 2;
 if (count($argv) > 1) {
