@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace GildedRose\Command;
 
+use GildedRose\Printer\StockPrinter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -11,8 +12,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use GildedRose\StockManager;
 use GildedRose\Repository\ItemRepository;
-use GildedRose\Updater\ConjuredUpdater;
-use GildedRose\Updater\SulfurasUpdater;
 
 class TestFixtureCommand extends Command
 {
@@ -49,15 +48,12 @@ class TestFixtureCommand extends Command
         
         $stockManager = new StockManager();
 
-        echo 'OMGHAI!' . PHP_EOL;
+        $printer = new StockPrinter;
 
-        for ($i = 0; $i < intval($days); $i++) {
-            echo "-------- day ${i} --------" . PHP_EOL;
-            echo 'name, sellIn, quality' . PHP_EOL;
-            foreach ($items as $item) {
-                echo $item . PHP_EOL;
-            }
-            echo PHP_EOL;
+        $printer->printIntro();
+        
+        for ($day = 0; $day < $days; $day++) {
+            $printer->printSummary($items, $day);
             $stockManager->updateAll($items);
         }
 

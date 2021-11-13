@@ -5,6 +5,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use GildedRose\Data\FileContentRetriever;
+use GildedRose\Printer\StockPrinter;
 use GildedRose\Repository\ItemRepository;
 use GildedRose\Serializer\ItemNormalizer;
 use GildedRose\Serializer\ItemsNormalizer;
@@ -29,14 +30,11 @@ if (count($argv) > 1) {
     $days = (int) $argv[1];
 }
 
-echo 'OMGHAI!' . PHP_EOL;
+$printer = new StockPrinter;
 
-for ($i = 0; $i < $days; $i++) {
-    echo "-------- day ${i} --------" . PHP_EOL;
-    echo 'name, sellIn, quality' . PHP_EOL;
-    foreach ($items as $item) {
-        echo $item . PHP_EOL;
-    }
-    echo PHP_EOL;
+$printer->printIntro();
+
+for ($day = 0; $day < $days; $day++) {
+    $printer->printSummary($items, $day);
     $stockManager->updateAll($items);
 }
