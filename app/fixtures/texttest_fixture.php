@@ -6,6 +6,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use GildedRose\Data\FileContentRetriever;
 use GildedRose\Printer\StockPrinter;
+use GildedRose\Updater;
 use GildedRose\Repository\ItemRepository;
 use GildedRose\Serializer\ItemNormalizer;
 use GildedRose\Serializer\ItemsNormalizer;
@@ -19,11 +20,18 @@ $itemRepository = new ItemRepository(
 );
 
 $filepath = __DIR__ . '/../data/testfixture.csv';
-
 $itemRepository->setItems($filepath, 'csv');
 $items = $itemRepository->getItems();
 
-$stockManager = new StockManager;
+$manager = new StockManager(
+    new Updater\DefaultUpdater,
+    [
+        new Updater\BackstageUpdater,
+        new Updater\BrieUpdater,
+        new Updater\ConjuredUpdater,
+        new Updater\SulfurasUpdater
+    ]
+);
 
 $days = 2;
 if (count($argv) > 1) {
@@ -36,5 +44,5 @@ $printer->printIntro();
 
 for ($day = 0; $day < $days; $day++) {
     $printer->printSummary($items, $day);
-    $stockManager->updateAll($items);
+    $manager->updateAll($items);
 }

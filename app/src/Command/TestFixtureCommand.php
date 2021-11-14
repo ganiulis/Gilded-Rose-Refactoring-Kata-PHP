@@ -12,6 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use GildedRose\StockManager;
 use GildedRose\Repository\ItemRepository;
+use GildedRose\Updater;
 
 class TestFixtureCommand extends Command
 {
@@ -46,7 +47,15 @@ class TestFixtureCommand extends Command
 
         $days = $input->getOption('days');
         
-        $stockManager = new StockManager;
+        $manager = new StockManager(
+            new Updater\DefaultUpdater,
+            [
+                new Updater\BackstageUpdater,
+                new Updater\BrieUpdater,
+                new Updater\ConjuredUpdater,
+                new Updater\SulfurasUpdater
+            ]
+        );
 
         $printer = new StockPrinter;
 
@@ -54,7 +63,7 @@ class TestFixtureCommand extends Command
         
         for ($day = 0; $day < $days; $day++) {
             $printer->printSummary($items, $day);
-            $stockManager->updateAll($items);
+            $manager->updateAll($items);
         }
 
         return Command::SUCCESS;
