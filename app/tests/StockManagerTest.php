@@ -4,71 +4,51 @@ namespace Tests\Updater;
 
 use GildedRose\Item;
 use GildedRose\StockManager;
+use GildedRose\Updater;
 use PHPUnit\Framework\TestCase;
 
 class StockProcesssorTest extends TestCase
 {
     public function testUpdateAll(): void
     {
-        $manager = new StockManager();
-
-        $testItems = $this->provideItems();
-
-        $actualItems = [];
-        $expectedItems = [];
-
-        foreach ($testItems as $testItem) {
-            $actualItems[] = new Item(
-                $testItem['Name'],
-                $testItem['SellIn']['actual'],
-                $testItem['Quality']['actual']
-            );
-            
-            $expectedItems[] = new Item(
-                $testItem['Name'],
-                $testItem['SellIn']['expected'],
-                $testItem['Quality']['expected']
-            );
-        }
-
-        $manager->updateAll($actualItems);
-
-        $this->assertEquals($expectedItems, $actualItems, 'Actual and expected items do not match after passing through StockProcessor!');
-    }
-
-    private function provideItems(): array 
-    {
-        return [
-            [
-                'Name' => 'Apple pie',        
-                'SellIn' => ['actual' => 2, 'expected' => 1],
-                'Quality' => ['actual' => 2, 'expected' => 1]
-            ],
-            [
-                'Name' => 'Conjured banana pie', 
-                'SellIn' => ['actual' => 2, 'expected' => 1],
-                    'Quality' => ['actual' => 4, 'expected' => 2]
-            ],
-            [
-                'Name' => 'Cherry nonconjured pie',
-                'SellIn' => ['actual' => 2, 'expected' => 1],
-                'Quality' => ['actual' => 2, 'expected' => 1]
-            ],
-            [
-                'Name' => 'Aged brie',
-                'SellIn' => ['actual' => 0, 'expected' => -1],
-                'Quality' => ['actual' => 0, 'expected' => 2]
-            ],
-            [
-                'Name' => 'Sulfuras, Hand of Ragnaros',
-                'SellIn' => ['actual' => 1, 'expected' => 1],
-                'Quality' => ['actual' => 80, 'expected' => 80]
-            ],
-            [
-                'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                'SellIn' => ['actual' => 10, 'expected' => 9],
-                'Quality' => ['actual' => 48, 'expected' => 50]
-            ]
+        $testItems = [
+            new Item('foo', 4, 3),
+            new Item('bar', 5, 2)
         ];
+
+        $mockDefaultUpdater = $this->getMockBuilder(Updater\DefaultUpdater::class)
+            ->getMock();
+
+        $mockDefaultUpdater->expects($this->once())
+            ->method('update')
+            ->with($testItems[1])
+            ->willReturn(new Item('bar', 4, 1));
+
+        $mockUpdater = $this->getMockBuilder(Updater\BackstageUpdater::class)
+            ->getMock();
+
+        $mockUpdater->expects($this->exactly(2))
+            ->method('supports')
+            ->withConsecutive(
+                [$testItems[0]],
+                [$testItems[1]]
+            )
+            ->willReturnOnConsecutiveCalls(
+                true,
+                false
+            );
+        $mockUpdater->expects($this->once())
+            ->method('update')
+            ->with($testItems[0])
+            ->willReturn(new Item('foo', 3, 2));
+
+        $manager = new StockManager(
+            $mockDefaultUpdater,
+            [
+                $mockUpdater
+            ]
+        );
+
+        $this->assertEquals($testItems, $manager->updateAll($testItems), 'Actual and expected items do not match after passing through StockManager!');
     }
 }
