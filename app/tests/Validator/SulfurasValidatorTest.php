@@ -27,9 +27,12 @@ class SulfurasValidatorTest extends TestCase
         
         $validator = new SulfurasValidator();
 
-        $validator->validate($actualItem);
+        $this->assertEquals($testItemData['Supported'], $validator->supports($actualItem), 'Item is unsupported!');
 
-        $this->assertEquals($expectedItem, $actualItem, 'Actual and expected items do not match after passing through QualityValidator!');
+        if ($validator->supports($actualItem)) {
+            $validator->validate($actualItem);
+            $this->assertEquals($expectedItem, $actualItem, 'Actual and expected items do not match after passing through QualityValidator!');
+        }
     }
 
     public function provideTestItemData(): array 
@@ -39,21 +42,32 @@ class SulfurasValidatorTest extends TestCase
                 'Good Sulfuras item' => [
                     'Name' => 'Sulfuras, Hand of Ragnaros',        
                     'SellIn' => ['actual' => 1, 'expected' => 1],
-                    'Quality' => ['actual' => 80, 'expected' => 80]
+                    'Quality' => ['actual' => 80, 'expected' => 80],
+                    'Supported' => true
                 ]
             ],
             [
                 'Too high quality Sulfuras item' => [
                     'Name' => 'Sulfuras, Hand of Ragnaros', 
                     'SellIn' => ['actual' => 2, 'expected' => 2],
-                    'Quality' => ['actual' => 57, 'expected' => 80]
+                    'Quality' => ['actual' => 57, 'expected' => 80],
+                    'Supported' => true
                 ]
             ],
             [
                 'Negative quality Sulfuras test' => [
                     'Name' => 'Sulfuras, Hand of Ragnaros',
                     'SellIn' => ['actual' => 3, 'expected' => 3],
-                    'Quality' => ['actual' => -12, 'expected' => 80]
+                    'Quality' => ['actual' => -12, 'expected' => 80],
+                    'Supported' => true
+                ]
+            ],
+            [
+                'Unsupported item' => [
+                    'Name' => 'Sulfootras, Foot of Ragnaros',
+                    'SellIn' => ['actual' => 3, 'expected' => 3],
+                    'Quality' => ['actual' => 45, 'expected' => 45],
+                    'Supported' => false
                 ]
             ]
         ];
