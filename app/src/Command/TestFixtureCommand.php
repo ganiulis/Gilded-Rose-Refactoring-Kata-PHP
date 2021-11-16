@@ -13,6 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use GildedRose\StockManager;
 use GildedRose\Repository\ItemRepository;
 use GildedRose\Updater;
+use GildedRose\Updater\UpdaterInterface;
 
 class TestFixtureCommand extends Command
 {
@@ -23,10 +24,15 @@ class TestFixtureCommand extends Command
      *
      * @param ItemRepository $itemRepository the actual Item repository class
      */
-    public function __construct(ItemRepository $itemRepository)
-    {
+    public function __construct(
+        ItemRepository $itemRepository,
+        StockManager $stockManager,
+        StockPrinter $stockPrinter
+    ) {
         parent::__construct();
         $this->itemRepository = $itemRepository;
+        $this->stockManager = $stockManager;
+        $this->stockPrinter = $stockPrinter;
     }
 
     protected function configure(): void
@@ -46,24 +52,12 @@ class TestFixtureCommand extends Command
         $items = $this->itemRepository->getItems();
 
         $days = $input->getOption('days');
-        
-        $manager = new StockManager(
-            new Updater\DefaultUpdater,
-            [
-                new Updater\BackstageUpdater,
-                new Updater\BrieUpdater,
-                new Updater\ConjuredUpdater,
-                new Updater\SulfurasUpdater
-            ]
-        );
 
-        $printer = new StockPrinter;
-
-        $printer->printIntro();
+        $this->stockPrinter->printIntro();
         
         for ($day = 0; $day < $days; $day++) {
-            $printer->printSummary($items, $day);
-            $manager->updateAll($items);
+            $this->stockPrinter->printSummary($items, $day);
+            $this->stockManager->updateAll($items);
         }
 
         return Command::SUCCESS;

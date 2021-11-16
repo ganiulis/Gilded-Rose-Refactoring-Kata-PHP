@@ -6,10 +6,12 @@ namespace Tests\Command;
 
 use GildedRose\Command\TestFixtureCommand;
 use GildedRose\Data\FileContentRetriever;
+use GildedRose\Printer\StockPrinter;
 use GildedRose\Repository\ItemRepository;
 use GildedRose\Serializer\ItemNormalizer;
 use GildedRose\Serializer\ItemsNormalizer;
-
+use GildedRose\StockManager;
+use GildedRose\Updater;
 use PHPUnit\Framework\TestCase;
 
 use SplFileInfo;
@@ -30,7 +32,17 @@ class StockManagerDefaultApprovalTest extends TestCase
                     new FileContentRetriever,
                     new CsvEncoder, 
                     new ItemsNormalizer(new ItemNormalizer)
-                )
+                ),
+                new StockManager(
+                    new Updater\DefaultUpdater,
+                    [
+                        new Updater\BackstageUpdater,
+                        new Updater\BrieUpdater,
+                        new Updater\ConjuredUpdater,
+                        new Updater\SulfurasUpdater
+                    ]
+                ),
+                new StockPrinter()
             )
         );
 

@@ -16,16 +16,14 @@ class StockProcesssorTest extends TestCase
             new Item('bar', 5, 2)
         ];
 
-        $mockDefaultUpdater = $this->getMockBuilder(Updater\DefaultUpdater::class)
-            ->getMock();
+        $mockDefaultUpdater = $this->createMock(Updater\DefaultUpdater::class);
 
         $mockDefaultUpdater->expects($this->once())
             ->method('update')
             ->with($testItems[1])
             ->willReturn(new Item('bar', 4, 1));
 
-        $mockUpdater = $this->getMockBuilder(Updater\BackstageUpdater::class)
-            ->getMock();
+        $mockUpdater = $this->createMock(Updater\BackstageUpdater::class);
 
         $mockUpdater->expects($this->exactly(2))
             ->method('supports')

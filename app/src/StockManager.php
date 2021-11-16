@@ -17,19 +17,14 @@ class StockManager
         array $updaters
     ) {
         $this->defaultUpdater = $defaultUpdater;
-        $this->addUpdaters($updaters);
+        foreach ($updaters as $updater) {
+            $this->addUpdater($updater);
+        }
     }
 
     private function addUpdater(UpdaterInterface $updater): void
     {
         $this->updaters[] = $updater;
-    }
-
-    private function addUpdaters(array $updaters): void
-    {
-        foreach ($updaters as $updater) {
-            $this->addUpdater($updater);
-        }
     }
 
     /**
