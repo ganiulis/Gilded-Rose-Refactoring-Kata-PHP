@@ -6,6 +6,7 @@ namespace Tests\Updater;
 
 use GildedRose\Item;
 use GildedRose\Updater\DefaultUpdater;
+use GildedRose\Validator\QualityValidator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -44,47 +45,26 @@ class DefaultUpdaterTest extends TestCase
    {
        return [
            [
-               'First test' => [
+               'Quality decreases by 1' => [
                    'Name' => 'Apple pie',        
                    'SellIn' => ['actual' => 2, 'expected' => 1],
                    'Quality' => ['actual' => 2, 'expected' => 1]
                ]
            ],
            [
-               'Second test' => [
+               'Quality decreases by 1' => [
                    'Name' => 'Banana pie', 
                    'SellIn' => ['actual' => 1, 'expected' => 0],
                    'Quality' => ['actual' => 2, 'expected' => 1]
                ]
            ],
            [
-               'Third test' => [
+               'Quality decreases by 2 when SellIn is negative' => [
                    'Name' => 'Cherry pie',
                    'SellIn' => ['actual' => 0, 'expected' => -1],
                    'Quality' => ['actual' => 2, 'expected' => 0]
                ]
-           ],
-           [
-               'Fourth test' => [
-                   'Name' => 'Date pie',
-                   'SellIn' => ['actual' => 0, 'expected' => -1],
-                   'Quality' => ['actual' => 1, 'expected' => 0]
-               ]
-            ],
-            [
-                'Fifth test' => [
-                    'Name' => 'Elderberry pie',
-                    'SellIn' => ['actual' => 0, 'expected' => -1],
-                    'Quality' => ['actual' => 0, 'expected' => 0]
-                ]
-             ],
-             [
-                 'Sixth test' => [
-                     'Name' => 'Fig pie',
-                     'SellIn' => ['actual' => -1, 'expected' => -2],
-                     'Quality' => ['actual' => 0, 'expected' => 0]
-                 ]
-              ]
+           ]
        ];
    }
 }

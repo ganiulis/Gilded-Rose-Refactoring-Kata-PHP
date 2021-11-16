@@ -6,6 +6,7 @@ namespace GildedRose;
 
 use GildedRose\Item;
 use GildedRose\Updater\UpdaterInterface;
+use GildedRose\Validator\ValidatorInterface;
 
 /**
  * Used for updating an array of Items.
@@ -14,12 +15,16 @@ class StockManager
 {
     public function __construct(
         UpdaterInterface $defaultUpdater,
-        array $updaters
+        array $updaters,
+        ValidatorInterface $validator
     ) {
         $this->defaultUpdater = $defaultUpdater;
+
         foreach ($updaters as $updater) {
             $this->addUpdater($updater);
         }
+
+        $this->validator = $validator;
     }
 
     private function addUpdater(UpdaterInterface $updater): void
@@ -56,6 +61,19 @@ class StockManager
     {
         foreach ($items as $item) {
             $this->update($item);
+        }
+        return $items;
+    }
+
+    public function validate(Item $item): void
+    {
+        $this->validator->validate($item);
+    }
+
+    public function validateAll(array $items): array
+    {
+        foreach ($items as $item) {
+            $this->validate($item);
         }
         return $items;
     }

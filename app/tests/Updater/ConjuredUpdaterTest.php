@@ -6,6 +6,7 @@ namespace Tests\Updater;
 
 use GildedRose\Item;
 use GildedRose\Updater\ConjuredUpdater;
+use GildedRose\Validator\QualityValidator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -44,101 +45,38 @@ class ConjuredUpdaterTest extends TestCase
    {
         return [
             [
-                'First test' => [
+                'Quality decreases by 2' => [
                     'Name' => 'Conjured apple pie',        
                     'SellIn' => ['actual' => 2, 'expected' => 1],
                     'Quality' => ['actual' => 5, 'expected' => 3]
                 ]
             ],
             [
-                'Second test' => [
-                    'Name' => 'Conjured banana pie', 
-                    'SellIn' => ['actual' => 2, 'expected' => 1],
-                    'Quality' => ['actual' => 4, 'expected' => 2]
-                ]
-            ],
-            [
-                'Third test' => [
+                'Quality decreases by 2' => [
                     'Name' => 'Conjured cherry pie',
                     'SellIn' => ['actual' => 2, 'expected' => 1],
                     'Quality' => ['actual' => 3, 'expected' => 1]
                 ]
             ],
             [
-                'Fourth test' => [
+                'Quality decreases by 2' => [
                     'Name' => 'Conjured date pie',
                     'SellIn' => ['actual' => 2, 'expected' => 1],
                     'Quality' => ['actual' => 2, 'expected' => 0]
                 ]
             ],
             [
-                'Fifth test' => [
+                'Quality decreases by 2' => [
                     'Name' => 'Conjured elderberry pie',
                     'SellIn' => ['actual' => 2, 'expected' => 1],
-                    'Quality' => ['actual' => 1, 'expected' => 0]
+                    'Quality' => ['actual' => 1, 'expected' => -1]
                 ]
             ],
             [
-                'Sixth test' => [
+                'Quality decreases by 4 when SellIn is negative' => [
                     'Name' => 'Conjured fig pie',
                     'SellIn' => ['actual' => 0, 'expected' => -1],
-                    'Quality' => ['actual' => 0, 'expected' => 0]
-                ]
-            ],
-            [
-                'Seventh test' => [
-                    'Name' => 'Conjured guava pie',
-                    'SellIn' => ['actual' => 0, 'expected' => -1],
-                    'Quality' => ['actual' => 5, 'expected' => 1]
-                ]
-            ],
-            [
-                'Eight test' => [
-                    'Name' => 'Conjured honeydew pie',
-                    'SellIn' => ['actual' => 0, 'expected' => -1],
-                    'Quality' => ['actual' => 4, 'expected' => 0]
-                ]
-            ],
-            [
-                'Ninth test' => [
-                    'Name' => 'Conjured jackfruit pie',
-                    'SellIn' => ['actual' => 0, 'expected' => -1],
-                    'Quality' => ['actual' => 3, 'expected' => 0]
-                ]
-            ],
-            [
-                'Tenth test' => [
-                    'Name' => 'Conjured kiwi pie',
-                    'SellIn' => ['actual' => 0, 'expected' => -1],
-                    'Quality' => ['actual' => 2, 'expected' => 0]
-                ]
-            ],
-            [
-                'Eleventh test' => [
-                    'Name' => 'Conjured lemon pie',
-                    'SellIn' => ['actual' => 0, 'expected' => -1],
-                    'Quality' => ['actual' => 1, 'expected' => 0]
-                ]
-            ],
-            [
-                'Twelfth test' => [
-                    'Name' => 'Conjured meat pie',
-                    'SellIn' => ['actual' => 0, 'expected' => -1],
-                    'Quality' => ['actual' => 0, 'expected' => 0]
-                ]
-            ],
-            [
-                'Thirteenth test' => [
-                    'Name' => 'Conjured nectarine pie',
-                    'SellIn' => ['actual' => -1, 'expected' => -2],
-                    'Quality' => ['actual' => 0, 'expected' => 0]
-                ]
-            ],
-            [
-                'Fourteenth test' => [
-                    'Name' => 'Conjured olive pie',
-                    'SellIn' => ['actual' => -1, 'expected' => -2],
-                    'Quality' => ['actual' => 5, 'expected' => 1]
+                    'Quality' => ['actual' => 0, 'expected' => -4]
                 ]
             ]
        ];

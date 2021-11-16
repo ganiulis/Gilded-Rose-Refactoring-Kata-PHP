@@ -11,12 +11,13 @@ use GildedRose\Repository\ItemRepository;
 use GildedRose\Serializer\ItemNormalizer;
 use GildedRose\Serializer\ItemsNormalizer;
 use GildedRose\StockManager;
+use GildedRose\Validator\QualityValidator;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 $itemRepository = new ItemRepository(
-    new FileContentRetriever,
-    new CsvEncoder, 
-    new ItemsNormalizer(new ItemNormalizer)
+    new FileContentRetriever(),
+    new CsvEncoder(), 
+    new ItemsNormalizer(new ItemNormalizer())
 );
 
 $filepath = __DIR__ . '/../data/testfixture.csv';
@@ -24,13 +25,14 @@ $itemRepository->setItems($filepath, 'csv');
 $items = $itemRepository->getItems();
 
 $manager = new StockManager(
-    new Updater\DefaultUpdater,
+    new Updater\DefaultUpdater(),
     [
-        new Updater\BackstageUpdater,
-        new Updater\BrieUpdater,
-        new Updater\ConjuredUpdater,
-        new Updater\SulfurasUpdater
-    ]
+        new Updater\BackstageUpdater(),
+        new Updater\BrieUpdater(),
+        new Updater\ConjuredUpdater(),
+        new Updater\SulfurasUpdater()
+    ],
+    new QualityValidator()
 );
 
 $days = 2;
@@ -38,11 +40,12 @@ if (count($argv) > 1) {
     $days = (int) $argv[1];
 }
 
-$printer = new StockPrinter;
+$printer = new StockPrinter();
 
 $printer->printIntro();
 
 for ($day = 0; $day < $days; $day++) {
     $printer->printSummary($items, $day);
     $manager->updateAll($items);
+    $manager->validateAll($items);
 }

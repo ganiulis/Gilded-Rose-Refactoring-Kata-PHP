@@ -58,6 +58,7 @@ class TestFixtureCommand extends Command
         for ($day = 0; $day < $days; $day++) {
             $this->stockPrinter->printSummary($items, $day);
             $this->stockManager->updateAll($items);
+            $this->stockManager->validateAll($items);
         }
 
         return Command::SUCCESS;
