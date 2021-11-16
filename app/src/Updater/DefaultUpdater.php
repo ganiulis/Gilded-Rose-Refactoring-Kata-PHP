@@ -17,7 +17,7 @@ class DefaultUpdater implements UpdaterInterface
         return true;
     }
 
-    public function update(Item $item): Item
+    private function updateQuality(Item $item): Item
     {
         $item->quality -= 1;
 
@@ -25,8 +25,19 @@ class DefaultUpdater implements UpdaterInterface
             $item->quality -= 1;
         }
 
-        $item->sell_in -= 1;
+        return $item;
+    }
 
+    private function updateSellIn(Item $item): Item
+    {
+        $item->sell_in -= 1;
+        return $item;
+    }
+
+    public function update(Item $item): Item
+    {
+        $this->updateQuality($item);
+        $this->updateSellIn($item);
         return $item;
     }
 }

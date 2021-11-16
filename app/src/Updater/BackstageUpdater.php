@@ -16,12 +16,11 @@ class BackstageUpdater implements UpdaterInterface
     {
         return strcasecmp('Backstage passes to a TAFKAL80ETC concert', $item->name) === 0;
     }
-    
-    public function update(Item $item): Item
+
+    private function updateQuality(Item $item): Item
     {
         if ($item->sell_in < 1) {
             $item->quality = 0;
-            $item->sell_in -= 1;
             return $item;
         }
 
@@ -35,8 +34,19 @@ class BackstageUpdater implements UpdaterInterface
             $item->quality += 1;
         }
 
-        $item->sell_in -= 1;
+        return $item;
+    }
 
+    private function updateSellIn(Item $item): Item
+    {
+        $item->sell_in -= 1;
+        return $item;
+    }
+    
+    public function update(Item $item): Item
+    {
+        $this->updateQuality($item);
+        $this->updateSellIn($item);
         return $item;
     }
 }
