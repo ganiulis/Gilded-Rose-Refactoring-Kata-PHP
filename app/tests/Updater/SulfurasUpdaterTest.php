@@ -31,6 +31,8 @@ class SulfurasTest extends TestCase
     );
 
     $updater = new SulfurasUpdater();
+
+    $this->assertTrue($updater->supports($actualItem));
     
     $updater->update($actualItem);
 

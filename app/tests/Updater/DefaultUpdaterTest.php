@@ -31,6 +31,8 @@ class DefaultUpdaterTest extends TestCase
     );
 
     $updater = new DefaultUpdater();
+
+    $this->assertTrue($updater->supports($actualItem));
     
     $updater->update($actualItem);
 

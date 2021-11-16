@@ -32,6 +32,8 @@ class ConjuredUpdaterTest extends TestCase
 
     $updater = new ConjuredUpdater();
     
+    $this->assertTrue($updater->supports($actualItem));
+
     $updater->update($actualItem);
 
     $this->assertEquals($expectedItem, $actualItem, 'Actual and expected items do not match after passing through ConjuredUpdater!');

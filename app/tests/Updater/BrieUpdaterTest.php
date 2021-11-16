@@ -31,6 +31,8 @@ class BrieUpdaterTest extends TestCase
     );
 
     $updater = new BrieUpdater();
+
+    $this->assertTrue($updater->supports($actualItem));
     
     $updater->update($actualItem);
 
