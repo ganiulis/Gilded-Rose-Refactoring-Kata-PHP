@@ -6,7 +6,18 @@ use GildedRose\Item;
 
 class BrieUpdater implements UpdaterInterface
 {
-    public function updateItem(Item $item): Item
+    /**
+     * Performs a case-insensitive check on the Item name
+     *
+     * @param Item $item
+     * @return boolean
+     */
+    public function supports(Item $item): bool
+    {
+        return strcasecmp('Aged Brie', $item->name) === 0;
+    }
+
+    public function update(Item $item): Item
     {
         if ($item->sell_in < 1 && $item->quality < 49) {
             $item->quality += 2;

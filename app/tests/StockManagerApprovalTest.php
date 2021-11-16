@@ -7,7 +7,7 @@ namespace Tests;
 use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
 
-class ApprovalTest extends TestCase
+class StockManagerApprovalTest extends TestCase
 {
     public function testTestFixture(): void
     {

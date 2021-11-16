@@ -6,7 +6,18 @@ use GildedRose\Item;
 
 class ConjuredUpdater implements UpdaterInterface
 {
-    public function updateItem(Item $item): Item
+    /**
+     * Checks for Conjured in item name
+     *
+     * @param Item $item
+     * @return boolean returns true if `conjured` is found in Item name
+     */
+    public function supports(Item $item): bool
+    {
+        return preg_match('/\bConjured\b/i', $item->name);
+    }
+
+    public function update(Item $item): Item
     {
         if ($item->sell_in < 1) {
             if ($item->quality > 3) {

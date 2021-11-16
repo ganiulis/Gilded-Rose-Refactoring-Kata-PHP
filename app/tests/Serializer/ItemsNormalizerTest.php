@@ -14,8 +14,7 @@ class ItemsNormalizerTest extends TestCase
 {
     public function testItemsNormalizer(): void
     {
-        $mockItemNormalizer = $this->getMockBuilder(ItemNormalizer::class)
-            ->getMock();
+        $mockItemNormalizer = $this->createMock(ItemNormalizer::class);
             
         $mockItemNormalizer
             ->expects($this->exactly(4))

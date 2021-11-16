@@ -32,7 +32,7 @@ class DefaultUpdaterTest extends TestCase
 
     $updater = new DefaultUpdater();
     
-    $updater->updateItem($actualItem);
+    $updater->update($actualItem);
 
     $this->assertEquals($expectedItem, $actualItem, 'Actual and expected items do not match after passing through DefaultUpdater!');
 

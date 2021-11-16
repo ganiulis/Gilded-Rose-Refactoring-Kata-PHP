@@ -1,0 +1,8 @@
+OMGHAI!
+-------- day 3 --------
+name, sellIn, quality
+foo, 4, 3
+bar, 5, 2
+zim, 6, 1
+gir, 7, 0
+
