@@ -3,15 +3,15 @@
 namespace Tests\Validator;
 
 use GildedRose\Item;
-use GildedRose\Validator\QualityValidator;
+use GildedRose\Validator\DefaultValidator;
 use PHPUnit\Framework\TestCase;
 
-class QualityValidatorTest extends TestCase
+class DefaultValidatorTest extends TestCase
 {
     /**
      * @dataProvider provideTestItemData
     */
-    public function testQualityValidator(array $testItemData)
+    public function testDefaultValidator(array $testItemData)
     {
         $actualItem = new Item(
             $testItemData['Name'],
@@ -25,7 +25,7 @@ class QualityValidatorTest extends TestCase
             $testItemData['Quality']['expected']
         );
         
-        $validator = new QualityValidator();
+        $validator = new DefaultValidator();
 
         $validator->validate($actualItem);
 
@@ -54,20 +54,6 @@ class QualityValidatorTest extends TestCase
                     'Name' => 'Cherry pie',
                     'SellIn' => ['actual' => 3, 'expected' => 3],
                     'Quality' => ['actual' => -12, 'expected' => 0]
-                ]
-            ],
-            [
-                'Sulfuras good item' => [
-                    'Name' => 'Sulfuras, Hand of Ragnaros',
-                    'SellIn' => ['actual' => 0, 'expected' => 0],
-                    'Quality' => ['actual' => 80, 'expected' => 80]
-                ]
-            ],
-            [
-                'Sulfuras bad item' => [
-                    'Name' => 'Sulfuras, Hand of Ragnaros',
-                    'SellIn' => ['actual' => 0, 'expected' => 0],
-                    'Quality' => ['actual' => -62, 'expected' => 80]
                 ]
             ]
         ];

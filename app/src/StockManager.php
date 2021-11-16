@@ -16,7 +16,8 @@ class StockManager
     public function __construct(
         UpdaterInterface $defaultUpdater,
         array $updaters,
-        ValidatorInterface $validator
+        ValidatorInterface $defaultValidator,
+        array $validators
     ) {
         $this->defaultUpdater = $defaultUpdater;
 
@@ -24,12 +25,21 @@ class StockManager
             $this->addUpdater($updater);
         }
 
-        $this->validator = $validator;
+        $this->defaultValidator = $defaultValidator;
+
+        foreach ($validators as $validator) {
+            $this->addValidator($validator);
+        }
     }
 
     private function addUpdater(UpdaterInterface $updater): void
     {
         $this->updaters[] = $updater;
+    }
+
+    private function addValidator(ValidatorInterface $validator): void
+    {
+        $this->validators[] = $validator;
     }
 
     /**
@@ -65,9 +75,23 @@ class StockManager
         return $items;
     }
 
+    /**
+     * Validates quality of one Item. Checks through non-default Validators first before calling DefaultValidator.
+     *
+     * @param Item $item Item to be validated
+     * @return void
+     */
     public function validate(Item $item): void
     {
-        $this->validator->validate($item);
+        if (isset($this->validators)) {
+            foreach ($this->validators as $validator) {
+                if ($validator->supports($item)) {
+                    $validator->validate($item);
+                    return;
+                }
+            }
+        }
+        $this->defaultValidator->validate($item);
     }
 
     public function validateAll(array $items): array

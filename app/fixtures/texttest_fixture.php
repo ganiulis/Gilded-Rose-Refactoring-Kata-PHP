@@ -11,7 +11,8 @@ use GildedRose\Repository\ItemRepository;
 use GildedRose\Serializer\ItemNormalizer;
 use GildedRose\Serializer\ItemsNormalizer;
 use GildedRose\StockManager;
-use GildedRose\Validator\QualityValidator;
+use GildedRose\Validator\DefaultValidator;
+use GildedRose\Validator\SulfurasValidator;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 $itemRepository = new ItemRepository(
@@ -32,7 +33,10 @@ $manager = new StockManager(
         new Updater\ConjuredUpdater(),
         new Updater\SulfurasUpdater()
     ],
-    new QualityValidator()
+    new DefaultValidator(),
+    [
+        new SulfurasValidator()
+    ]
 );
 
 $days = 2;

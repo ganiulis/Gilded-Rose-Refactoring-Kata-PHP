@@ -5,10 +5,10 @@ namespace Tests\Updater;
 use GildedRose\Item;
 use GildedRose\StockManager;
 use GildedRose\Updater;
-use GildedRose\Validator\QualityValidator;
+use GildedRose\Validator\DefaultValidator;
 use PHPUnit\Framework\TestCase;
 
-class StockProcesssorTest extends TestCase
+class StockManagerTest extends TestCase
 {
     public function testUpdateAll(): void
     {
@@ -41,7 +41,7 @@ class StockProcesssorTest extends TestCase
             ->with($testItems[0])
             ->willReturn(new Item('foo', 3, 2));
 
-        $mockValidator = $this->createMock(QualityValidator::class);
+        $mockValidator = $this->createMock(DefaultValidator::class);
 
         $mockValidator->expects($this->exactly(2))
             ->method('validate')
@@ -59,7 +59,10 @@ class StockProcesssorTest extends TestCase
             [
                 $mockUpdater
             ],
-            $mockValidator
+            $mockValidator,
+            [
+                $mockValidator
+            ]
         );
 
         $manager->updateAll($testItems);

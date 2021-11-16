@@ -5,8 +5,19 @@ namespace GildedRose\Validator;
 use GildedRose\Item;
 use GildedRose\Validator\ValidatorInterface;
 
-class QualityValidator implements ValidatorInterface
+class DefaultValidator implements ValidatorInterface
 {
+    /**
+     * Supports any passed item
+     *
+     * @param Item $item
+     * @return boolean output always equates to true
+     */
+    public function supports(Item $item): bool
+    {
+        return true;
+    }
+    
     /**
      * Checks quality of an Item so number stays within the allowed limits 
      *
@@ -15,11 +26,6 @@ class QualityValidator implements ValidatorInterface
      */
     public function validate(Item $item): Item
     {
-        if (strcasecmp('Sulfuras, Hand of Ragnaros', $item->name) === 0) {
-            $item->quality = 80;
-            return $item;
-        }
-        
         if ($item->quality > 50) {
             $item->quality = 50;
             return $item;

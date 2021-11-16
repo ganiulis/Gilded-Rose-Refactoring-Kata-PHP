@@ -12,7 +12,8 @@ use GildedRose\Serializer\ItemNormalizer;
 use GildedRose\Serializer\ItemsNormalizer;
 use GildedRose\StockManager;
 use GildedRose\Updater;
-use GildedRose\Validator\QualityValidator;
+use GildedRose\Validator\DefaultValidator;
+use GildedRose\Validator\SulfurasValidator;
 use PHPUnit\Framework\TestCase;
 
 use SplFileInfo;
@@ -42,7 +43,10 @@ class StockManagerApprovalTest extends TestCase
                         new Updater\ConjuredUpdater(),
                         new Updater\SulfurasUpdater()
                     ],
-                    new QualityValidator()
+                    new DefaultValidator(),
+                    [
+                        new SulfurasValidator()
+                    ]
                 ),
                 new StockPrinter()
             )
