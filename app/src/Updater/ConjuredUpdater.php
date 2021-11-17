@@ -17,7 +17,7 @@ class ConjuredUpdater implements UpdaterInterface
         return preg_match('/\bConjured\b/i', $item->name);
     }
 
-    private function updateQuality(Item $item): Item
+    public function update(Item $item): Item
     {
         $item->quality -= 2;
 
@@ -25,19 +25,8 @@ class ConjuredUpdater implements UpdaterInterface
             $item->quality -= 2;
         }
 
-        return $item;
-    }
-
-    private function updateSellIn(Item $item): Item
-    {
         $item->sell_in -= 1;
-        return $item;
-    }
 
-    public function update(Item $item): Item
-    {
-        $this->updateQuality($item);
-        $this->updateSellIn($item);
         return $item;
     }
 }

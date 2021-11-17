@@ -17,7 +17,7 @@ class BrieUpdater implements UpdaterInterface
         return strcasecmp('Aged Brie', $item->name) === 0;
     }
 
-    private function updateQuality(Item $item): Item
+    public function update(Item $item): Item
     {
         $item->quality += 1;
         
@@ -25,19 +25,8 @@ class BrieUpdater implements UpdaterInterface
             $item->quality += 1;
         }
 
-        return $item;
-    }
-
-    private function updateSellIn(Item $item): Item
-    {
         $item->sell_in -= 1;
-        return $item;
-    }
 
-    public function update(Item $item): Item
-    {
-        $this->updateQuality($item);
-        $this->updateSellIn($item);
         return $item;
     }
 }
