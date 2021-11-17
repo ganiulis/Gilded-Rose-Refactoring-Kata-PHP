@@ -11,7 +11,7 @@ class DefaultValidatorTest extends TestCase
     /**
      * @dataProvider provideTestItemData
     */
-    public function testDefaultValidator(array $testItemData)
+    public function testDefaultValidator(array $testItemData): void
     {
         $actualItem = new Item(
             $testItemData['Name'],

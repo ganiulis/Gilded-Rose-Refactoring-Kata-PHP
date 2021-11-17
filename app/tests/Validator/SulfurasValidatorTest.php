@@ -11,7 +11,7 @@ class SulfurasValidatorTest extends TestCase
     /**
      * @dataProvider provideTestItemData
     */
-    public function testSulfurasValidator(array $testItemData)
+    public function testSulfurasValidator(array $testItemData): void
     {
         $actualItem = new Item(
             $testItemData['Name'],

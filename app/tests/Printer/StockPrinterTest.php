@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class StockPrinterTest extends TestCase
 {
-    public function testStockPrinter()
+    public function testStockPrinter(): void
     {
         $printer = new StockPrinter();
 
