@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\Validator;
+namespace Tests\Updater\Checker;
 
 use GildedRose\Item;
-use GildedRose\Validator\SulfurasValidator;
+use GildedRose\Updater\Checker\SulfurasChecker;
 use PHPUnit\Framework\TestCase;
 
-class SulfurasValidatorTest extends TestCase
+class SulfurasCheckerTest extends TestCase
 {
     /**
      * @dataProvider provideTestItemData
     */
-    public function testSulfurasValidator(array $testItemData): void
+    public function testSulfurasChecker(array $testItemData): void
     {
         $actualItem = new Item(
             $testItemData['Name'],
@@ -25,13 +25,13 @@ class SulfurasValidatorTest extends TestCase
             $testItemData['Quality']['expected']
         );
         
-        $validator = new SulfurasValidator();
+        $checker = new SulfurasChecker();
 
-        $this->assertEquals($testItemData['Supported'], $validator->supports($actualItem), 'Item is unsupported!');
+        $this->assertEquals($testItemData['Supported'], $checker->supports($actualItem), 'Item is unsupported!');
 
-        if ($validator->supports($actualItem)) {
-            $validator->validate($actualItem);
-            $this->assertEquals($expectedItem, $actualItem, 'Actual and expected items do not match after passing through QualityValidator!');
+        if ($checker->supports($actualItem)) {
+            $checker->checkQuality($actualItem);
+            $this->assertEquals($expectedItem, $actualItem, 'Actual and expected items do not match after passing through Qualitychecker!');
         }
     }
 

@@ -1,11 +1,10 @@
 <?php
 
-namespace GildedRose\Validator;
+namespace GildedRose\Updater\Checker;
 
 use GildedRose\Item;
-use GildedRose\Validator\ValidatorInterface;
 
-class DefaultValidator implements ValidatorInterface
+class DefaultChecker implements CheckerInterface
 {
     /**
      * Supports any passed item
@@ -24,7 +23,7 @@ class DefaultValidator implements ValidatorInterface
      * @param Item $item
      * @return Item
      */
-    public function validate(Item $item): Item
+    public function checkQuality(Item $item): Item
     {
         if ($item->quality > 50) {
             $item->quality = 50;

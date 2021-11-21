@@ -12,8 +12,8 @@ use GildedRose\Serializer\ItemNormalizer;
 use GildedRose\Serializer\ItemsNormalizer;
 use GildedRose\StockManager;
 use GildedRose\Updater;
-use GildedRose\Validator\DefaultValidator;
-use GildedRose\Validator\SulfurasValidator;
+use GildedRose\Updater\Checker\DefaultChecker;
+use GildedRose\Updater\Checker\SulfurasChecker;
 use PHPUnit\Framework\TestCase;
 
 use SplFileInfo;
@@ -43,9 +43,9 @@ class StockManagerDefaultApprovalTest extends TestCase
                         new Updater\ConjuredUpdater(),
                         new Updater\SulfurasUpdater()
                     ],
-                    new DefaultValidator(),
+                    new DefaultChecker(),
                     [
-                        new SulfurasValidator()
+                        new SulfurasChecker()
                     ]
                 ),
                 new StockPrinter()

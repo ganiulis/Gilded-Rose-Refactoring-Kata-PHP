@@ -11,8 +11,8 @@ use GildedRose\Repository\ItemRepository;
 use GildedRose\Serializer\ItemNormalizer;
 use GildedRose\Serializer\ItemsNormalizer;
 use GildedRose\StockManager;
-use GildedRose\Validator\DefaultValidator;
-use GildedRose\Validator\SulfurasValidator;
+use GildedRose\Updater\Checker\DefaultChecker;
+use GildedRose\Updater\Checker\SulfurasChecker;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 $itemRepository = new ItemRepository(
@@ -33,9 +33,9 @@ $manager = new StockManager(
         new Updater\ConjuredUpdater(),
         new Updater\SulfurasUpdater()
     ],
-    new DefaultValidator(),
+    new DefaultChecker(),
     [
-        new SulfurasValidator()
+        new SulfurasChecker()
     ]
 );
 
@@ -51,5 +51,4 @@ $printer->printIntro();
 for ($day = 0; $day < $days; $day++) {
     $printer->printSummary($items, $day);
     $manager->updateAll($items);
-    $manager->validateAll($items);
 }

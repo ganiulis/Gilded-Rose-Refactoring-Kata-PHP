@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\Validator;
+namespace Tests\Updater\Checker;
 
 use GildedRose\Item;
-use GildedRose\Validator\DefaultValidator;
+use GildedRose\Updater\Checker\DefaultChecker;
 use PHPUnit\Framework\TestCase;
 
-class DefaultValidatorTest extends TestCase
+class DefaultCheckerTest extends TestCase
 {
     /**
      * @dataProvider provideTestItemData
     */
-    public function testDefaultValidator(array $testItemData): void
+    public function testDefaultChecker(array $testItemData): void
     {
         $actualItem = new Item(
             $testItemData['Name'],
@@ -25,13 +25,13 @@ class DefaultValidatorTest extends TestCase
             $testItemData['Quality']['expected']
         );
         
-        $validator = new DefaultValidator();
+        $checker = new DefaultChecker();
 
-        $this->assertEquals($testItemData['Supported'], $validator->supports($actualItem), 'Item is unsupported!');
+        $this->assertEquals($testItemData['Supported'], $checker->supports($actualItem), 'Item is unsupported!');
 
-        $validator->validate($actualItem);
+        $checker->checkQuality($actualItem);
 
-        $this->assertEquals($expectedItem, $actualItem, 'Actual and expected items do not match after passing through QualityValidator!');
+        $this->assertEquals($expectedItem, $actualItem, 'Actual and expected items do not match after passing through Qualitychecker!');
     }
 
     public function provideTestItemData(): array 

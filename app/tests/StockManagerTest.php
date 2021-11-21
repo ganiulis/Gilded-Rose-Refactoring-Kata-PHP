@@ -5,7 +5,7 @@ namespace Tests\Updater;
 use GildedRose\Item;
 use GildedRose\StockManager;
 use GildedRose\Updater;
-use GildedRose\Validator\DefaultValidator;
+use GildedRose\Updater\Checker\DefaultChecker;
 use PHPUnit\Framework\TestCase;
 
 class StockManagerTest extends TestCase
@@ -41,10 +41,10 @@ class StockManagerTest extends TestCase
             ->with($testItems[0])
             ->willReturn(new Item('foo', 3, 2));
 
-        $mockValidator = $this->createMock(DefaultValidator::class);
+        $mockChecker = $this->createMock(DefaultChecker::class);
 
-        $mockValidator->expects($this->exactly(2))
-            ->method('validate')
+        $mockChecker->expects($this->exactly(2))
+            ->method('checkQuality')
             ->withConsecutive(
                 [$testItems[0]],
                 [$testItems[1]]
@@ -59,13 +59,12 @@ class StockManagerTest extends TestCase
             [
                 $mockUpdater
             ],
-            $mockValidator,
+            $mockChecker,
             [
-                $mockValidator
+                $mockChecker
             ]
         );
 
         $manager->updateAll($testItems);
-        $manager->validateAll($testItems);
     }
 }

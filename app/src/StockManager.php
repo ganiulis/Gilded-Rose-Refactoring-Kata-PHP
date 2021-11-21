@@ -6,7 +6,7 @@ namespace GildedRose;
 
 use GildedRose\Item;
 use GildedRose\Updater\UpdaterInterface;
-use GildedRose\Validator\ValidatorInterface;
+use GildedRose\Updater\Checker\CheckerInterface;
 
 /**
  * Used for updating an array of Items.
@@ -16,8 +16,8 @@ class StockManager
     public function __construct(
         UpdaterInterface $defaultUpdater,
         array $updaters,
-        ValidatorInterface $defaultValidator,
-        array $validators
+        CheckerInterface $defaultChecker,
+        array $checkers
     ) {
         $this->defaultUpdater = $defaultUpdater;
 
@@ -25,10 +25,10 @@ class StockManager
             $this->addUpdater($updater);
         }
 
-        $this->defaultValidator = $defaultValidator;
+        $this->defaultChecker = $defaultChecker;
 
-        foreach ($validators as $validator) {
-            $this->addValidator($validator);
+        foreach ($checkers as $checker) {
+            $this->addChecker($checker);
         }
     }
 
@@ -37,9 +37,9 @@ class StockManager
         $this->updaters[] = $updater;
     }
 
-    private function addValidator(ValidatorInterface $validator): void
+    private function addChecker(CheckerInterface $checker): void
     {
-        $this->validators[] = $validator;
+        $this->checkers[] = $checker;
     }
 
     /**
@@ -54,11 +54,32 @@ class StockManager
             foreach ($this->updaters as $updater) {
                 if ($updater->supports($item)) {
                     $updater->update($item);
+                    $this->check($item);
                     return;
                 }
             }
         }
         $this->defaultUpdater->update($item);
+        $this->check($item);
+    }
+
+    /**
+     * Checks Quality of one Item. Checks through non-default checkers first before calling DefaultChecker.
+     *
+     * @param Item $item Item to be validated
+     * @return void
+     */
+    private function check(Item $item): void
+    {
+        if (isset($this->checkers)) {
+            foreach ($this->checkers as $checker) {
+                if ($checker->supports($item)) {
+                    $checker->checkQuality($item);
+                    return;
+                }
+            }
+        }
+        $this->defaultChecker->checkQuality($item);
     }
 
     /**
@@ -75,30 +96,5 @@ class StockManager
         return $items;
     }
 
-    /**
-     * Validates quality of one Item. Checks through non-default Validators first before calling DefaultValidator.
-     *
-     * @param Item $item Item to be validated
-     * @return void
-     */
-    public function validate(Item $item): void
-    {
-        if (isset($this->validators)) {
-            foreach ($this->validators as $validator) {
-                if ($validator->supports($item)) {
-                    $validator->validate($item);
-                    return;
-                }
-            }
-        }
-        $this->defaultValidator->validate($item);
-    }
 
-    public function validateAll(array $items): array
-    {
-        foreach ($items as $item) {
-            $this->validate($item);
-        }
-        return $items;
-    }
 }

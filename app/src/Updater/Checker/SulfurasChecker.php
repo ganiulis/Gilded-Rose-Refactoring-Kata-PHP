@@ -1,11 +1,10 @@
 <?php
 
-namespace GildedRose\Validator;
+namespace GildedRose\Updater\Checker;
 
 use GildedRose\Item;
-use GildedRose\Validator\ValidatorInterface;
 
-class SulfurasValidator implements ValidatorInterface
+class SulfurasChecker implements CheckerInterface
 {
     /**
      * Performs a case-insensitive check on the Item name
@@ -24,7 +23,7 @@ class SulfurasValidator implements ValidatorInterface
      * @param Item $item
      * @return Item
      */
-    public function validate(Item $item): Item
+    public function checkQuality(Item $item): Item
     {
         if ($item->quality !== 80) {
             $item->quality = 80;

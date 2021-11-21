@@ -11,8 +11,8 @@ use GildedRose\Serializer\ItemNormalizer;
 use GildedRose\Serializer\ItemsNormalizer;
 use GildedRose\StockManager;
 use GildedRose\Updater;
-use GildedRose\Validator\DefaultValidator;
-use GildedRose\Validator\SulfurasValidator;
+use GildedRose\Validator\Checker\DefaultChecker;
+use GildedRose\Validator\Checker\SulfurasChecker;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
@@ -33,9 +33,9 @@ $commands = [
                 new Updater\ConjuredUpdater(),
                 new Updater\SulfurasUpdater()
             ],
-            new DefaultValidator(),
+            new DefaultChecker(),
             [
-                new SulfurasValidator()
+                new SulfurasChecker()
             ]
         ),
         new StockPrinter()
