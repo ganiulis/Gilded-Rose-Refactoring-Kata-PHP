@@ -42,10 +42,6 @@ class StockManagerDefaultApprovalTest extends TestCase
                         new Updater\BrieUpdater(),
                         new Updater\ConjuredUpdater(),
                         new Updater\SulfurasUpdater()
-                    ],
-                    new DefaultChecker(),
-                    [
-                        new SulfurasChecker()
                     ]
                 ),
                 new StockPrinter()

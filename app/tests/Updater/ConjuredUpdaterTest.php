@@ -69,14 +69,14 @@ class ConjuredUpdaterTest extends TestCase
                 'Quality decreases by 2' => [
                     'Name' => 'Conjured elderberry pie',
                     'SellIn' => ['actual' => 2, 'expected' => 1],
-                    'Quality' => ['actual' => 1, 'expected' => -1]
+                    'Quality' => ['actual' => 3, 'expected' => 1]
                 ]
             ],
             [
                 'Quality decreases by 4 when SellIn is negative' => [
                     'Name' => 'Conjured fig pie',
                     'SellIn' => ['actual' => 0, 'expected' => -1],
-                    'Quality' => ['actual' => 0, 'expected' => -4]
+                    'Quality' => ['actual' => 5, 'expected' => 1]
                 ]
             ]
        ];

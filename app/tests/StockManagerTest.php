@@ -5,7 +5,6 @@ namespace Tests\Updater;
 use GildedRose\Item;
 use GildedRose\StockManager;
 use GildedRose\Updater;
-use GildedRose\Updater\Checker\DefaultChecker;
 use PHPUnit\Framework\TestCase;
 
 class StockManagerTest extends TestCase
@@ -41,27 +40,10 @@ class StockManagerTest extends TestCase
             ->with($testItems[0])
             ->willReturn(new Item('foo', 3, 2));
 
-        $mockChecker = $this->createMock(DefaultChecker::class);
-
-        $mockChecker->expects($this->exactly(2))
-            ->method('checkQuality')
-            ->withConsecutive(
-                [$testItems[0]],
-                [$testItems[1]]
-            )
-            ->willReturnOnConsecutiveCalls(
-                new Item('foo', 3, 2),
-                new Item('bar', 4, 1)
-            );
-
         $manager = new StockManager(
             $mockDefaultUpdater,
             [
                 $mockUpdater
-            ],
-            $mockChecker,
-            [
-                $mockChecker
             ]
         );
 

@@ -11,8 +11,6 @@ use GildedRose\Repository\ItemRepository;
 use GildedRose\Serializer\ItemNormalizer;
 use GildedRose\Serializer\ItemsNormalizer;
 use GildedRose\StockManager;
-use GildedRose\Updater\Checker\DefaultChecker;
-use GildedRose\Updater\Checker\SulfurasChecker;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 $itemRepository = new ItemRepository(
@@ -32,10 +30,6 @@ $manager = new StockManager(
         new Updater\BrieUpdater(),
         new Updater\ConjuredUpdater(),
         new Updater\SulfurasUpdater()
-    ],
-    new DefaultChecker(),
-    [
-        new SulfurasChecker()
     ]
 );
 

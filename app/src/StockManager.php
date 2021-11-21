@@ -6,7 +6,6 @@ namespace GildedRose;
 
 use GildedRose\Item;
 use GildedRose\Updater\UpdaterInterface;
-use GildedRose\Updater\Checker\CheckerInterface;
 
 /**
  * Used for updating an array of Items.
@@ -15,31 +14,18 @@ class StockManager
 {
     public function __construct(
         UpdaterInterface $defaultUpdater,
-        array $updaters,
-        CheckerInterface $defaultChecker,
-        array $checkers
+        array $updaters
     ) {
         $this->defaultUpdater = $defaultUpdater;
 
         foreach ($updaters as $updater) {
             $this->addUpdater($updater);
         }
-
-        $this->defaultChecker = $defaultChecker;
-
-        foreach ($checkers as $checker) {
-            $this->addChecker($checker);
-        }
     }
 
     private function addUpdater(UpdaterInterface $updater): void
     {
         $this->updaters[] = $updater;
-    }
-
-    private function addChecker(CheckerInterface $checker): void
-    {
-        $this->checkers[] = $checker;
     }
 
     /**
@@ -54,32 +40,11 @@ class StockManager
             foreach ($this->updaters as $updater) {
                 if ($updater->supports($item)) {
                     $updater->update($item);
-                    $this->check($item);
                     return;
                 }
             }
         }
         $this->defaultUpdater->update($item);
-        $this->check($item);
-    }
-
-    /**
-     * Checks Quality of one Item. Checks through non-default checkers first before calling DefaultChecker.
-     *
-     * @param Item $item Item to be validated
-     * @return void
-     */
-    private function check(Item $item): void
-    {
-        if (isset($this->checkers)) {
-            foreach ($this->checkers as $checker) {
-                if ($checker->supports($item)) {
-                    $checker->checkQuality($item);
-                    return;
-                }
-            }
-        }
-        $this->defaultChecker->checkQuality($item);
     }
 
     /**
