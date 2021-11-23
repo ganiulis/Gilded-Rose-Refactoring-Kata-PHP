@@ -7,7 +7,7 @@ use GildedRose\StockManager;
 use GildedRose\Updater;
 use PHPUnit\Framework\TestCase;
 
-class StockProcesssorTest extends TestCase
+class StockManagerTest extends TestCase
 {
     public function testUpdateAll(): void
     {

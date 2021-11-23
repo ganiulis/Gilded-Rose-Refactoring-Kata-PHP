@@ -6,6 +6,7 @@ namespace Tests\Updater;
 
 use GildedRose\Item;
 use GildedRose\Updater\BackstageUpdater;
+use GildedRose\Validator\QualityValidator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -32,6 +33,8 @@ class BackstageUpdaterTest extends TestCase
 
     $updater = new BackstageUpdater();
     
+    $this->assertTrue($updater->supports($actualItem));
+
     $updater->update($actualItem);
 
     $this->assertEquals($expectedItem, $actualItem, 'Actual and expected items do not match after passing through BackstageUpdater!');
@@ -46,13 +49,6 @@ class BackstageUpdaterTest extends TestCase
                     'Name' => 'Backstage passes to a TAFKAL80ETC concert',        
                     'SellIn' => ['actual' => 12, 'expected' => 11],
                     'Quality' => ['actual' => 48, 'expected' => 49]
-                ]
-            ],
-            [
-                'More than 11 days left - quality increases by 1' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert', 
-                    'SellIn' => ['actual' => 12, 'expected' => 11],
-                    'Quality' => ['actual' => 49, 'expected' => 50]
                 ]
             ],
             [
@@ -73,28 +69,7 @@ class BackstageUpdaterTest extends TestCase
                 '10 or less days left - quality increases by 2' => [
                     'Name' => 'Backstage passes to a TAFKAL80ETC concert',
                     'SellIn' => ['actual' => 10, 'expected' => 9],
-                    'Quality' => ['actual' => 48, 'expected' => 50]
-                ]
-            ],
-            [
-                '10 or less days left - quality increases by 2' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                    'SellIn' => ['actual' => 10, 'expected' => 9],
                     'Quality' => ['actual' => 49, 'expected' => 50]
-                ]
-            ],
-            [
-                '10 or less days left - quality increases by 2' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                    'SellIn' => ['actual' => 10, 'expected' => 9],
-                    'Quality' => ['actual' => 50, 'expected' => 50]
-                ]
-            ],
-            [
-                '10 or less days left - quality increases by 2' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                    'SellIn' => ['actual' => 10, 'expected' => 9],
-                    'Quality' => ['actual' => 0, 'expected' => 2]
                 ]
             ],
             [
@@ -108,42 +83,7 @@ class BackstageUpdaterTest extends TestCase
                 '5 or less days left - quality increases by 3' => [
                     'Name' => 'Backstage passes to a TAFKAL80ETC concert',
                     'SellIn' => ['actual' => 5, 'expected' => 4],
-                    'Quality' => ['actual' => 47, 'expected' => 50]
-                ]
-            ],
-            [
-                '5 or less days left - quality increases by 3' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                    'SellIn' => ['actual' => 5, 'expected' => 4],
-                    'Quality' => ['actual' => 48, 'expected' => 50]
-                ]
-            ],
-            [
-                '5 or less days left - quality increases by 3' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                    'SellIn' => ['actual' => 5, 'expected' => 4],
                     'Quality' => ['actual' => 49, 'expected' => 50]
-                ]
-            ],
-            [
-                '5 or less days left - quality increases by 3' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                    'SellIn' => ['actual' => 5, 'expected' => 4],
-                    'Quality' => ['actual' => 50, 'expected' => 50]
-                ]
-            ],
-            [
-                '5 or less days left - quality increases by 3' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                    'SellIn' => ['actual' => 5, 'expected' => 4],
-                    'Quality' => ['actual' => 0, 'expected' => 3]
-                ]
-            ],
-            [
-                '5 or less days left - quality increases by 3' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                    'SellIn' => ['actual' => 1, 'expected' => 0],
-                    'Quality' => ['actual' => 0, 'expected' => 3]
                 ]
             ],
             [

@@ -12,6 +12,8 @@ use GildedRose\Serializer\ItemNormalizer;
 use GildedRose\Serializer\ItemsNormalizer;
 use GildedRose\StockManager;
 use GildedRose\Updater;
+use GildedRose\Updater\Checker\DefaultChecker;
+use GildedRose\Updater\Checker\SulfurasChecker;
 use PHPUnit\Framework\TestCase;
 
 use SplFileInfo;
@@ -29,17 +31,17 @@ class StockManagerDefaultApprovalTest extends TestCase
         $command = $application->add(
             new TestFixtureCommand(
                 new ItemRepository(
-                    new FileContentRetriever,
-                    new CsvEncoder, 
-                    new ItemsNormalizer(new ItemNormalizer)
+                    new FileContentRetriever(),
+                    new CsvEncoder(), 
+                    new ItemsNormalizer(new ItemNormalizer())
                 ),
                 new StockManager(
-                    new Updater\DefaultUpdater,
+                    new Updater\DefaultUpdater(),
                     [
-                        new Updater\BackstageUpdater,
-                        new Updater\BrieUpdater,
-                        new Updater\ConjuredUpdater,
-                        new Updater\SulfurasUpdater
+                        new Updater\BackstageUpdater(),
+                        new Updater\BrieUpdater(),
+                        new Updater\ConjuredUpdater(),
+                        new Updater\SulfurasUpdater()
                     ]
                 ),
                 new StockPrinter()

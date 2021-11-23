@@ -6,6 +6,7 @@ namespace Tests\Updater;
 
 use GildedRose\Item;
 use GildedRose\Updater\BrieUpdater;
+use GildedRose\Validator\QualityValidator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -31,6 +32,8 @@ class BrieUpdaterTest extends TestCase
     );
 
     $updater = new BrieUpdater();
+
+    $this->assertTrue($updater->supports($actualItem));
     
     $updater->update($actualItem);
 
@@ -41,82 +44,26 @@ class BrieUpdaterTest extends TestCase
    {
        return [
            [
-               'First test' => [
+               'Quality increases by 1' => [
                    'Name' => 'Aged brie',        
                    'SellIn' => ['actual' => 2, 'expected' => 1],
                    'Quality' => ['actual' => 2, 'expected' => 3]
                ]
            ],
            [
-               'Second test' => [
+               'Quality increases by 1' => [
                    'Name' => 'Aged brie', 
                    'SellIn' => ['actual' => 1, 'expected' => 0],
                    'Quality' => ['actual' => 2, 'expected' => 3]
                ]
            ],
            [
-               'Third test' => [
+               'Quality increases by 2 when SellIn is negative' => [
                    'Name' => 'Aged brie',
                    'SellIn' => ['actual' => 0, 'expected' => -1],
                    'Quality' => ['actual' => 2, 'expected' => 4]
                ]
-           ],
-           [
-               'Fourth test' => [
-                   'Name' => 'Aged brie',
-                   'SellIn' => ['actual' => 0, 'expected' => -1],
-                   'Quality' => ['actual' => 0, 'expected' => 2]
-               ]
-            ],
-            [
-                'Fifth test' => [
-                    'Name' => 'Aged brie',
-                    'SellIn' => ['actual' => 0, 'expected' => -1],
-                    'Quality' => ['actual' => 47, 'expected' => 49]
-                ]
-            ],
-            [
-                'Sixth test' => [
-                    'Name' => 'Aged brie',
-                    'SellIn' => ['actual' => 0, 'expected' => -1],
-                    'Quality' => ['actual' => 48, 'expected' => 50]
-                ]
-            ],
-            [
-                'Seventh test' => [
-                    'Name' => 'Aged brie',
-                    'SellIn' => ['actual' => 0, 'expected' => -1],
-                    'Quality' => ['actual' => 49, 'expected' => 50]
-                ]
-            ],
-            [
-                'Eight test' => [
-                    'Name' => 'Aged brie',
-                    'SellIn' => ['actual' => 0, 'expected' => -1],
-                    'Quality' => ['actual' => 50, 'expected' => 50]
-                ]
-            ],
-            [
-                'Ninth test' => [
-                    'Name' => 'Aged brie',
-                    'SellIn' => ['actual' => 2, 'expected' => 1],
-                    'Quality' => ['actual' => 48, 'expected' => 49]
-                ]
-            ],
-            [
-                'Tenth test' => [
-                    'Name' => 'Aged brie',
-                    'SellIn' => ['actual' => 2, 'expected' => 1],
-                    'Quality' => ['actual' => 49, 'expected' => 50]
-                ]
-            ],
-            [
-                'Eleventh test' => [
-                    'Name' => 'Aged brie',
-                    'SellIn' => ['actual' => 1, 'expected' => 0],
-                    'Quality' => ['actual' => 50, 'expected' => 50]
-                ]
-            ]
+           ]
        ];
    }
 }

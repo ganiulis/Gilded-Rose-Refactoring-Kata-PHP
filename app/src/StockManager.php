@@ -17,6 +17,7 @@ class StockManager
         array $updaters
     ) {
         $this->defaultUpdater = $defaultUpdater;
+
         foreach ($updaters as $updater) {
             $this->addUpdater($updater);
         }
@@ -59,4 +60,6 @@ class StockManager
         }
         return $items;
     }
+
+
 }

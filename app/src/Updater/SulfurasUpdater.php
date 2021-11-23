@@ -25,6 +25,10 @@ class SulfurasUpdater implements UpdaterInterface
      */
     public function update(Item $item): Item
     {
+        if ($item->quality !== 80) {
+            $item->quality = 80;
+        }
+
         return $item;
     }
 }
