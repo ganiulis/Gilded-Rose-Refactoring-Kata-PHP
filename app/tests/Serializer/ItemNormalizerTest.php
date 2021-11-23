@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Serializer;
+namespace Tests\GildedRose\Serializer;
 
 use GildedRose\Item;
 use GildedRose\Serializer\ItemNormalizer;

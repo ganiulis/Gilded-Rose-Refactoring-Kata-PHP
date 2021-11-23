@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Repository;
+namespace Tests\GildedRose\Repository;
 
 use GildedRose\Data\FileContentRetriever;
 use GildedRose\Item;

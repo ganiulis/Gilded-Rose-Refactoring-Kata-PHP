@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Updater;
+namespace Tests\GildedRose\Updater;
 
 use GildedRose\Item;
 use GildedRose\Updater\BackstageUpdater;
-use GildedRose\Validator\QualityValidator;
 use PHPUnit\Framework\TestCase;
 
 /**

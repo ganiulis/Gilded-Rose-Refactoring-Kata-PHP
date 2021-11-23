@@ -1,6 +1,6 @@
 <?php 
 
-namespace Tests\Updater;
+namespace Tests\GildedRose\Updater;
 
 use GildedRose\Item;
 use GildedRose\StockManager;

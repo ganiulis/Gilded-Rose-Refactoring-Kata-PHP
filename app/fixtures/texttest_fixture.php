@@ -19,7 +19,7 @@ $itemRepository = new ItemRepository(
     new ItemsNormalizer(new ItemNormalizer())
 );
 
-$filepath = __DIR__ . '/../data/testfixture.csv';
+$filepath = __DIR__ . '/../src/DataFixtures/testfixture.csv';
 $itemRepository->setItems($filepath, 'csv');
 $items = $itemRepository->getItems();
 
