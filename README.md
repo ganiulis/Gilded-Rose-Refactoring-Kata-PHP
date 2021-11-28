@@ -47,7 +47,7 @@ This kata uses [version 8.0](https://www.php.net/releases/8.0/en.php) of [PHP-FP
 
 ### PHP-FPM
 
-This project specifically uses the [PHP 8.0 FastCGI Process Manager](https://www.php.net/manual/en/intro.fpm.php). It's an alternative to regular PHP 8.0+ as PHP-FPM is faster than traditional CGI-based methods and can handle heavier loads, which is useful for high-traffic websites and systems[^1]. Not essential, but nice to have.
+This project specifically uses the [PHP 8.0 FastCGI Process Manager](https://www.php.net/manual/en/intro.fpm.php). It's an alternative to regular PHP 8.0+ as PHP-FPM is faster than traditional CGI-based methods and can handle heavier loads, which is useful for high-traffic websites and systems.[^1] Not essential, but nice to have.
 
 ## Symfony
 
@@ -59,7 +59,7 @@ This kata uses [version 5](https://symfony.com/5) of the framework.
 
 ### MariaDB
 
-[MariaDB](https://mariadb.org/) is an open source relational database forked from MySQL. MariaDB is licensed under the [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.html) and offers better performance than MySQL[^2].
+[MariaDB](https://mariadb.org/) is an open source relational database forked from MySQL. MariaDB is licensed under the [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.html) and offers better performance than MySQL.[^2]
 
 This kata uses [version 10.7.1](https://mariadb.com/kb/en/mariadb-1071-release-notes/) of the database.
 
@@ -70,7 +70,7 @@ This kata uses [version 10.7.1](https://mariadb.com/kb/en/mariadb-1071-release-n
 Taken from Adminer's [landing page](https://www.adminer.org/):
 > Replace phpMyAdmin with Adminer and you will get a tidier user interface, better support for MySQL features, higher performance and more security.
 
-This kata uses the latest version of Adminer[^3].
+This kata uses the latest version of Adminer.[^3]
 
 ## Version Control Development Model
 
@@ -82,7 +82,7 @@ For this project, [main](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kat
 
 ### Why Trunk-Based Development?
 
-This model is easier to set up and iterate when the project team is small (i.e. it's only me who's working on it)[^4].
+This model is easier to set up and iterate when the project team is small (i.e. it's only me who's working on it).[^4]
 
 ## Installation
 
@@ -119,7 +119,7 @@ Build Docker container using `docker-compose`:
 docker-compose up -d --build
 ```
 
-The `-d` command option enables *Detached* mode: runs containers in the background and prints new container names. The `--build` command option builds images before starting the containers[^5].
+The `-d` command option enables *Detached* mode: runs containers in the background and prints new container names. The `--build` command option builds images before starting the containers.[^5]
 
 Check if the container images have succesfully installed:
 
@@ -215,7 +215,7 @@ browser.
 
 ## Code Standard
 
-Easy Coding Standard is configured for style and code standards as described by the [PSR-12](https://www.php-fig.org/psr/psr-12/) specification[^6].
+Easy Coding Standard is configured for style and code standards as described by the [PSR-12](https://www.php-fig.org/psr/psr-12/) specification.[^6]
 
 ### Check Code
 
