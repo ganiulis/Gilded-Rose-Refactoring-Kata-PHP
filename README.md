@@ -51,7 +51,9 @@ This project specifically uses the [PHP 8.0 FastCGI Process Manager](https://www
 
 ## Symfony
 
-[Symfony](https://symfony.com/) is a PHP framework primarily used to create websites and web applications. Built on top of the fantastic set of decoupled [Symfony Components](https://symfony.com/components) PHP libraries. This framework is slightly more complicated to set up and work with when compared to its competitor [Laravel](https://laravel.com/), but offers better flexibility and adaptability for PHP applications in the long-run.
+[Symfony](https://symfony.com/) is a PHP framework primarily used to create websites and web applications. Built on top of the fantastic set of decoupled [Symfony Components](https://symfony.com/components) PHP libraries.
+
+This framework is slightly more complicated to set up and work with when compared to its competitor [Laravel](https://laravel.com/), but offers more flexibility and better adaptability for PHP applications in the long-run.
 
 This kata uses [version 5](https://symfony.com/5) of the framework.
 
@@ -80,9 +82,7 @@ For this project, [main](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kat
 
 ### Why Trunk-Based Development?
 
-This model is easier to set up and iterate when the project team is small (i.e. it's only me who's working on it).
-
-Source: https://trunkbaseddevelopment.com/
+This model is easier to set up and iterate when the project team is small (i.e. it's only me who's working on it)[^2].
 
 ## Installation
 
@@ -119,9 +119,7 @@ Build Docker container using `docker-compose`:
 docker-compose up -d --build
 ```
 
-The `-d` command option enables *Detached* mode: runs containers in the background and prints new container names. The `--build` command option builds images before starting the containers.
-
-Source: https://docs.docker.com/compose/reference/up/
+The `-d` command option enables *Detached* mode: runs containers in the background and prints new container names. The `--build` command option builds images before starting the containers[^3].
 
 Check if the container images have succesfully installed:
 
@@ -182,9 +180,11 @@ This project uses `composer install` to install these dev dependencies:
     - `config/` - contains yaml configuration files
     - `migrations/` - any changes to the database schema are created here as PHP scripts via `php bin/console make:migration` or `composer create-schema` console commands
     - `src/` - source folder refactored to support Symfony
-    - `tests/` - contains all code tests for `src/`. Aims at 95% file coverage
+    - `tests/` - contains all code tests for `src/`. Aims for 95% code coverage
 - `docker/` - categorized `Dockerfile` files live here
 - `docker-compose.yml` - main `docker-compose` file
+
+This structure does not include all files and folders, only ones which are relevant for the purposes of showcasing this kata.
 
 ## Testing
 
@@ -215,9 +215,7 @@ browser.
 
 ## Code Standard
 
-Easy Coding Standard is configured for style and code standards as described by the [PSR-12](https://www.php-fig.org/psr/psr-12/) specification.
-
-Source: https://www.php-fig.org/psr/psr-12/
+Easy Coding Standard is configured for style and code standards as described by the [PSR-12](https://www.php-fig.org/psr/psr-12/) specification[^4].
 
 ### Check Code
 
@@ -286,4 +284,7 @@ This project follows the [2.0 version of the Apache License](https://www.apache.
 
 See the [LICENSE file](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP/blob/main/LICENSE) for more information.
 
-[^1]: Adminer does not conflict with other parts of the kata regardless of the versioning.
+[^1]: Footnote: Adminer does not conflict with other parts of the kata regardless of the version.
+[^2]: Source: https://trunkbaseddevelopment.com/
+[^3]: Source: https://docs.docker.com/compose/reference/up/
+[^4]: Source: https://www.php-fig.org/psr/psr-12/
