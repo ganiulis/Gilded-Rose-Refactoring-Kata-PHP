@@ -4,6 +4,7 @@
 /.phpunit.result.cache
 /build
 /vendor
+/migrations
 
 ###> symfony/framework-bundle ###
 /.env.local

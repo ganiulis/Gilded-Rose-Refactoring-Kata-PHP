@@ -70,7 +70,12 @@
         "test-coverage": "phpunit --coverage-html build/coverage",
         "check-cs": "ecs check",
         "fix-cs": "ecs check --fix",
-        "phpstan": "phpstan analyse --ansi"
+        "phpstan": "phpstan analyse --ansi",
+        "console": "php bin/console",
+        "create-schema": [
+            "@console make:migration",
+            "@console doctrine:migrations:migrate"
+        ]
     },
     "replace": {
         "symfony/polyfill-ctype": "*",
