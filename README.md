@@ -74,6 +74,8 @@ Both of which are installed through Docker.
 
 ### Instructions
 
+#### Docker
+
 Clone the repository using `git`:
 
 ```shell script
@@ -96,6 +98,8 @@ Check if the container images have succesfully installed:
 docker ps
 ```
 
+#### PHP CLI
+
 Launch the `php-fpm` CLI in Docker and install the required PHP dependencies using `composer`:
 
 ```shell script
@@ -104,40 +108,50 @@ composer install
 
 You are now able to play around with how the code works through the `php-fpm` CLI.
 
-If you wish to terminate the Docker container:
+Create the schema for the database using a pre-made script once more through `composer` and press enter once it prompts whether you want to make any changes to the database's schema:
+
+```shell script
+composer create-schema
+```
+
+If you want to terminate the Docker container:
 
 ```shell script
 docker-compose down
 ```
 
+#### Adminer interface
+
+You can also access the MariaDB database via the default [Adminer localhost](http://localhost:8080/) while the Docker container is running. Log in with `admin` and `password`.
+
 ## Container Images
 
 This project uses `docker-compose` to set up these images:
 - [PHP 8.0 FPM](https://hub.docker.com/_/php/) with [Composer 2.1](https://hub.docker.com/_/composer) - see [PHP-FPM](#php-fpm) for reasons behind using this instead of regular PHP 8.0
-    - `git`, `zip` and `unzip` are also installed along with the image
+    - `git`, `zip` and `unzip` are installed along with the image
+    - `pdo` and `pdo_mysql` are installed to work along with `MariaDB 10.7.1`
+- [MariaDB 10.7.1](https://hub.docker.com/_/mariadb) - an open source relational database forked from MySQL which is licensed under the [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.html) and offers better performance than MySQL
+- [Adminer latest](https://hub.docker.com/_/adminer) - (formerly phpMinAdmin) a light-weight database management alternative to [phpMyAdmin](https://hub.docker.com/_/phpmyadmin) which provides similar functionality and consists of a single file ready to deploy to the target server
 
 ## Dependencies
 
 This project uses `composer install` to install these dev dependencies:
+- [Symfony](https://symfony.com/) - a PHP framework primarily used to create websites and web applications. Built on top of the fantastic set of decoupled [Symfony Components](https://symfony.com/components) PHP libraries
+- [Doctrine](https://www.doctrine-project.org/) - a set of PHP libraries primarily focused on database storage and object mapping. The core projects of Doctrine are the [Object Relational Mapper](https://www.doctrine-project.org/projects/orm.html) and the [Database Abstraction Layer](https://www.doctrine-project.org/projects/dbal.html) which work in tandem with the Symfony framework
 - [PHPUnit](https://phpunit.de/) - unit testing framework
 - [ApprovalTests.PHP](https://github.com/approvals/ApprovalTests.php) - assertion and verification library to aid unit testing
 - [PHPStan](https://github.com/phpstan/phpstan) - finds code errors without needing to run any code beforehand
 - [Easy Coding Standard](https://github.com/symplify/easy-coding-standard) - checks code and applies a defined coding standard
 - [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/wiki) - detects and automatically corrects violations of a defined coding standard
-- [Symfony Console Component](https://symfony.com/doc/current/components/console.html) - allows for PHP to receive inputs from the console
 
 ## File & Folder Structure
 
 - `app/` - main code lives here
-    - `fixtures/` - fixtures live here
-        - `texttest_fixture.php` - can be used by `ApprovalTests` or alternatively run from a command line
-    - `src/` - source folder which contains a few classes
-        - `Item.php` - this class should *not* be changed
-        - `GildedRose.php` - this class needs to be refactored and the new *'Conjured'* feature added
-    - `tests/` - contains all code tests
-        - `GildedRoseTest.php` - starter test
-            - For more information, see the [PHP version of the Theatrical Players Refactoring Kata](https://github.com/emilybache/Theatrical-Players-Refactoring-Kata/tree/main/php)
-        - `approvals/` - contains test data for `ApprovalTests`
+    - `bin/console` - Symfony Console component entrypoint
+    - `config/` - contains yaml configuration files
+    - `migrations/` - any changes to the database schema are created here as PHP scripts via `php bin/console make:migration` or `composer create-schema` console commands
+    - `src/` - source folder refactored to support Symfony
+    - `tests/` - contains all code tests for `src/`. Aims at 95% file coverage
 - `docker/` - categorized `Dockerfile` files live here
 - `docker-compose.yml` - main `docker-compose` file
 
