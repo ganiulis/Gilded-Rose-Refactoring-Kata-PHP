@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Updater;
+namespace Tests\GildedRose\Updater;
 
 use GildedRose\Item;
 use GildedRose\Updater\SulfurasUpdater;

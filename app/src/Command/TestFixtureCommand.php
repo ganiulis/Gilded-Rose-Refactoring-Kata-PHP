@@ -44,7 +44,7 @@ class TestFixtureCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $filepath = __DIR__ . '/../../data/testfixture.csv';
+        $filepath = __DIR__ . '/../DataFixtures/testfixture.csv';
 
         $this->itemRepository->setItems($filepath, 'csv');
         $items = $this->itemRepository->getItems();

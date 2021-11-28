@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Printer;
+namespace Tests\GildedRose\Printer;
 
 use ApprovalTests\Approvals;
 use GildedRose\Item;

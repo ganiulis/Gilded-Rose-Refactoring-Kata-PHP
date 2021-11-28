@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Command;
+namespace Tests\GildedRose\Command;
 
 use GildedRose\Command\TestFixtureCommand;
 use GildedRose\Data\FileContentRetriever;
@@ -12,8 +12,6 @@ use GildedRose\Serializer\ItemNormalizer;
 use GildedRose\Serializer\ItemsNormalizer;
 use GildedRose\StockManager;
 use GildedRose\Updater;
-use GildedRose\Updater\Checker\DefaultChecker;
-use GildedRose\Updater\Checker\SulfurasChecker;
 use PHPUnit\Framework\TestCase;
 
 use SplFileInfo;

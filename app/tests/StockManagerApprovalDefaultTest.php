@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Tests\GildedRose;
 
 use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
