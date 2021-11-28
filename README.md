@@ -284,9 +284,9 @@ This project follows the [2.0 version of the Apache License](https://www.apache.
 
 See the [LICENSE file](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP/blob/main/LICENSE) for more information.
 
-[^1]: Source: https://www.basezap.com/difference-php-cgi-php-fpm/
-[^2]: Source: https://www.guru99.com/mariadb-vs-mysql.html
+[^1]: [Difference between PHP-CGI and PHP-FPM](https://www.basezap.com/difference-php-cgi-php-fpm/)
+[^2]: [MariaDB vs MySQL: What is the Difference Between MariaDB and MySQL](https://www.guru99.com/mariadb-vs-mysql.html)
 [^3]: Footnote: Adminer does not conflict with other parts of the kata regardless of the version.
-[^4]: Source: https://trunkbaseddevelopment.com/
-[^5]: Source: https://docs.docker.com/compose/reference/up/
-[^6]: Source: https://www.php-fig.org/psr/psr-12/
+[^4]: [Trunk Based Development: Introduction](https://trunkbaseddevelopment.com/)
+[^5]: [`docker-compose up` specificaton](https://docs.docker.com/compose/reference/up/)
+[^6]: [PSR-12: Extended Coding Style](https://www.php-fig.org/psr/psr-12/)
