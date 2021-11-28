@@ -129,6 +129,12 @@ Check if the container images have succesfully installed:
 docker ps
 ```
 
+If you want to terminate the Docker container:
+
+```shell script
+docker-compose down
+```
+
 #### PHP CLI
 
 Launch the `php-fpm` CLI in Docker and install the required PHP dependencies using `composer`:
@@ -143,12 +149,6 @@ Create the schema for the database using a pre-made script once more through `co
 
 ```shell script
 composer create-schema
-```
-
-If you want to terminate the Docker container:
-
-```shell script
-docker-compose down
 ```
 
 #### Adminer interface
