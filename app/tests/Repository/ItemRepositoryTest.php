@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\GildedRose\Repository;
+namespace App\Tests\Repository;
 
-use GildedRose\Data\FileContentRetriever;
-use GildedRose\Item;
-use GildedRose\Serializer\ItemsNormalizer;
-use GildedRose\Repository\ItemRepository;
+use App\Data\FileContentRetriever;
+use App\Item;
+use App\Serializer\ItemsNormalizer;
+use App\Repository\ItemRepository;
 
 use PHPUnit\Framework\TestCase;
 

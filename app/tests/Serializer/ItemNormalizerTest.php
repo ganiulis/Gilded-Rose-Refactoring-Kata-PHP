@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\GildedRose\Serializer;
+namespace App\Tests\Serializer;
 
-use GildedRose\Item;
-use GildedRose\Serializer\ItemNormalizer;
+use App\Item;
+use App\Serializer\ItemNormalizer;
 
 use PHPUnit\Framework\TestCase;
 

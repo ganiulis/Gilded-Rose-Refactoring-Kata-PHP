@@ -1,9 +1,9 @@
 <?php
 
-namespace GildedRose\Repository;
+namespace App\Repository;
 
-use GildedRose\Serializer\ItemsNormalizer;
-use GildedRose\Data\ContentRetrieverInterface;
+use App\Serializer\ItemsNormalizer;
+use App\Data\ContentRetrieverInterface;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
 
 use Exception;

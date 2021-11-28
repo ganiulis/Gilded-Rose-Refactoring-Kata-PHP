@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace GildedRose;
+namespace App;
 
-use GildedRose\Item;
-use GildedRose\Updater\UpdaterInterface;
+use App\Item;
+use App\Updater\UpdaterInterface;
 
 /**
  * Used for updating an array of Items.

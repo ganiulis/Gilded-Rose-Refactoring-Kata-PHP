@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace GildedRose\Command;
+namespace App\Command;
 
-use GildedRose\Printer\StockPrinter;
+use App\Printer\StockPrinter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use GildedRose\StockManager;
-use GildedRose\Repository\ItemRepository;
+use App\StockManager;
+use App\Repository\ItemRepository;
 
 class TestFixtureCommand extends Command
 {

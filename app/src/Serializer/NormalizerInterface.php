@@ -1,6 +1,6 @@
 <?php
 
-namespace GildedRose\Serializer;
+namespace App\Serializer;
 
 /**
  * Currently only obligates to include denormalization for arrays.

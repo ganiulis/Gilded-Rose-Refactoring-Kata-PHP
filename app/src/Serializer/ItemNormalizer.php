@@ -1,9 +1,9 @@
 <?php
 
-namespace GildedRose\Serializer;
+namespace App\Serializer;
 
-use GildedRose\Serializer\NormalizerInterface;
-use GildedRose\Item;
+use App\Serializer\NormalizerInterface;
+use App\Item;
 
 /**
  * Takes a decoded data item and returns an Item object

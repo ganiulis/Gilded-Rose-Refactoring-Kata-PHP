@@ -1,6 +1,6 @@
 <?php
 
-namespace GildedRose\Data;
+namespace App\Data;
 
 /**
  * Currently only obligates to include denormalization for arrays.

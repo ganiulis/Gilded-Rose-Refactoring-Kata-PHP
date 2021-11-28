@@ -32,12 +32,12 @@
     },
     "autoload": {
         "psr-4": {
-            "GildedRose\\": "src/"
+            "App\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "GildedRose\\Tests\\": "tests/"
+            "App\\Tests\\": "tests/"
         }
     },
     "require-dev": {

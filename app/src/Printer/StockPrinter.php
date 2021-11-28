@@ -1,8 +1,8 @@
 <?php
 
-namespace GildedRose\Printer;
+namespace App\Printer;
 
-use GildedRose\Item;
+use App\Item;
 
 /**
  * Printer class which outputs a receipt of a certain day's stock of Items
