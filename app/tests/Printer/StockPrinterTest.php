@@ -3,7 +3,7 @@
 namespace App\Tests\Printer;
 
 use ApprovalTests\Approvals;
-use App\Entity\Item;
+use App\Item;
 use App\Printer\StockPrinter;
 use PHPUnit\Framework\TestCase;
 

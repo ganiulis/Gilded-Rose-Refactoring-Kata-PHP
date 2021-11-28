@@ -2,15 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App;
 
 final class Item
 {
-    /**
-     * @var int
-     */
-    public $id;
-
     /**
      * @var string
      */

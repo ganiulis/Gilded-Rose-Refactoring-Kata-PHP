@@ -3,7 +3,7 @@
 namespace App\Tests\Repository;
 
 use App\Data\FileContentRetriever;
-use App\Entity\Item;
+use App\Item;
 use App\Serializer\ItemsNormalizer;
 use App\Repository\ItemRepository;
 

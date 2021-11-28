@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Updater;
 
-use App\Entity\Item;
+use App\Item;
 use App\Updater\ConjuredUpdater;
 use PHPUnit\Framework\TestCase;
 

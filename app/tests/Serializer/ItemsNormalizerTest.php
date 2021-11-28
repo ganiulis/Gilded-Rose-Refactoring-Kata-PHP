@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Serializer;
 
-use App\Entity\Item;
+use App\Item;
 use App\Serializer\ItemNormalizer;
 use App\Serializer\ItemsNormalizer;
 
