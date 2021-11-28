@@ -95,11 +95,11 @@ This project needs Docker Desktop and Git:
 
 The kata itself uses:
 
-- [Adminer](https://hub.docker.com/_/adminer) - see the section of [Adminer](#adminer) for reasons behind using this
+- [Adminer](https://hub.docker.com/_/adminer) - see the section for [Adminer](#adminer) for reasons behind using this
 - [Composer](https://getcomposer.org) - PHP dependency manager
-- [MariaDB 10.7.1](https://hub.docker.com/_/mariadb) - see the section of [MariaDB](#mariadb) for reasons behind using this
-- [PHP 8.0 FPM](https://www.php.net/downloads.php) - see the section of [PHP-FPM](#php-fpm) for reasons behind using this instead of regular PHP
-- [Symfony](https://symfony.com/) - see the section of [Symfony](#symfony) for reasons behind using this
+- [MariaDB 10.7.1](https://hub.docker.com/_/mariadb) - see the section for [MariaDB](#mariadb) for reasons behind using this
+- [PHP 8.0 FPM](https://www.php.net/downloads.php) - see the section for [PHP-FPM](#php-fpm) for reasons behind using this instead of regular PHP
+- [Symfony](https://symfony.com/) - see the section for [Symfony](#symfony) for reasons behind using this
 
 Both of which are installed through Docker.
 
@@ -159,13 +159,13 @@ This project uses `docker-compose` to set up these images:
 - [PHP 8.0 FPM](https://hub.docker.com/_/php/) with [Composer 2.1](https://hub.docker.com/_/composer) - see [PHP-FPM](#php-fpm) for reasons behind using this instead of PHP
     - `git`, `zip` and `unzip` are installed along with the image
     - `pdo` and `pdo_mysql` are installed to work along with [MariaDB 10.7.1](https://hub.docker.com/_/mariadb) and [Adminer latest](https://hub.docker.com/_/adminer)
-- [MariaDB 10.7.1](https://hub.docker.com/_/mariadb) - see the section of [MariaDB](#mariadb) for reasons behind using this
-- [Adminer latest](https://hub.docker.com/_/adminer) - see the section of [Adminer](#adminer) for reasons behind using this
+- [MariaDB 10.7.1](https://hub.docker.com/_/mariadb) - see the section for [MariaDB](#mariadb) for reasons behind using this
+- [Adminer latest](https://hub.docker.com/_/adminer) - see the section for [Adminer](#adminer) for reasons behind using this
 
 ## Dependencies
 
 This project uses `composer install` to install these dev dependencies:
-- [Symfony](https://symfony.com/) - see the section of [Symfony](#symfony) for reasons behind using this
+- [Symfony](https://symfony.com/) - see the section for [Symfony](#symfony) for reasons behind using this
 - [Doctrine](https://www.doctrine-project.org/) - a set of PHP libraries primarily focused on database storage and object mapping. The core projects of Doctrine are the [Object Relational Mapper](https://www.doctrine-project.org/projects/orm.html) and the [Database Abstraction Layer](https://www.doctrine-project.org/projects/dbal.html) which both work in tandem with [Symfony](https://symfony.com/). For the purposes of this kata, Doctrine ORM is used to set up the schema for the [MariaDB](#mariadb) `gildedrose` database with the help of [XML mapping](https://www.doctrine-project.org/projects/doctrine-orm/en/2.10/reference/xml-mapping.html) once the `composer create-schema` command is issued
 - [PHPUnit](https://phpunit.de/) - unit testing framework
 - [ApprovalTests.PHP](https://github.com/approvals/ApprovalTests.php) - assertion and verification library to aid unit testing
