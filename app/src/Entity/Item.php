@@ -2,13 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\StockItemRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=StockItemRepository::class)
+ * @ORM\Entity(repositoryClass=ItemRepository::class)
  */
-class StockItem
+class Item
 {
     /**
      * @ORM\Id
@@ -71,5 +70,10 @@ class StockItem
         $this->quality = $quality;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return "{$this->name}, {$this->sell_in}, {$this->quality}";
     }
 }
