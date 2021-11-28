@@ -7,6 +7,11 @@ namespace App\Entity;
 final class Item
 {
     /**
+     * @var int
+     */
+    public $id;
+
+    /**
      * @var string
      */
     public $name;
