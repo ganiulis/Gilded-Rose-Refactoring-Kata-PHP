@@ -47,7 +47,7 @@ This kata uses [version 8.0](https://www.php.net/releases/8.0/en.php) of [PHP-FP
 
 ### PHP-FPM
 
-This project specifically uses the [PHP 8.0 FastCGI Process Manager](https://www.php.net/manual/en/intro.fpm.php). It's an alternative to regular PHP 8.0+ as [PHP-FPM is faster than traditional CGI-based methods](https://www.basezap.com/difference-php-cgi-php-fpm/) and can handle heavier loads, which is useful for high-traffic websites and systems. Not essential, but nice to have.
+This project specifically uses the [PHP 8.0 FastCGI Process Manager](https://www.php.net/manual/en/intro.fpm.php). It's an alternative to regular PHP 8.0+ as PHP-FPM is faster than traditional CGI-based methods and can handle heavier loads, which is useful for high-traffic websites and systems[^1]. Not essential, but nice to have.
 
 ## Symfony
 
@@ -59,7 +59,7 @@ This kata uses [version 5](https://symfony.com/5) of the framework.
 
 ### MariaDB
 
-[MariaDB](https://mariadb.org/) is an open source relational database forked from MySQL. MariaDB is licensed under the [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.html) and offers better performance than MySQL.
+[MariaDB](https://mariadb.org/) is an open source relational database forked from MySQL. MariaDB is licensed under the [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.html) and offers better performance than MySQL[^2].
 
 This kata uses [version 10.7.1](https://mariadb.com/kb/en/mariadb-1071-release-notes/) of the database.
 
@@ -70,7 +70,7 @@ This kata uses [version 10.7.1](https://mariadb.com/kb/en/mariadb-1071-release-n
 Taken from Adminer's [landing page](https://www.adminer.org/):
 > Replace phpMyAdmin with Adminer and you will get a tidier user interface, better support for MySQL features, higher performance and more security.
 
-This kata uses the latest version of Adminer[^1].
+This kata uses the latest version of Adminer[^3].
 
 ## Version Control Development Model
 
@@ -82,7 +82,7 @@ For this project, [main](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kat
 
 ### Why Trunk-Based Development?
 
-This model is easier to set up and iterate when the project team is small (i.e. it's only me who's working on it)[^2].
+This model is easier to set up and iterate when the project team is small (i.e. it's only me who's working on it)[^4].
 
 ## Installation
 
@@ -119,7 +119,7 @@ Build Docker container using `docker-compose`:
 docker-compose up -d --build
 ```
 
-The `-d` command option enables *Detached* mode: runs containers in the background and prints new container names. The `--build` command option builds images before starting the containers[^3].
+The `-d` command option enables *Detached* mode: runs containers in the background and prints new container names. The `--build` command option builds images before starting the containers[^5].
 
 Check if the container images have succesfully installed:
 
@@ -167,7 +167,7 @@ This project uses `docker-compose` to set up these images:
 This project uses `composer install` to install these dev dependencies:
 - [Symfony](https://symfony.com/) - see the section for [Symfony](#symfony) for reasons behind using this
 - [Doctrine](https://www.doctrine-project.org/) - a set of PHP libraries primarily focused on database storage and object mapping. The core projects of Doctrine are the [Object Relational Mapper](https://www.doctrine-project.org/projects/orm.html) and the [Database Abstraction Layer](https://www.doctrine-project.org/projects/dbal.html) which both work in tandem with [Symfony](https://symfony.com/). For the purposes of this kata, Doctrine ORM is used to set up the schema for the [MariaDB](#mariadb) `gildedrose` database with the help of [XML mapping](https://www.doctrine-project.org/projects/doctrine-orm/en/2.10/reference/xml-mapping.html) once the `composer create-schema` command is issued
-- [PHPUnit](https://phpunit.de/) - unit testing framework
+- [PHPUnit](https://phpunit.de/) - unit testing framework. Testing aims for 95% code coverage
 - [ApprovalTests.PHP](https://github.com/approvals/ApprovalTests.php) - assertion and verification library to aid unit testing
 - [PHPStan](https://github.com/phpstan/phpstan) - finds code errors without needing to run any code beforehand
 - [Easy Coding Standard](https://github.com/symplify/easy-coding-standard) - checks code and applies a defined coding standard
@@ -215,7 +215,7 @@ browser.
 
 ## Code Standard
 
-Easy Coding Standard is configured for style and code standards as described by the [PSR-12](https://www.php-fig.org/psr/psr-12/) specification[^4].
+Easy Coding Standard is configured for style and code standards as described by the [PSR-12](https://www.php-fig.org/psr/psr-12/) specification[^6].
 
 ### Check Code
 
@@ -284,7 +284,9 @@ This project follows the [2.0 version of the Apache License](https://www.apache.
 
 See the [LICENSE file](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP/blob/main/LICENSE) for more information.
 
-[^1]: Footnote: Adminer does not conflict with other parts of the kata regardless of the version.
-[^2]: Source: https://trunkbaseddevelopment.com/
-[^3]: Source: https://docs.docker.com/compose/reference/up/
-[^4]: Source: https://www.php-fig.org/psr/psr-12/
+[^1]: Source: https://www.basezap.com/difference-php-cgi-php-fpm/
+[^2]: Source: https://www.guru99.com/mariadb-vs-mysql.html#3
+[^3]: Footnote: Adminer does not conflict with other parts of the kata regardless of the version.
+[^4]: Source: https://trunkbaseddevelopment.com/
+[^5]: Source: https://docs.docker.com/compose/reference/up/
+[^6]: Source: https://www.php-fig.org/psr/psr-12/
