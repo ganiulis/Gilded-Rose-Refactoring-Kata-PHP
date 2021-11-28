@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Updater;
 
-use App\Item;
+use App\Entity\Item;
 use App\Updater\BrieUpdater;
 use PHPUnit\Framework\TestCase;
 

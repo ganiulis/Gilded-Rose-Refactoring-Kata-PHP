@@ -2,7 +2,7 @@
 
 namespace App\Updater;
 
-use App\Item;
+use App\Entity\Item;
 
 class SulfurasUpdater implements UpdaterInterface
 {

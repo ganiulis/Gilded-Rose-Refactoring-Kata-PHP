@@ -2,7 +2,7 @@
 
 namespace App\Printer;
 
-use App\Item;
+use App\Entity\Item;
 
 /**
  * Printer class which outputs a receipt of a certain day's stock of Items

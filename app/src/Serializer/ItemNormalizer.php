@@ -3,7 +3,7 @@
 namespace App\Serializer;
 
 use App\Serializer\NormalizerInterface;
-use App\Item;
+use App\Entity\Item;
 
 /**
  * Takes a decoded data item and returns an Item object

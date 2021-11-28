@@ -2,7 +2,7 @@
 
 namespace App\Tests\Updater;
 
-use App\Item;
+use App\Entity\Item;
 use App\StockManager;
 use App\Updater;
 use PHPUnit\Framework\TestCase;

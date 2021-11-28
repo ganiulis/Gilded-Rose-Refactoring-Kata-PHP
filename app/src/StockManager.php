@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Item;
+use App\Entity\Item;
 use App\Updater\UpdaterInterface;
 
 /**
