@@ -3,20 +3,15 @@ parameters:
 services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-<<<<<<< Updated upstream
-    App\:
-=======
 
-    GildedRose\:
->>>>>>> Stashed changes
+    App\:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
             - '../src/Tests/'
-<<<<<<< Updated upstream
+
     App\Updater\BackstageUpdater: ~
     App\Updater\BrieUpdater: ~
     App\Updater\ConjuredUpdater: ~
@@ -30,20 +25,3 @@ services:
                 - '@App\Updater\SulfurasUpdater'
     App\Updater\DefaultUpdater: ~
     App\Updater\UpdaterInterface: '@App\Updater\DefaultUpdater'
-=======
-
-    GildedRose\Updater\BackstageUpdater: ~
-    GildedRose\Updater\BrieUpdater: ~
-    GildedRose\Updater\ConjuredUpdater: ~
-    GildedRose\Updater\SulfurasUpdater: ~
-    GildedRose\StockManager:
-        arguments:
-            $updaters:
-                - '@GildedRose\Updater\BackstageUpdater'
-                - '@GildedRose\Updater\BrieUpdater'
-                - '@GildedRose\Updater\ConjuredUpdater'
-                - '@GildedRose\Updater\SulfurasUpdater'
-
-    GildedRose\Updater\DefaultUpdater: ~
-    GildedRose\Updater\UpdaterInterface: '@GildedRose\Updater\DefaultUpdater'
->>>>>>> Stashed changes
