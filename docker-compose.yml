@@ -8,3 +8,34 @@ services:
     volumes:
       - ./app:/app
     working_dir: "/app"
+
+  db:
+    container_name: mariadb
+    image: mariadb:10.7.1
+    restart: always
+    volumes:
+      - ./app/var/lib/mysql:/app/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: gildedrose
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: password
+
+  admin:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+
+  web:
+    container_name: nginx
+    image: nginx:1.21.4
+    volumes:
+      - ./app/var/www/gildedrose:/app/var/www/gildedrose
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
