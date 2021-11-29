@@ -1,8 +1,8 @@
 <?php
 
-namespace GildedRose\Data;
+namespace App\Data;
 
-use GildedRose\Data\ContentRetrieverInterface;
+use App\Data\ContentRetrieverInterface;
 
 use SplFileInfo;
 

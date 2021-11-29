@@ -1,8 +1,8 @@
 <?php
 
-namespace GildedRose\Updater;
+namespace App\Updater;
 
-use GildedRose\Item;
+use App\Item;
 
 class BrieUpdater implements UpdaterInterface
 {

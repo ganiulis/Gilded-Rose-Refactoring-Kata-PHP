@@ -1,10 +1,10 @@
 <?php 
 
-namespace Tests\GildedRose\Updater;
+namespace App\Tests\Updater;
 
-use GildedRose\Item;
-use GildedRose\StockManager;
-use GildedRose\Updater;
+use App\Item;
+use App\StockManager;
+use App\Updater;
 use PHPUnit\Framework\TestCase;
 
 class StockManagerTest extends TestCase

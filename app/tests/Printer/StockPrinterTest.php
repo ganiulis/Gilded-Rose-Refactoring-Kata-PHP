@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\GildedRose\Printer;
+namespace App\Tests\Printer;
 
 use ApprovalTests\Approvals;
-use GildedRose\Item;
-use GildedRose\Printer\StockPrinter;
+use App\Item;
+use App\Printer\StockPrinter;
 use PHPUnit\Framework\TestCase;
 
 class StockPrinterTest extends TestCase

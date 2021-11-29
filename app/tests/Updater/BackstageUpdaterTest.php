@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\GildedRose\Updater;
+namespace App\Tests\Updater;
 
-use GildedRose\Item;
-use GildedRose\Updater\BackstageUpdater;
+use App\Item;
+use App\Updater\BackstageUpdater;
 use PHPUnit\Framework\TestCase;
 
 /**

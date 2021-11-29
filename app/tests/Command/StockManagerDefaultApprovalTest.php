@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Tests\GildedRose\Command;
+namespace App\Tests\Command;
 
-use GildedRose\Command\TestFixtureCommand;
-use GildedRose\Data\FileContentRetriever;
-use GildedRose\Printer\StockPrinter;
-use GildedRose\Repository\ItemRepository;
-use GildedRose\Serializer\ItemNormalizer;
-use GildedRose\Serializer\ItemsNormalizer;
-use GildedRose\StockManager;
-use GildedRose\Updater;
+use App\Command\TestFixtureCommand;
+use App\Data\FileContentRetriever;
+use App\Printer\StockPrinter;
+use App\Repository\ItemRepository;
+use App\Serializer\ItemNormalizer;
+use App\Serializer\ItemsNormalizer;
+use App\StockManager;
+use App\Updater;
 use PHPUnit\Framework\TestCase;
 
 use SplFileInfo;

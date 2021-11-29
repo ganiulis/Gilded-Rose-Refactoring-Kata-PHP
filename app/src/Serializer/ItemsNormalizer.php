@@ -1,8 +1,8 @@
 <?php
 
-namespace GildedRose\Serializer;
+namespace App\Serializer;
 
-use GildedRose\Serializer\NormalizerInterface;
+use App\Serializer\NormalizerInterface;
 
 /**
  * Currently only denormalizes Item data into an array of Item entities
