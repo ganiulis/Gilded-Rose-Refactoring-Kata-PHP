@@ -29,3 +29,13 @@ services:
       - 8080:8080
     depends_on:
       - db
+
+  web:
+    container_name: nginx
+    image: nginx:1.21.4
+    volumes:
+      - ./app/var/www/gildedrose:/app/var/www/gildedrose
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
