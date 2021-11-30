@@ -7,7 +7,7 @@ namespace App\Tests\Command;
 use App\Command\TestFixtureCommand;
 use App\Data\FileContentRetriever;
 use App\Printer\StockPrinter;
-use App\Repository\ItemRepository;
+use App\Repository\ItemOldRepository;
 use App\Serializer\ItemNormalizer;
 use App\Serializer\ItemsNormalizer;
 use App\StockManager;
@@ -28,7 +28,7 @@ class StockManagerDefaultApprovalTest extends TestCase
 
         $command = $application->add(
             new TestFixtureCommand(
-                new ItemRepository(
+                new ItemOldRepository(
                     new FileContentRetriever(),
                     new CsvEncoder(), 
                     new ItemsNormalizer(new ItemNormalizer())

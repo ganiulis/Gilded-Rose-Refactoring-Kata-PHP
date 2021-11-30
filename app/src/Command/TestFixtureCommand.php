@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use App\StockManager;
-use App\Repository\ItemRepository;
+use App\Repository\ItemOldRepository;
 
 class TestFixtureCommand extends Command
 {
@@ -20,15 +20,15 @@ class TestFixtureCommand extends Command
     /**
      * Tester for the Item repository class. Used for testing fixture files.
      *
-     * @param ItemRepository $itemRepository the actual Item repository class
+     * @param ItemOldRepository $ItemOldRepository the actual Item repository class
      */
     public function __construct(
-        ItemRepository $itemRepository,
+        ItemOldRepository $ItemOldRepository,
         StockManager $stockManager,
         StockPrinter $stockPrinter
     ) {
         parent::__construct();
-        $this->itemRepository = $itemRepository;
+        $this->ItemOldRepository = $ItemOldRepository;
         $this->stockManager = $stockManager;
         $this->stockPrinter = $stockPrinter;
     }
@@ -46,8 +46,8 @@ class TestFixtureCommand extends Command
     {
         $filepath = __DIR__ . '/../DataFixtures/testfixture.csv';
 
-        $this->itemRepository->setItems($filepath, 'csv');
-        $items = $this->itemRepository->getItems();
+        $this->ItemOldRepository->setItems($filepath, 'csv');
+        $items = $this->ItemOldRepository->getItems();
 
         $days = $input->getOption('days');
 
