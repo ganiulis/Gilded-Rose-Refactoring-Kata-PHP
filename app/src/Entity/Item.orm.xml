@@ -4,7 +4,7 @@
       xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Entity\ItemAdapter" table="items">
+    <entity name="App\Entity\Item" table="items">
 
       <id name="id" type="integer" column="id" >
             <generator strategy="AUTO"/>

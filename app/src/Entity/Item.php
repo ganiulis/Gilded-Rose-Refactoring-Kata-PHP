@@ -4,20 +4,16 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Item;
-
-final class ItemAdapter
+final class Item
 {
     private $id;
     private $name;
     private $sell_in;
     private $quality;
 
-    public function __construct(Item $item)
+    public function getId(): int
     {
-        $this->setName($item->name);
-        $this->setSellIn($item->sell_in);
-        $this->setQuality($item->quality);
+        return $this->id;
     }
 
     public function setName($name): void
