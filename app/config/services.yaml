@@ -5,12 +5,12 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
 
     App\:
-        resource: '../src/'
-        exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
-            - '../src/Kernel.php'
-            - '../src/Tests/'
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Tests,Kernel.php}'
+
+    App\Command\TestFixtureCommand:
+        tags:
+            - { name: 'console.command', command: 'app:test-fixture' }
 
     App\Controller\:
         resource: '../src/Controller'
@@ -24,7 +24,7 @@ services:
     App\Updater\BrieUpdater: ~
     App\Updater\ConjuredUpdater: ~
     App\Updater\SulfurasUpdater: ~
-    App\StockManager:
+    App\Updater\UpdaterManager:
         arguments:
             $updaters:
                 - '@App\Updater\BackstageUpdater'

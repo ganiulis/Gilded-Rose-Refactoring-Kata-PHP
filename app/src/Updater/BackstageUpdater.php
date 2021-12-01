@@ -2,46 +2,56 @@
 
 namespace App\Updater;
 
-use App\Item;
+use App\Entity\Item;
 
 class BackstageUpdater implements UpdaterInterface
 {
     /**
-     * Performs a case-insensitive check on the Item name
+     * Performs a case-insensitive check on the Item name.
      *
      * @param Item $item
      * @return boolean
      */
     public function supports(Item $item): bool
     {
-        return strcasecmp('Backstage passes to a TAFKAL80ETC concert', $item->name) === 0;
+        return strcasecmp('Backstage passes to a TAFKAL80ETC concert', $item->getName()) == 0;
     }
     
     public function update(Item $item): Item
     {
-        if ($item->sell_in < 1) {
-            $item->quality = 0;
-            $item->sell_in -= 1;
+        $quality = $item->getQuality();
+        $sell_in = $item->getSellIn();
+
+        if ($sell_in < 1) {
+            $quality = 0;
+            $sell_in -= 1;
+
+            $item->setQuality($quality);
+            $item->setSellIn($sell_in);
+
             return $item;
         }
 
-        $item->quality += 1;
+        $quality += 1;
 
-        if ($item->sell_in < 6) {
-            $item->quality += 2;
+        if ($sell_in < 6) {
+            $quality += 2;
         }
 
-        if ($item->sell_in > 5 && $item->sell_in < 11) {
-            $item->quality += 1;
+        if ($sell_in > 5 && $sell_in < 11) {
+            $quality += 1;
         }
 
-        if ($item->quality > 50) {
-            $item->quality = 50;
-        } else if ($item->quality < 0) {
-            $item->quality = 0;
+        if ($quality > 50) {
+            $quality = 50;
+        } else if ($quality < 0) {
+            $quality = 0;
         }
 
-        $item->sell_in -= 1;
+        $sell_in -= 1;
+
+        $item->setQuality($quality);
+        $item->setSellIn($sell_in);
 
         return $item;
     }

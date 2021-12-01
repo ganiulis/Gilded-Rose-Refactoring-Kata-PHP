@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Updater;
 
-use App\Item;
+use App\Entity\Item;
 use App\Updater\UpdaterInterface;
 
 /**
  * Used for updating an array of Items.
  */
-class StockManager
+class UpdaterManager
 {
     public function __construct(
         UpdaterInterface $defaultUpdater,
@@ -60,6 +60,5 @@ class StockManager
         }
         return $items;
     }
-
 
 }

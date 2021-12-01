@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Serializer;
+namespace App\Serializer\Normalizer;
 
 /**
- * Currently only obligates to include denormalization for arrays.
+ * Obligates to denormalize an array of data into an object.
  */
 interface NormalizerInterface
 {

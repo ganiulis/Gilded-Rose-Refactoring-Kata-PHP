@@ -2,32 +2,36 @@
 
 namespace App\Updater;
 
-use App\Item;
+use App\Entity\Item;
 
 class SulfurasUpdater implements UpdaterInterface
 {
     /**
-     * Performs a case-insensitive check on the Item name
+     * Performs a case-insensitive check on the Item name.
      *
      * @param Item $item
      * @return boolean
      */
     public function supports(Item $item): bool
     {
-        return strcasecmp('Sulfuras, Hand of Ragnaros', $item->name) === 0;
+        return strcasecmp('Sulfuras, Hand of Ragnaros', $item->getName()) == 0;
     }
 
     /**
-     * This does nothing
+     * This does nothing.
      *
      * @param Item $item
      * @return Item
      */
     public function update(Item $item): Item
     {
-        if ($item->quality !== 80) {
-            $item->quality = 80;
+        $quality = $item->getQuality();
+
+        if ($quality !== 80) {
+            $quality = 80;
         }
+
+        $item->setQuality($quality);
 
         return $item;
     }

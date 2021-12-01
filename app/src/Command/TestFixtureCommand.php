@@ -10,27 +10,20 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use App\StockManager;
-use App\Repository\ItemOldRepository;
+use App\Updater\UpdaterManager;
+use App\Serializer\SerializerInterface;
 
 class TestFixtureCommand extends Command
 {
-    protected static $defaultName = 'test-fixture';
-
-    /**
-     * Tester for the Item repository class. Used for testing fixture files.
-     *
-     * @param ItemOldRepository $ItemOldRepository the actual Item repository class
-     */
     public function __construct(
-        ItemOldRepository $ItemOldRepository,
-        StockManager $stockManager,
-        StockPrinter $stockPrinter
+        SerializerInterface $serializer,
+        UpdaterManager $manager,
+        StockPrinter $printer
     ) {
+        $this->serializer = $serializer;
+        $this->manager = $manager;
+        $this->printer = $printer;
         parent::__construct();
-        $this->ItemOldRepository = $ItemOldRepository;
-        $this->stockManager = $stockManager;
-        $this->stockPrinter = $stockPrinter;
     }
 
     protected function configure(): void
@@ -46,16 +39,16 @@ class TestFixtureCommand extends Command
     {
         $filepath = __DIR__ . '/../DataFixtures/testfixture.csv';
 
-        $this->ItemOldRepository->setItems($filepath, 'csv');
-        $items = $this->ItemOldRepository->getItems();
+        $items = $this->serializer->deserialize($filepath, 'csv');
 
         $days = $input->getOption('days');
 
-        $this->stockPrinter->printIntro();
+        $this->printer->printIntro();
         
         for ($day = 0; $day < $days; $day++) {
-            $this->stockPrinter->printSummary($items, $day);
-            $this->stockManager->updateAll($items);
+            $this->printer->printSummary($items, $day);
+
+            $this->manager->updateAll($items);
         }
 
         return Command::SUCCESS;

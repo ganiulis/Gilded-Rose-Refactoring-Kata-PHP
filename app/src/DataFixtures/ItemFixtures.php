@@ -2,11 +2,10 @@
 
 namespace App\DataFixtures;
 
-use App\Data\FileContentRetriever;
-use App\Entity\Item;
-use App\Repository\ItemOldRepository;
-use App\Serializer\ItemNormalizer; 
-use App\Serializer\ItemsNormalizer;
+use App\Serializer\ItemSerializer;
+use App\Serializer\Normalizer\ItemNormalizer;
+use App\Serializer\Normalizer\ItemsNormalizer;
+use App\Serializer\Retriever\FileContentRetriever;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
@@ -15,7 +14,7 @@ class ItemFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $repository = new ItemOldRepository(
+        $serializer = new ItemSerializer(
             new FileContentRetriever(),
             new CsvEncoder(), 
             new ItemsNormalizer(new ItemNormalizer)
@@ -23,17 +22,10 @@ class ItemFixtures extends Fixture
 
         $filepath = __DIR__ . '/testfixture.csv';
 
-        $repository->setItems($filepath, 'csv');
-        $items = $repository->getItems();
+        $items = $serializer->deserialize($filepath, 'csv');
 
         foreach ($items as $item) {
-            $adaptedItem = new Item();
-
-            $adaptedItem->setName($item->name);
-            $adaptedItem->setSellIn($item->sell_in);
-            $adaptedItem->setQuality($item->quality);
-
-            $manager->persist($adaptedItem);
+            $manager->persist($item);
         }
 
         $manager->flush();

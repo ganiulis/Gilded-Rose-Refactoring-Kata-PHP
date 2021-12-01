@@ -2,7 +2,7 @@
 
 namespace App\Updater;
 
-use App\Item;
+use App\Entity\Item;
 
 class BrieUpdater implements UpdaterInterface
 {
@@ -14,24 +14,30 @@ class BrieUpdater implements UpdaterInterface
      */
     public function supports(Item $item): bool
     {
-        return strcasecmp('Aged Brie', $item->name) === 0;
+        return strcasecmp('Aged Brie', $item->getName()) == 0;
     }
 
     public function update(Item $item): Item
     {
-        $item->quality += 1;
+        $quality = $item->getQuality();
+        $sell_in = $item->getSellIn();
+
+        $quality += 1;
         
-        if ($item->sell_in < 1) {
-            $item->quality += 1;
+        if ($sell_in < 1) {
+            $quality += 1;
         }
 
-        if ($item->quality > 50) {
-            $item->quality = 50;
-        } else if ($item->quality < 0) {
-            $item->quality = 0;
+        if ($quality > 50) {
+            $quality = 50;
+        } else if ($quality < 0) {
+            $quality = 0;
         }
 
-        $item->sell_in -= 1;
+        $sell_in -= 1;
+
+        $item->setQuality($quality);
+        $item->setSellIn($sell_in);
 
         return $item;
     }

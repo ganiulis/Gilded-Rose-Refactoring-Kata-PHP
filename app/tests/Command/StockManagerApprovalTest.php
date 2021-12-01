@@ -5,20 +5,16 @@ declare(strict_types=1);
 namespace App\Tests\Command;
 
 use App\Command\TestFixtureCommand;
-use App\Data\FileContentRetriever;
-use App\Printer\StockPrinter;
-use App\Repository\ItemOldRepository;
-use App\Serializer\ItemNormalizer;
-use App\Serializer\ItemsNormalizer;
+use App\Serializer\ItemSerializer;
+use App\Serializer\Normalizer\ItemNormalizer;
+use App\Serializer\Normalizer\ItemsNormalizer;
+use App\Serializer\Retriever\FileContentRetriever;
 use App\StockManager;
 use App\Updater;
 use PHPUnit\Framework\TestCase;
-
 use SplFileInfo;
-
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 class StockManagerApprovalTest extends TestCase
 {
@@ -28,10 +24,10 @@ class StockManagerApprovalTest extends TestCase
 
         $command = $application->add(
             new TestFixtureCommand(
-                new ItemOldRepository(
+                new ItemSerializer(
                     new FileContentRetriever(),
-                    new CsvEncoder(), 
-                    new ItemsNormalizer(new ItemNormalizer)
+                    new CsvEncoder(),
+                    new ItemsNormalizer(new ItemNormalizer())
                 ),
                 new StockManager(
                     new Updater\DefaultUpdater(),

@@ -16,7 +16,7 @@ final class Item
         return $this->id;
     }
 
-    public function setName($name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -26,7 +26,7 @@ final class Item
         return $this->name;
     }
 
-    public function setSellIn($sell_in): void
+    public function setSellIn(int $sell_in): void
     {
         $this->sell_in = $sell_in;
     }
@@ -36,7 +36,7 @@ final class Item
         return $this->sell_in;
     }
 
-    public function setQuality($quality): void
+    public function setQuality(int $quality): void
     {
         $this->quality = $quality;
     }
@@ -44,5 +44,10 @@ final class Item
     public function getQuality(): int
     {
         return $this->quality;
+    }
+
+    public function __toString(): string
+    {
+        return "{$this->name}, {$this->sell_in}, {$this->quality}";
     }
 }
