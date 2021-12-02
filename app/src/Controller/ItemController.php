@@ -1,7 +1,9 @@
 <?php
 namespace App\Controller;
 
-use App\Item;
+use App\Entity\Item;
+use App\Printer\StockPrinter;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,27 +11,27 @@ use Symfony\Component\Routing\Annotation\Route;
 class ItemController extends AbstractController
 {
     /**
-     * @Route("/item/{id}", name="view_item")
+     * @Route("/item", name="view_item")
      */
-    public function item(int $id): Response
+    public function findAll(ManagerRegistry $doctrine): Response
     {
-        $item = $this->getDoctrine()
-            ->getRepository(Item::class)
-            ->find($id);
+        $items = $doctrine->getRepository(Item::class)->findAll();
 
-        if (!$item) {
+        if (!$items) {
             throw $this->createNotFoundException(
-                'No item found for id '.$id
+                'No items found'
             );
         }
 
+        $printer = new StockPrinter();
+
+        $summary = $printer->printSummary($items, 0);
+
         return new Response(
             '<html>
-                <body>
-                    Item name: '.$item->name.'.'.
-                    'Item expires in '. $item->sell_in .' days'.
-                    'Item quality is: '.$item->quality.'
-                </body>
+                <body>'.
+                    $summary
+                .'</body>
             </html>'
         );
     }

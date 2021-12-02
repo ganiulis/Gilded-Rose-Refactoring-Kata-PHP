@@ -2,10 +2,10 @@
 
 namespace App\Printer;
 
-use App\Item;
+use App\Entity\Item;
 
 /**
- * Printer class which outputs a receipt of a certain day's stock of Items
+ * Printer class which outputs a receipt of a certain day's stock of Items.
  */
 class StockPrinter
 {
@@ -35,10 +35,13 @@ class StockPrinter
     public function printSummary(array $items, int $day): void
     {
         echo "-------- day ${day} --------" . PHP_EOL;
+
         echo 'name, sellIn, quality' . PHP_EOL;
+
         foreach ($items as $item) {
             $this->printItem($item);
         }
+
         echo PHP_EOL;
     }
 }

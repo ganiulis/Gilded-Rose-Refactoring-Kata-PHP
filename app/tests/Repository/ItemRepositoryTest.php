@@ -5,15 +5,15 @@ namespace App\Tests\Repository;
 use App\Data\FileContentRetriever;
 use App\Item;
 use App\Serializer\ItemsNormalizer;
-use App\Repository\ItemRepository;
+use App\Repository\ItemSerializer;
 
 use PHPUnit\Framework\TestCase;
 
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
-class ItemRepositoryTest extends TestCase
+class ItemSerializerTest extends TestCase
 {
-    public function testItemRepository(): void
+    public function testItemSerializer(): void
     {
         $filepath = 'filepath/to/content';
         $fileContent = 'content in a string';
@@ -42,7 +42,7 @@ class ItemRepositoryTest extends TestCase
             ->with($decodedContent)
             ->willReturn($expectedContent);
 
-        $repository = new ItemRepository(
+        $repository = new ItemSerializer(
             $mockRetriever,
             $mockEncoder,
             $mockNormalizer
@@ -51,7 +51,7 @@ class ItemRepositoryTest extends TestCase
         $repository->setItems($filepath, $fileType);
         $actualContent = $repository->getItems();
 
-        $this->assertIsArray($actualContent, 'Return type for ItemRepository class is not an array!');
-        $this->assertEquals($expectedContent, $actualContent, 'ItemRepository class does not return expected Content');
+        $this->assertIsArray($actualContent, 'Return type for ItemSerializer class is not an array!');
+        $this->assertEquals($expectedContent, $actualContent, 'ItemSerializer class does not return expected Content');
     }
 }
