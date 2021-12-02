@@ -8,9 +8,9 @@ services:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Entity,Tests,Kernel.php}'
 
-    App\Command\TestFixtureCommand:
+    App\Command\FixturePrinterCommand:
         tags:
-            - { name: 'console.command', command: 'app:test-fixture' }
+            - { name: 'console.command', command: 'app:fixtures:print' }
 
     App\Controller\:
         resource: '../src/Controller'
