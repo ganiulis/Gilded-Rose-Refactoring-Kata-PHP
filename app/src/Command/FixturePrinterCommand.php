@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use App\Updater\UpdaterManager;
 use App\Serializer\SerializerInterface;
 
-class TestFixtureCommand extends Command
+class FixturePrinterCommand extends Command
 {
     public function __construct(
         SerializerInterface $serializer,
