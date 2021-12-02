@@ -37,7 +37,7 @@ class FixturePrinterCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $filepath = __DIR__ . '/../DataFixtures/testfixture.csv';
+        $filepath = __DIR__ . '/../Data/fixture.csv';
 
         $items = $this->serializer->deserialize($filepath, 'csv');
 

@@ -20,7 +20,7 @@ class ItemFixtures extends Fixture
             new ItemsNormalizer(new ItemNormalizer)
         );
 
-        $filepath = __DIR__ . '/testfixture.csv';
+        $filepath = __DIR__ . '/../Data/fixture.csv';
 
         $items = $serializer->deserialize($filepath, 'csv');
 
