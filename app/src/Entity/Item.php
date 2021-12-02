@@ -11,6 +11,11 @@ final class Item
     private $sell_in;
     private $quality;
 
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
     public function getId(): int
     {
         return $this->id;
