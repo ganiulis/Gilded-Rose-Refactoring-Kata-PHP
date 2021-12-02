@@ -43,6 +43,10 @@ class FixturePrinterCommand extends Command
 
         $days = $input->getOption('days');
 
+        if (!is_numeric($days)) {
+            return Command::INVALID;
+        }
+
         $this->printer->printIntro();
         
         for ($day = 0; $day < $days; $day++) {
