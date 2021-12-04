@@ -12,7 +12,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class FixturePrinterCommandTest extends KernelTestCase
 {
-    public function testSuccessfulPrint(): void
+    public function testSuccess(): CommandTester
     {
         $kernel = self::bootKernel();
 
@@ -23,51 +23,53 @@ class FixturePrinterCommandTest extends KernelTestCase
         $commandTester = new CommandTester($command);
 
         ob_start();
-        
-        $success = $commandTester->execute(['--days' => '31']);
 
-        $output = ob_get_contents();
-
-        ob_end_clean();
-
-        $this->assertTrue(!$success);
-
-        Approvals::verifyString($output);
-    }
-
-    public function testSuccessfulDefaultPrint(): void
-    {
-        $kernel = self::bootKernel();
-
-        $application = new Application($kernel);
-
-        $command = $application->find('app:fixtures:print');
-
-        $commandTester = new CommandTester($command);
-
-        ob_start();
-        
         $success = $commandTester->execute([]);
 
-        $output = ob_get_contents();
-
         ob_end_clean();
 
         $this->assertTrue(!$success);
 
+        return $commandTester;
+    }
+
+    /**
+     * @depends testSuccess
+     */
+    public function testDefaultPrint(CommandTester $commandTester): void
+    {
+        ob_start();
+        
+        $commandTester->execute([]);
+
+        $output = ob_get_contents();
+
+        ob_end_clean();
+
         Approvals::verifyString($output);
     }
 
-    public function testInvalidOption(): void
+    /**
+     * @depends testSuccess
+     */
+    public function testPrint(CommandTester $commandTester): void
     {
-        $kernel = self::bootKernel();
+        ob_start();
+        
+        $commandTester->execute(['--days' => '31']);
 
-        $application = new Application($kernel);
+        $output = ob_get_contents();
 
-        $command = $application->find('app:fixtures:print');
+        ob_end_clean();
 
-        $commandTester = new CommandTester($command);
+        Approvals::verifyString($output);
+    }
 
+    /**
+     * @depends testSuccess
+     */
+    public function testInvalidOption(CommandTester $commandTester): void
+    {
         $invalid = $commandTester->execute(['--days' => 'thirty one']);
 
         $this->assertEquals(2, $invalid);
