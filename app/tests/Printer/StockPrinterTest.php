@@ -9,14 +9,14 @@ use PHPUnit\Framework\TestCase;
 
 class StockPrinterTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->printer = new StockPrinter();
 
         ob_start();
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         ob_end_clean();
     }
