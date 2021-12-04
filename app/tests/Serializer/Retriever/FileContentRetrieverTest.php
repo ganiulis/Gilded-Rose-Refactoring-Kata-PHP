@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class FileContentRetrieverTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->retriever = new FileContentRetriever();
     }
