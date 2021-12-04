@@ -24,10 +24,13 @@ class FixturePrinterCommandTest extends KernelTestCase
 
         ob_start();
 
-        $success = $commandTester->execute([]);
+        $defaultSuccess = $commandTester->execute([]);
+
+        $success = $commandTester->execute(['--days' => '5']);
 
         ob_end_clean();
 
+        $this->assertTrue(!$defaultSuccess);
         $this->assertTrue(!$success);
 
         return $commandTester;
