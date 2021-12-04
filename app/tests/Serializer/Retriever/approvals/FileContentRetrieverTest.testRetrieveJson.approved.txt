@@ -1,0 +1,6 @@
+{ 
+    "hamburger" : 1,
+    "cheeseburger" : 0,
+    "big mac" : 2,
+    "whopper" : 4
+}

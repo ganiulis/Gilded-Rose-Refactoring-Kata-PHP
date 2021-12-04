@@ -1,0 +1,3 @@
+Hello, world! This is test content for FileContentRetrieverTest.php.
+As you can see, I was really hungry when I made this particular test.
+However, it works, so it's OK.
