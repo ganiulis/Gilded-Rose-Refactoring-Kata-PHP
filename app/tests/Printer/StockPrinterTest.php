@@ -16,6 +16,11 @@ class StockPrinterTest extends TestCase
         ob_start();
     }
 
+    public function tearDown(): void
+    {
+        ob_end_clean();
+    }
+
     public function testDefaultIntro(): void
     {
         $this->printer->printIntro();
@@ -93,10 +98,5 @@ class StockPrinterTest extends TestCase
         $output = ob_get_contents();
 
         Approvals::verifyString($output);
-    }
-
-    public function tearDown(): void
-    {
-        ob_end_clean();
     }
 }
