@@ -13,11 +13,6 @@ class ItemsNormalizerTest extends TestCase
     {
         $mockItemNormalizer = $this->createMock(ItemNormalizer::class);
 
-        $data = [
-            ['foo'],
-            ['bar']
-        ];
-
         $mockItemNormalizer->expects($this->exactly(2))
             ->method('denormalize')
             ->withConsecutive(
@@ -29,7 +24,7 @@ class ItemsNormalizerTest extends TestCase
 
         $itemsNormalizer = new ItemsNormalizer($mockItemNormalizer);
 
-        $items = $itemsNormalizer->denormalizeAll($data);
+        $items = $itemsNormalizer->denormalizeAll([['foo'], ['bar']]);
 
         $this->assertIsArray($items, 'denormalizer did not return an array!');
     }
