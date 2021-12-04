@@ -9,32 +9,27 @@ use PHPUnit\Framework\TestCase;
 
 class StockPrinterTest extends TestCase
 {
-    public function testDefaultIntro(): void
+    public function setUp(): void
     {
-        $printer = new StockPrinter();
+        $this->printer = new StockPrinter();
 
         ob_start();
-        
-        $printer->printIntro();
+    }
+
+    public function testDefaultIntro(StockPrinter $printer): void
+    {
+        $this->printer->printIntro();
 
         $output = ob_get_contents();
-
-        ob_end_clean();
 
         Approvals::verifyString($output);
     }
 
     public function testCustomIntro(): void
     {
-        $printer = new StockPrinter();
-
-        ob_start();
-        
-        $printer->printIntro('Hello, world! This is a custom intro.');
+        $this->printer->printIntro('Hello, world! This is a custom intro.');
 
         $output = ob_get_contents();
-
-        ob_end_clean();
 
         Approvals::verifyString($output);
     }
@@ -84,31 +79,24 @@ class StockPrinterTest extends TestCase
             $items[] = $item;
         }
 
-        $printer = new StockPrinter();
-
-        ob_start();
-
-        $printer->printSummary($items, 4321);
+        $this->printer->printSummary($items, 4321);
 
         $output = ob_get_contents();
-
-        ob_end_clean();
 
         Approvals::verifyString($output);
     }
 
     public function testEmptySummary(): void
     {
-        $printer = new StockPrinter();
-
-        ob_start();
-
-        $printer->printSummary([], 1234);
+        $this->printer->printSummary([], 1234);
         
         $output = ob_get_contents();
 
-        ob_end_clean();
-
         Approvals::verifyString($output);
+    }
+
+    public function tearDown(): void
+    {
+        ob_end_clean();
     }
 }
