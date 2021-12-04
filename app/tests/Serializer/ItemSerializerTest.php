@@ -2,6 +2,7 @@
 
 namespace App\Tests\Serializer;
 
+use App\Entity\Item;
 use App\Serializer\ItemSerializer;
 use App\Serializer\Normalizer\ItemsNormalizer;
 use App\Serializer\Retriever\FileContentRetriever;
