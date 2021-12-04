@@ -44,32 +44,32 @@ class StockPrinterTest extends TestCase
         $itemsData = [
             [
                 'name' => 'alpha',
-                'sell_in' => 5,
+                'sellIn' => 5,
                 'quality' => 0
             ],
             [
                 'name' => 'bravo',
-                'sell_in' => 4,
+                'sellIn' => 4,
                 'quality' => 1
             ],
             [
                 'name' => 'charlie',
-                'sell_in' => 3,
+                'sellIn' => 3,
                 'quality' => 2
             ],
             [
                 'name' => 'delta',
-                'sell_in' => 2,
+                'sellIn' => 2,
                 'quality' => 3
             ],
             [
                 'name' => 'echo',
-                'sell_in' => 1,
+                'sellIn' => 1,
                 'quality' => 4
             ],
             [
                 'name' => 'foxtrot',
-                'sell_in' => 0,
+                'sellIn' => 0,
                 'quality' => 5
             ]
         ];
@@ -78,7 +78,7 @@ class StockPrinterTest extends TestCase
             $item = new Item();
 
             $item->setName($itemData['name']);
-            $item->setSellIn($itemData['sell_in']);
+            $item->setSellIn($itemData['sellIn']);
             $item->setQuality($itemData['quality']);
 
             $items[] = $item;

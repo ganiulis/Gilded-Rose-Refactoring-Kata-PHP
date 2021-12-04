@@ -12,7 +12,7 @@ class ItemTest extends TestCase
         $itemData =[
             'id' => 0,
             'name' => 'alpha',
-            'sell_in' => 0,
+            'sellIn' => 0,
             'quality' => 2
         ];
 
@@ -26,9 +26,9 @@ class ItemTest extends TestCase
         $this->assertIsString($item->getName());
         $this->assertEquals($item->getName(), $itemData['name']);
         
-        $item->setSellIn($itemData['sell_in']);
+        $item->setSellIn($itemData['sellIn']);
         $this->assertIsInt($item->getSellIn());
-        $this->assertEquals($item->getSellIn(), $itemData['sell_in']);
+        $this->assertEquals($item->getSellIn(), $itemData['sellIn']);
         
         $item->setQuality($itemData['quality']);
         $this->assertIsInt($item->getSellIn());
