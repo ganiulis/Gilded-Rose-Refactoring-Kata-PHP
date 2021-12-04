@@ -16,7 +16,7 @@ class StockPrinterTest extends TestCase
         ob_start();
     }
 
-    public function testDefaultIntro(StockPrinter $printer): void
+    public function testDefaultIntro(): void
     {
         $this->printer->printIntro();
 
