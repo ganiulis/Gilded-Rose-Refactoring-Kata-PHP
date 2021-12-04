@@ -1,9 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Tests\Command;
-
 
 use ApprovalTests\Approvals;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
