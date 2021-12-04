@@ -1,0 +1,9 @@
+-------- day 4321 --------
+name, sellIn, quality
+alpha, 5, 0
+bravo, 4, 1
+charlie, 3, 2
+delta, 2, 3
+echo, 1, 4
+foxtrot, 0, 5
+
