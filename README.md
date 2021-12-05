@@ -46,7 +46,7 @@ See the [original requirements text file](https://github.com/emilybache/GildedRo
 
 I've been working with PHP as a back-end language for several months now and built a few personal and private websites which include PHP in their code. It does its job and has some neat associated frameworks like [Symfony](https://symfony.com/) and [Laravel](https://laravel.com/).
 
-This kata uses [version 8.0](https://www.php.net/releases/8.0/en.php) of [PHP-FPM](https://www.php.net/manual/en/intro.fpm.php).
+This kata uses [version 8.0](https://www.php.net/releases/8.0/en.php) of [PHP-FPM](https://www.php.net/manual/en/intro.fpm.php). See the section for [PHP-FPM](#php-fpm) for reasons behind using this instead of regular PHP.
 
 ### PHP-FPM
 
