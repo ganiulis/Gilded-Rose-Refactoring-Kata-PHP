@@ -1,7 +1,3 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
-
-item:
-    path: \item
-    controller: App\Controller\ItemController::item
