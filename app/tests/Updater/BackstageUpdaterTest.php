@@ -1,111 +1,126 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Tests\Updater;
 
-use App\Item;
+use App\Entity\Item;
 use App\Updater\BackstageUpdater;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Tests BackstageUpdater behaviour
- */
 class BackstageUpdaterTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        $this->updater = new BackstageUpdater();
+
+        $this->item = new Item();
+    }
+
+    public function testSupportsTrue(): void
+    {
+        $this->item->setName('Backstage passes to a TAFKAL80ETC concert');
+
+        $this->assertTrue($this->updater->supports($this->item));
+    }
+
+    public function testSupportsFalse(): void
+    {
+        $this->item->setName('An expired free pass');
+
+        $this->assertFalse($this->updater->supports($this->item));
+    }
+
     /**
-     * @dataProvider provideTestItemData
+     * @dataProvider provider
     */
-   public function testBackstageUpdater(array $testItemData): void
-   {
-    $actualItem = new Item(
-        $testItemData['Name'],
-        $testItemData['SellIn']['actual'],
-        $testItemData['Quality']['actual']
-    );
+    public function testUpdate(array $itemData): void
+    {
+        $this->item->setName($itemData['name']);
+        $this->item->setSellIn($itemData['sellIn']['input']);
+        $this->item->setQuality($itemData['quality']['input']);
 
-    $expectedItem = new Item(
-        $testItemData['Name'],
-        $testItemData['SellIn']['expected'],
-        $testItemData['Quality']['expected']
-    );
+        $this->updater->update($this->item);
 
-    $updater = new BackstageUpdater();
-    
-    $this->assertTrue($updater->supports($actualItem));
+        $this->assertEquals($itemData['sellIn']['output'], $this->item->getSellIn());
+        $this->assertEquals($itemData['quality']['output'], $this->item->getQuality());
 
-    $updater->update($actualItem);
+        $this->assertEquals($itemData['toString'], $this->item->__toString());
+    }
 
-    $this->assertEquals($expectedItem, $actualItem, 'Actual and expected items do not match after passing through BackstageUpdater!');
-
-   }
-
-   public function provideTestItemData(): array 
-   {
-       return [
+    public function provider(): array 
+    {
+        return [
             [
-                'More than 11 days left - quality increases by 1' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',        
-                    'SellIn' => ['actual' => 12, 'expected' => 11],
-                    'Quality' => ['actual' => 48, 'expected' => 49]
+                'quality increased by 1 when more than 11 days are left' => [
+                    'name' => 'Backstage passes to a TAFKAL80ETC concert',        
+                    'sellIn' => ['input' => 12, 'output' => 11],
+                    'quality' => ['input' => 48, 'output' => 49],
+                    'toString' => 'Backstage passes to a TAFKAL80ETC concert, 11, 49'
                 ]
             ],
             [
-                'More than 11 days left - quality increases by 1' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                    'SellIn' => ['actual' => 12, 'expected' => 11],
-                    'Quality' => ['actual' => 50, 'expected' => 50]
+                'quality maxxed when more than 11 days are left' => [
+                    'name' => 'Backstage passes to a TAFKAL80ETC concert',
+                    'sellIn' => ['input' => 12, 'output' => 11],
+                    'quality' => ['input' => 50, 'output' => 50],
+                    'toString' => 'Backstage passes to a TAFKAL80ETC concert, 11, 50'
                 ]
             ],
             [
-                '10 or less days left - quality increases by 2' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                    'SellIn' => ['actual' => 10, 'expected' => 9],
-                    'Quality' => ['actual' => 47, 'expected' => 49]
+                'quality increased by 2 when less than 12 days are left' => [
+                    'name' => 'Backstage passes to a TAFKAL80ETC concert',
+                    'sellIn' => ['input' => 10, 'output' => 9],
+                    'quality' => ['input' => 47, 'output' => 49],
+                    'toString' => 'Backstage passes to a TAFKAL80ETC concert, 9, 49'
                 ]
             ],
             [
-                '10 or less days left - quality increases by 2' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                    'SellIn' => ['actual' => 10, 'expected' => 9],
-                    'Quality' => ['actual' => 49, 'expected' => 50]
+                'quality maxxed when less than 12 days are left' => [
+                    'name' => 'Backstage passes to a TAFKAL80ETC concert',
+                    'sellIn' => ['input' => 10, 'output' => 9],
+                    'quality' => ['input' => 49, 'output' => 50],
+                    'toString' => 'Backstage passes to a TAFKAL80ETC concert, 9, 50'
                 ]
             ],
             [
-                '5 or less days left - quality increases by 3' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                    'SellIn' => ['actual' => 5, 'expected' => 4],
-                    'Quality' => ['actual' => 46, 'expected' => 49]
+                'quality increased by 3 when less than 6 days are left' => [
+                    'name' => 'Backstage passes to a TAFKAL80ETC concert',
+                    'sellIn' => ['input' => 5, 'output' => 4],
+                    'quality' => ['input' => 1, 'output' => 4],
+                    'toString' => 'Backstage passes to a TAFKAL80ETC concert, 4, 4'
                 ]
             ],
             [
-                '5 or less days left - quality increases by 3' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                    'SellIn' => ['actual' => 5, 'expected' => 4],
-                    'Quality' => ['actual' => 49, 'expected' => 50]
+                'quality maxxed when less than 6 days are left' => [
+                    'name' => 'Backstage passes to a TAFKAL80ETC concert',
+                    'sellIn' => ['input' => 5, 'output' => 4],
+                    'quality' => ['input' => 48, 'output' => 50],
+                    'toString' => 'Backstage passes to a TAFKAL80ETC concert, 4, 50'
                 ]
             ],
             [
-                'Item expires and quality drops to 0' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                    'SellIn' => ['actual' => 0, 'expected' => -1],
-                    'Quality' => ['actual' => 50, 'expected' => 0]
+                'quality dropped to 0 when item expired' => [
+                    'name' => 'Backstage passes to a TAFKAL80ETC concert',
+                    'sellIn' => ['input' => 0, 'output' => -1],
+                    'quality' => ['input' => 50, 'output' => 0],
+                    'toString' => 'Backstage passes to a TAFKAL80ETC concert, -1, 0'
                 ]
             ],
             [
-                'Item expires and quality drops to 0' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                    'SellIn' => ['actual' => 0, 'expected' => -1],
-                    'Quality' => ['actual' => 1, 'expected' => 0]
+                'quality dropped to 0 when when sellIn became negative' => [
+                    'name' => 'Backstage passes to a TAFKAL80ETC concert',
+                    'sellIn' => ['input' => 0, 'output' => -1],
+                    'quality' => ['input' => 1, 'output' => 0],
+                    'toString' => 'Backstage passes to a TAFKAL80ETC concert, -1, 0'
                 ]
             ],
             [
-                'Item expires and quality drops to 0' => [
-                    'Name' => 'Backstage passes to a TAFKAL80ETC concert',
-                    'SellIn' => ['actual' => -1, 'expected' => -2],
-                    'Quality' => ['actual' => 0, 'expected' => 0]
+                'quality remained 0 when when sellIn is negative' => [
+                    'name' => 'Backstage passes to a TAFKAL80ETC concert',
+                    'sellIn' => ['input' => -1, 'output' => -2],
+                    'quality' => ['input' => 0, 'output' => 0],
+                    'toString' => 'Backstage passes to a TAFKAL80ETC concert, -2, 0'
                 ]
             ]
-       ];
-   }
+        ];
+    }
 }

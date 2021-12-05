@@ -19,7 +19,7 @@
 
   <testsuites>
     <testsuite name="Test Suite">
-      <directory>./tests/Command</directory>
+      <directory>./tests</directory>
     </testsuite>
   </testsuites>
 

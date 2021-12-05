@@ -1,83 +1,109 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Tests\Updater;
 
-use App\Item;
+use App\Entity\Item;
 use App\Updater\ConjuredUpdater;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Tests ConjuredUpdater behaviour
- */
 class ConjuredUpdaterTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        $this->updater = new ConjuredUpdater();
+
+        $this->item = new Item();
+    }
+
     /**
-     * @dataProvider provideTestItemData
+     * @dataProvider provider
     */
-   public function testConjuredUpdater(array $testItemData): void
-   {
-    $actualItem = new Item(
-        $testItemData['Name'],
-        $testItemData['SellIn']['actual'],
-        $testItemData['Quality']['actual']
-    );
+    public function testSupportsTrue(array $itemData): void
+    {
+        $this->item->setName($itemData['name']);
 
-    $expectedItem = new Item(
-        $testItemData['Name'],
-        $testItemData['SellIn']['expected'],
-        $testItemData['Quality']['expected']
-    );
+        $this->assertTrue($this->updater->supports($this->item));
+    }
 
-    $updater = new ConjuredUpdater();
-    
-    $this->assertTrue($updater->supports($actualItem));
+    public function testSupportsFalse(): void
+    {
+        $this->item->setName('Nonconjured dish');
 
-    $updater->update($actualItem);
+        $this->assertFalse($this->updater->supports($this->item));
 
-    $this->assertEquals($expectedItem, $actualItem, 'Actual and expected items do not match after passing through ConjuredUpdater!');
+        $this->item->setName('Another kind of dish');
+     
+        $this->assertFalse($this->updater->supports($this->item));
+    }
 
-   }
+    /**
+     * @dataProvider provider
+    */
+    public function testUpdate(array $itemData): void
+    {
+        $this->item->setName($itemData['name']);
+        $this->item->setSellIn($itemData['sellIn']['input']);
+        $this->item->setQuality($itemData['quality']['input']);
 
-   public function provideTestItemData(): array 
-   {
+        $this->updater->update($this->item);
+
+        $this->assertEquals($itemData['sellIn']['output'], $this->item->getSellIn());
+        $this->assertEquals($itemData['quality']['output'], $this->item->getQuality());
+
+        $this->assertEquals($itemData['toString'], $this->item->__toString());
+    }
+
+    public function provider(): array 
+    {
         return [
             [
-                'Quality decreases by 2' => [
-                    'Name' => 'Conjured apple pie',        
-                    'SellIn' => ['actual' => 2, 'expected' => 1],
-                    'Quality' => ['actual' => 5, 'expected' => 3]
+                'quality decreased by 2 when sellin is positive' => [
+                    'name' => 'Conjured apple pie',        
+                    'sellIn' => ['input' => 2, 'output' => 1],
+                    'quality' => ['input' => 5, 'output' => 3],
+                    'toString' => 'Conjured apple pie, 1, 3'
                 ]
             ],
             [
-                'Quality decreases by 2' => [
-                    'Name' => 'Conjured cherry pie',
-                    'SellIn' => ['actual' => 2, 'expected' => 1],
-                    'Quality' => ['actual' => 3, 'expected' => 1]
+                'quality decreased by 2 when sellin is positive' => [
+                    'name' => 'Conjured cherry pie',
+                    'sellIn' => ['input' => 2, 'output' => 1],
+                    'quality' => ['input' => 3, 'output' => 1],
+                    'toString' => 'Conjured cherry pie, 1, 1'
                 ]
             ],
             [
-                'Quality decreases by 2' => [
-                    'Name' => 'Conjured date pie',
-                    'SellIn' => ['actual' => 2, 'expected' => 1],
-                    'Quality' => ['actual' => 2, 'expected' => 0]
+                'quality decreased to 0 when sellin is positive' => [
+                    'name' => 'Conjured date pie',
+                    'sellIn' => ['input' => 2, 'output' => 1],
+                    'quality' => ['input' => 2, 'output' => 0],
+                    'toString' => 'Conjured date pie, 1, 0'
                 ]
             ],
             [
-                'Quality decreases by 2' => [
-                    'Name' => 'Conjured elderberry pie',
-                    'SellIn' => ['actual' => 2, 'expected' => 1],
-                    'Quality' => ['actual' => 3, 'expected' => 1]
+                'quality decreased by 2 when sellIn is positive' => [
+                    'name' => 'Conjured elderberry pie',
+                    'sellIn' => ['input' => 2, 'output' => 1],
+                    'quality' => ['input' => 3, 'output' => 1],
+                    'toString' => 'Conjured elderberry pie, 1, 1'
                 ]
             ],
             [
-                'Quality decreases by 4 when SellIn is negative' => [
-                    'Name' => 'Conjured fig pie',
-                    'SellIn' => ['actual' => 0, 'expected' => -1],
-                    'Quality' => ['actual' => 5, 'expected' => 1]
+                'quality decreased by 4 when item expired' => [
+                    'name' => 'Conjured fig pie',
+                    'sellIn' => ['input' => 0, 'output' => -1],
+                    'quality' => ['input' => 5, 'output' => 1],
+                    'toString' => 'Conjured fig pie, -1, 1'
+                ]
+            ],
+            [
+                'quality decreased to 0 when sellIn is negative' => [
+                    'name' => 'Conjured gullet pie',
+                    'sellIn' => ['input' => 0, 'output' => -1],
+                    'quality' => ['input' => 3, 'output' => 0],
+                    'toString' => 'Conjured gullet pie, -1, 0'
                 ]
             ]
-       ];
-   }
+        ];
+    }
 }
