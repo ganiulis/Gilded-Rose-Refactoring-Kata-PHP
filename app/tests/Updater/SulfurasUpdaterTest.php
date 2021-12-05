@@ -1,69 +1,78 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Tests\Updater;
 
-use App\Item;
+use App\Entity\Item;
 use App\Updater\SulfurasUpdater;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Tests SulfurasUpdater behaviour
- */
 class SulfurasTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        $this->updater = new SulfurasUpdater();
+
+        $this->item = new Item();
+    }
+
+    public function testSupportsTrue(): void
+    {
+        $this->item->setName('Sulfuras, Hand of Ragnaros');
+
+        $this->assertTrue($this->updater->supports($this->item));
+    }
+
+    public function testSupportsFalse(): void
+    {
+        $this->item->setName('Sandals of the Insurgent');
+
+        $this->assertFalse($this->updater->supports($this->item));
+    }
+
     /**
-     * @dataProvider provideTestItemData
+     * @dataProvider provider
     */
-   public function testSulfurasUpdater(array $testItemData): void
-   {
-    $actualItem = new Item(
-        $testItemData['Name'],
-        $testItemData['SellIn']['actual'],
-        $testItemData['Quality']['actual']
-    );
+    public function testUpdate(array $itemData): void
+    {
+        $this->item->setName($itemData['name']);
+        $this->item->setSellIn($itemData['sellIn']['input']);
+        $this->item->setQuality($itemData['quality']['input']);
 
-    $expectedItem = new Item(
-        $testItemData['Name'],
-        $testItemData['SellIn']['expected'],
-        $testItemData['Quality']['expected']
-    );
+        $this->updater->update($this->item);
 
-    $updater = new SulfurasUpdater();
+        $this->assertEquals($itemData['sellIn']['output'], $this->item->getSellIn());
+        $this->assertEquals($itemData['quality']['output'], $this->item->getQuality());
 
-    $this->assertTrue($updater->supports($actualItem));
-    
-    $updater->update($actualItem);
+        $this->assertEquals($itemData['toString'], $this->item->__toString());
+    }
 
-    $this->assertEquals($expectedItem, $actualItem, 'Actual and expected items do not match after passing through SulfurasUpdater!');
-
-   }
-
-   public function provideTestItemData(): array 
-   {
-       return [
-           [
-               'First test' => [
-                   'Name' => 'Sulfuras, Hand of Ragnaros',        
-                   'SellIn' => ['actual' => 1, 'expected' => 1],
-                   'Quality' => ['actual' => 80, 'expected' => 80]
-               ]
-           ],
-           [
-               'Second test' => [
-                   'Name' => 'Sulfuras, Hand of Ragnaros', 
-                   'SellIn' => ['actual' => 0, 'expected' => 0],
-                   'Quality' => ['actual' => 80, 'expected' => 80]
-               ]
-           ],
-           [
-               'Third test' => [
-                   'Name' => 'Sulfuras, Hand of Ragnaros',
-                   'SellIn' => ['actual' => -1, 'expected' => -1],
-                   'Quality' => ['actual' => 80, 'expected' => 80]
-               ]
-           ]
-       ];
-   }
+    public function provider(): array 
+    {
+        return [
+            [
+                'nothing changed' => [
+                    'name' => 'Sulfuras, Hand of Ragnaros',        
+                    'sellIn' => ['input' => 1, 'output' => 1],
+                    'quality' => ['input' => 80, 'output' => 80],
+                    'toString' => 'Sulfuras, Hand of Ragnaros, 1, 80'
+                ]
+            ],
+            [
+                'nothing changed' => [
+                    'name' => 'Sulfuras, Hand of Ragnaros', 
+                    'sellIn' => ['input' => -1, 'output' => -1],
+                    'quality' => ['input' => 80, 'output' => 80],
+                    'toString' => 'Sulfuras, Hand of Ragnaros, -1, 80'
+                ]
+            ],
+            [
+                'quality fixed if it was not 80' => [
+                    'name' => 'Sulfuras, Hand of Ragnaros',
+                    'sellIn' => ['input' => -1, 'output' => -1],
+                    'quality' => ['input' => 45, 'output' => 80],
+                    'toString' => 'Sulfuras, Hand of Ragnaros, -1, 80'
+                ]
+            ]
+        ];
+    }
 }

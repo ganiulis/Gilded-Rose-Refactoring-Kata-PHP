@@ -2,34 +2,101 @@
 
 namespace App\Tests\Printer;
 
+use App\Entity\Item;
 use ApprovalTests\Approvals;
-use App\Item;
 use App\Printer\StockPrinter;
 use PHPUnit\Framework\TestCase;
 
 class StockPrinterTest extends TestCase
 {
-    public function testStockPrinter(): void
+    protected function setUp(): void
     {
-        $printer = new StockPrinter();
+        $this->printer = new StockPrinter();
 
-        $testItems = [
-            new Item('foo', 4, 3),
-            new Item('bar', 5, 2),
-            new Item('zim', 6, 1),
-            new Item('gir', 7, 0)
-        ];
-        
         ob_start();
+    }
 
-        $printer->printIntro();
+    protected function tearDown(): void
+    {
+        ob_end_clean();
+    }
 
-        $printer->printSummary($testItems, 3);
+    public function testDefaultIntro(): void
+    {
+        $this->printer->printIntro();
+
+        $output = ob_get_contents();
+
+        Approvals::verifyString($output);
+    }
+
+    public function testCustomIntro(): void
+    {
+        $this->printer->printIntro('Hello, world! This is a custom intro.');
+
+        $output = ob_get_contents();
+
+        Approvals::verifyString($output);
+    }
+
+    public function testSummary(): void
+    {
+        $itemsData = [
+            [
+                'name' => 'alpha',
+                'sellIn' => 5,
+                'quality' => 0
+            ],
+            [
+                'name' => 'bravo',
+                'sellIn' => 4,
+                'quality' => 1
+            ],
+            [
+                'name' => 'charlie',
+                'sellIn' => 3,
+                'quality' => 2
+            ],
+            [
+                'name' => 'delta',
+                'sellIn' => 2,
+                'quality' => 3
+            ],
+            [
+                'name' => 'echo',
+                'sellIn' => 1,
+                'quality' => 4
+            ],
+            [
+                'name' => 'foxtrot',
+                'sellIn' => 0,
+                'quality' => 5
+            ]
+        ];
+
+        foreach ($itemsData as $itemData) {
+            $item = new Item();
+
+            $item->setName($itemData['name']);
+            $item->setSellIn($itemData['sellIn']);
+            $item->setQuality($itemData['quality']);
+
+            $items[] = $item;
+        }
+
+        $this->printer->printSummary($items, 4321);
+
+        $output = ob_get_contents();
+
+        Approvals::verifyString($output);
+    }
+
+    public function testEmptySummary(): void
+    {
+        $this->printer->printSummary([], 1234);
         
         $output = ob_get_contents();
 
         Approvals::verifyString($output);
-
-        ob_end_clean();
     }
 }

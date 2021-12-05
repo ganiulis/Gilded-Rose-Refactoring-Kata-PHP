@@ -1,68 +1,94 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Tests\Updater;
 
-use App\Item;
+use App\Entity\Item;
 use App\Updater\BrieUpdater;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Tests BrieUpdater behaviour
- */
 class BrieUpdaterTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        $this->updater = new BrieUpdater();
+
+        $this->item = new Item();
+    }
+
+    public function testSupportsTrue(): void
+    {
+        $this->item->setName('Aged brie');
+
+        $this->assertTrue($this->updater->supports($this->item));
+    }
+
+    public function testSupportsFalse(): void
+    {
+        $this->item->setName('Pumpkin pie');
+
+        $this->assertFalse($this->updater->supports($this->item));
+    }
+
     /**
-     * @dataProvider provideTestItemData
+     * @dataProvider provider
     */
-   public function testBrieUpdater(array $testItemData): void
-   {
-    $actualItem = new Item(
-        $testItemData['Name'],
-        $testItemData['SellIn']['actual'],
-        $testItemData['Quality']['actual']
-    );
+    public function testUpdate(array $itemData): void
+    {
+        $this->item->setName($itemData['name']);
+        $this->item->setSellIn($itemData['sellIn']['input']);
+        $this->item->setQuality($itemData['quality']['input']);
 
-    $expectedItem = new Item(
-        $testItemData['Name'],
-        $testItemData['SellIn']['expected'],
-        $testItemData['Quality']['expected']
-    );
+        $this->updater->update($this->item);
 
-    $updater = new BrieUpdater();
+        $this->assertEquals($itemData['sellIn']['output'], $this->item->getSellIn());
+        $this->assertEquals($itemData['quality']['output'], $this->item->getQuality());
 
-    $this->assertTrue($updater->supports($actualItem));
-    
-    $updater->update($actualItem);
+        $this->assertEquals($itemData['toString'], $this->item->__toString());
+    }
 
-    $this->assertEquals($expectedItem, $actualItem, 'Actual and expected items do not match after passing through BrieUpdater!');
-   }
-
-   public function provideTestItemData(): array 
-   {
-       return [
-           [
-               'Quality increases by 1' => [
-                   'Name' => 'Aged brie',        
-                   'SellIn' => ['actual' => 2, 'expected' => 1],
-                   'Quality' => ['actual' => 2, 'expected' => 3]
-               ]
-           ],
-           [
-               'Quality increases by 1' => [
-                   'Name' => 'Aged brie', 
-                   'SellIn' => ['actual' => 1, 'expected' => 0],
-                   'Quality' => ['actual' => 2, 'expected' => 3]
-               ]
-           ],
-           [
-               'Quality increases by 2 when SellIn is negative' => [
-                   'Name' => 'Aged brie',
-                   'SellIn' => ['actual' => 0, 'expected' => -1],
-                   'Quality' => ['actual' => 2, 'expected' => 4]
-               ]
-           ]
-       ];
-   }
+    public function provider(): array 
+    {
+        return [
+            [
+                'quality increased by 1 when sellIn is positive' => [
+                    'name' => 'Aged brie',        
+                    'sellIn' => ['input' => 2, 'output' => 1],
+                    'quality' => ['input' => 2, 'output' => 3],
+                    'toString' => 'Aged brie, 1, 3'
+                ]
+            ],
+            [
+                'quality remains at max when sellIn is positive' => [
+                    'name' => 'Aged brie',
+                    'sellIn' => ['input' => 2, 'output' => 1],
+                    'quality' => ['input' => 50, 'output' => 50],
+                    'toString' => 'Aged brie, 1, 50'
+                ]
+            ],
+            [
+                'quality increased by 1 when item expired' => [
+                    'name' => 'Aged brie', 
+                    'sellIn' => ['input' => 1, 'output' => 0],
+                    'quality' => ['input' => 2, 'output' => 3],
+                    'toString' => 'Aged brie, 0, 3'
+                ]
+            ],
+            [
+                'quality increased by 2 when sellIn is negative' => [
+                    'name' => 'Aged brie',
+                    'sellIn' => ['input' => 0, 'output' => -1],
+                    'quality' => ['input' => 2, 'output' => 4],
+                    'toString' => 'Aged brie, -1, 4'
+                ]
+            ],
+            [
+                'quality maxxed when sellIn is negative' => [
+                    'name' => 'Aged brie',
+                    'sellIn' => ['input' => 0, 'output' => -1],
+                    'quality' => ['input' => 48, 'output' => 50],
+                    'toString' => 'Aged brie, -1, 50'
+                ]
+            ]
+        ];
+    }
 }

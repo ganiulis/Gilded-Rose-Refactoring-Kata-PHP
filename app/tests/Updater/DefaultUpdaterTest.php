@@ -1,69 +1,79 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Tests\Updater;
 
-use App\Item;
+use App\Entity\Item;
 use App\Updater\DefaultUpdater;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Tests DefaultUpdater behaviour
- */
 class DefaultUpdaterTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        $this->updater = new DefaultUpdater();
+
+        $this->item = new Item();
+    }
+
+    public function testSupportsTrue(): void
+    {
+        $this->item->setName('Any item with any name');
+
+        $this->assertTrue($this->updater->supports($this->item));
+    }
+
     /**
-     * @dataProvider provideTestItemData
+     * @dataProvider provider
     */
-   public function testDefaultUpdater(array $testItemData): void
-   {
-    $actualItem = new Item(
-        $testItemData['Name'],
-        $testItemData['SellIn']['actual'],
-        $testItemData['Quality']['actual']
-    );
+    public function testUpdate(array $itemData): void
+    {
+        $this->item->setName($itemData['name']);
+        $this->item->setSellIn($itemData['sellIn']['input']);
+        $this->item->setQuality($itemData['quality']['input']);
 
-    $expectedItem = new Item(
-        $testItemData['Name'],
-        $testItemData['SellIn']['expected'],
-        $testItemData['Quality']['expected']
-    );
+        $this->updater->update($this->item);
 
-    $updater = new DefaultUpdater();
+        $this->assertEquals($itemData['sellIn']['output'], $this->item->getSellIn());
+        $this->assertEquals($itemData['quality']['output'], $this->item->getQuality());
 
-    $this->assertTrue($updater->supports($actualItem));
-    
-    $updater->update($actualItem);
+        $this->assertEquals($itemData['toString'], $this->item->__toString());
+    }
 
-    $this->assertEquals($expectedItem, $actualItem, 'Actual and expected items do not match after passing through DefaultUpdater!');
-
-   }
-
-   public function provideTestItemData(): array 
-   {
-       return [
-           [
-               'Quality decreases by 1' => [
-                   'Name' => 'Apple pie',        
-                   'SellIn' => ['actual' => 2, 'expected' => 1],
-                   'Quality' => ['actual' => 2, 'expected' => 1]
-               ]
-           ],
-           [
-               'Quality decreases by 1' => [
-                   'Name' => 'Banana pie', 
-                   'SellIn' => ['actual' => 1, 'expected' => 0],
-                   'Quality' => ['actual' => 2, 'expected' => 1]
-               ]
-           ],
-           [
-               'Quality decreases by 2 when SellIn is negative' => [
-                   'Name' => 'Cherry pie',
-                   'SellIn' => ['actual' => 0, 'expected' => -1],
-                   'Quality' => ['actual' => 2, 'expected' => 0]
-               ]
-           ]
-       ];
-   }
+    public function provider(): array 
+    {
+        return [
+            [
+                'quality decreased by 1 when sellIn decreased by 1' => [
+                    'name' => 'Apple pie',        
+                    'sellIn' => ['input' => 2, 'output' => 1],
+                    'quality' => ['input' => 2, 'output' => 1],
+                    'toString' => 'Apple pie, 1, 1'
+                ]
+            ],
+            [
+                'quality decreased by 1 when sellIn decreased to 0' => [
+                    'name' => 'Banana pie', 
+                    'sellIn' => ['input' => 1, 'output' => 0],
+                    'quality' => ['input' => 2, 'output' => 1],
+                    'toString' => 'Banana pie, 0, 1'
+                ]
+            ],
+            [
+                'quality decreased by 2 when item expired' => [
+                    'name' => 'Cherry pie',
+                    'sellIn' => ['input' => 0, 'output' => -1],
+                    'quality' => ['input' => 2, 'output' => 0],
+                    'toString' => 'Cherry pie, -1, 0'
+                ]
+            ],
+            [
+                'quality decreased to 0 when sellIn is negative' => [
+                    'name' => 'Date pie',
+                    'sellIn' => ['input' => 0, 'output' => -1],
+                    'quality' => ['input' => 1, 'output' => 0],
+                    'toString' => 'Date pie, -1, 0'
+                ]
+            ]
+        ];
+    }
 }
