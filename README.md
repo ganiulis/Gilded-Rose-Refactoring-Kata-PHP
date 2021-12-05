@@ -52,13 +52,13 @@ This kata uses [version 8.0](https://www.php.net/releases/8.0/en.php) of [PHP-FP
 
 This project specifically uses the [PHP 8.0 FastCGI Process Manager](https://www.php.net/manual/en/intro.fpm.php). It's an alternative to regular PHP 8.0+ as PHP-FPM is faster than traditional CGI-based methods and can handle heavier loads, which is useful for high-traffic websites and systems.[^1] Not essential, but nice to have.
 
-## Symfony
+### Symfony
 
 [Symfony](https://symfony.com/) is a PHP framework primarily used to create websites and web applications. Built on top of the fantastic set of decoupled [Symfony Components](https://symfony.com/components) PHP libraries.
 
 This framework is slightly more complicated to set up and work with when compared to its competitor [Laravel](https://laravel.com/), but offers more flexibility and better adaptability for PHP applications in the long-run.
 
-This kata uses [version 5](https://symfony.com/5) of the framework.
+This kata uses [version 5](https://symfony.com/5) of the [PHP](#php) framework.
 
 ### MariaDB
 
