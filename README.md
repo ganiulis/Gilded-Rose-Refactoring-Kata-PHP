@@ -114,9 +114,9 @@ The kata itself uses:
 
 - ~~[Adminer](https://hub.docker.com/_/adminer) - see the section for [Adminer](#adminer) for reasons behind using this~~ not used for now
 - [Composer](https://getcomposer.org) - PHP dependency manager
-- [MariaDB 10.7.1](https://hub.docker.com/_/mariadb) - see the section for [MariaDB](#mariadb) for reasons behind using this
-- [NGINX 1.21.4](https://hub.docker.com/_/nginx) - see the section for [NGINX](#nginx) for reasons behind using this
-- [PHP 8.0 FPM](https://hub.docker.com/_/php) - see the section for [PHP-FPM](#php-fpm) for reasons behind using this instead of regular PHP
+- [MariaDB](https://hub.docker.com/_/mariadb) - see the section for [MariaDB](#mariadb) for reasons behind using this
+- [NGINX](https://hub.docker.com/_/nginx) - see the section for [NGINX](#nginx) for reasons behind using this
+- [PHP-FPM](https://hub.docker.com/_/php) - see the section for [PHP-FPM](#php-fpm) for reasons behind using this instead of regular PHP
 - [Symfony](https://symfony.com/) - see the section for [Symfony](#symfony) for reasons behind using this
 
 Both of which are installed through Docker.
@@ -175,7 +175,9 @@ php bin/console app:fixtures:print [-d days]
 
 #### Adminer interface
 
-You can also access the MariaDB database via the default [Adminer localhost](http://localhost:8080/) while the Docker container is running. Log in with `admin` and `password`.
+Not used for now.
+
+~~You can also access the MariaDB database via the default [Adminer localhost](http://localhost:8080/) while the Docker container is running. Log in with `admin` and `password`.~~
 
 ## Container Images
 
@@ -184,7 +186,7 @@ This project uses `docker-compose` to set up these images:
     - `git`, `zip` and `unzip` are installed along with the image
     - `pdo` and `pdo_mysql` are installed to work along with [MariaDB 10.7.1](https://hub.docker.com/_/mariadb) ~~and [Adminer latest](https://hub.docker.com/_/adminer)~~
 - [MariaDB 10.7.1](https://hub.docker.com/_/mariadb) - see the section for [MariaDB](#mariadb) for reasons behind using this
-- 
+- [NGINX 1.21.4](https://hub.docker.com/_/nginx) - see the section for [NGINX](#nginx) for reasons behind using this
 - ~~[Adminer latest](https://hub.docker.com/_/adminer) - see the section for [Adminer](#adminer) for reasons behind using this~~ not used for now
 
 ## Dependencies
