@@ -204,12 +204,12 @@ This project uses `composer install` to install these dev dependencies:
 
 - `app/` - main code lives here
     - `bin/console` - Symfony Console component entrypoint
-    - `config/` - contains `.yaml` and `.xml` project configuration files
-    - `public/` - entrypoint for 
+    - `config/` - contains *.yaml* and *.xml* project configuration files
+    - `public/` - NGINX *localhost* entrypoint
     - `migrations/` - any changes to the database schema are created here as PHP scripts via `php bin/console make:migration` or `composer create-schema` console commands
     - `src/` - source folder refactored to support Symfony
-    - `tests/` - contains all code tests for `src/`. Aims for 95% code coverage
-- `docker/` - categorized `Dockerfile` files live here
+    - `tests/` - contains all code tests for `src/`. Aims for 90% file coverage
+- `docker/` - categorized *Dockerfile* files live here
 - `docker-compose.yml` - main `docker-compose` file
 
 This structure does not include all files and folders, only ones which are relevant for the purposes of showcasing this kata.
