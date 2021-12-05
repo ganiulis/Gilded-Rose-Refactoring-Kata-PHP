@@ -42,15 +42,7 @@ class ItemTest extends TestCase
      */
     public function testToString(Item $item): void
     {
-        ob_start();
-
-        echo $item;
-
-        $output = ob_get_contents();
-
-        ob_end_clean();
-
-        $this->assertisString($output);
-        $this->assertEquals($output, 'alpha, 0, 2');
+        $this->assertisString($item->__toString());
+        $this->assertEquals($item->__toString(), 'alpha, 0, 2');
     }
 }
