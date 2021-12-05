@@ -76,6 +76,8 @@ It is licensed under the 2-clause BSD-like license and runs on Linux, BSD varian
 
 The purpose of NGINX is to address the performance limitations of typical Apache web servers and has so far been steadily gaining popularity as a higher-performance alternative to Apache over the past decade.[^4]
 
+This kata uses [version 1.21.4](https://nginx.org/en/CHANGES) of the server.
+
 ### Adminer
 
 Not relevant for the current iteration of this kata. Might be re-used later, therefore this section is left unremoved for the time being.
