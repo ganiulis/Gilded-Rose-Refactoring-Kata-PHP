@@ -70,9 +70,9 @@ This kata uses [version 10.7.1](https://mariadb.com/kb/en/mariadb-1071-release-n
 
 [NGINX](https://www.nginx.com/) (pronounced "engine-x") is an open source reverse proxy server for HTTP, HTTPS, SMTP, POP3 and IMAP protocols, as well as a load balancer, HTTP cache, and a web (origin) server.[^3]
 
-NGINX started with a strong focus on high concurrency, high performance and low memory usage.[^3]
+NGINX started with a strong focus on high concurrency, high performance and low memory usage.
 
-It is licensed under the 2-clause BSD-like license and runs on Linux, BSD variants, Mac OS X, Solaris, AIX, HP-UX, as well as other *nix flavors. It also has a proof of concept port for Microsoft Windows.[^3]
+It is licensed under the 2-clause BSD-like license and runs on Linux, BSD variants, Mac OS X, Solaris, AIX, HP-UX, as well as other *nix flavors. It also has a proof of concept port for Microsoft Windows.
 
 The purpose of NGINX is to address the performance limitations of typical Apache web servers and has so far been steadily gaining popularity as a higher-performance alternative to Apache over the past decade.[^4]
 
