@@ -16,6 +16,7 @@ Built on top of [Symfony 5](https://symfony.com/) along with [MariaDB 10.7.1](ht
     + [PHP-FPM](#php-fpm)
 * [Symfony](#symfony)
 * [MariaDB](#mariadb)
+* [NGINX](#nginx)
 * [Adminer](#adminer)
 * [Version Control Development Model](#version-control-development-model)
     + [Why Trunk-Based Development?](#why-trunk-based-development)
@@ -45,19 +46,19 @@ See the [original requirements text file](https://github.com/emilybache/GildedRo
 
 I've been working with PHP as a back-end language for several months now and built a few personal and private websites which include PHP in their code. It does its job and has some neat associated frameworks like [Symfony](https://symfony.com/) and [Laravel](https://laravel.com/).
 
-This kata uses [version 8.0](https://www.php.net/releases/8.0/en.php) of [PHP-FPM](https://www.php.net/manual/en/intro.fpm.php).
+This kata uses [version 8.0](https://www.php.net/releases/8.0/en.php) of [PHP-FPM](https://www.php.net/manual/en/intro.fpm.php). See the section for [PHP-FPM](#php-fpm) for reasons behind using this instead of regular PHP.
 
 ### PHP-FPM
 
 This project specifically uses the [PHP 8.0 FastCGI Process Manager](https://www.php.net/manual/en/intro.fpm.php). It's an alternative to regular PHP 8.0+ as PHP-FPM is faster than traditional CGI-based methods and can handle heavier loads, which is useful for high-traffic websites and systems.[^1] Not essential, but nice to have.
 
-## Symfony
+### Symfony
 
 [Symfony](https://symfony.com/) is a PHP framework primarily used to create websites and web applications. Built on top of the fantastic set of decoupled [Symfony Components](https://symfony.com/components) PHP libraries.
 
 This framework is slightly more complicated to set up and work with when compared to its competitor [Laravel](https://laravel.com/), but offers more flexibility and better adaptability for PHP applications in the long-run.
 
-This kata uses [version 5](https://symfony.com/5) of the framework.
+This kata uses [version 5](https://symfony.com/5) of the [PHP](#php) framework.
 
 ### MariaDB
 
@@ -65,14 +66,28 @@ This kata uses [version 5](https://symfony.com/5) of the framework.
 
 This kata uses [version 10.7.1](https://mariadb.com/kb/en/mariadb-1071-release-notes/) of the database.
 
+### NGINX
+
+[NGINX](https://www.nginx.com/) (pronounced "engine-x") is an open source reverse proxy server for HTTP, HTTPS, SMTP, POP3 and IMAP protocols, as well as a load balancer, HTTP cache, and a web (origin) server.[^3]
+
+NGINX started with a strong focus on high concurrency, high performance and low memory usage.
+
+It is licensed under the 2-clause BSD-like license and runs on Linux, BSD variants, Mac OS X, Solaris, AIX, HP-UX, as well as other *nix flavors. It also has a proof of concept port for Microsoft Windows.
+
+The purpose of NGINX is to address the performance limitations of typical Apache web servers and has so far been steadily gaining popularity as a higher-performance alternative to Apache over the past decade.[^4]
+
+This kata uses [version 1.21.4](https://nginx.org/en/CHANGES) of the server.
+
 ### Adminer
 
-[Adminer](https://www.adminer.org/) (formerly phpMinAdmin) is a light-weight database management tool. It serves as an alternative to [phpMyAdmin](https://hub.docker.com/_/phpmyadmin) which provides similar functionality and consists of a single file ready to deploy to the target server.
+Not relevant for the current iteration of this kata. Might be re-used later, therefore this section is left unremoved for the time being.
 
-Taken from Adminer's [landing page](https://www.adminer.org/):
-> Replace phpMyAdmin with Adminer and you will get a tidier user interface, better support for MySQL features, higher performance and more security.
+~~[Adminer](https://www.adminer.org/) (formerly phpMinAdmin) is a light-weight database management tool. It serves as an alternative to [phpMyAdmin](https://www.phpmyadmin.net/) which provides similar functionality and consists of a single file ready to deploy to the target server.~~
 
-This kata uses the latest version of Adminer.[^3]
+~~Taken from Adminer's [landing page](https://www.adminer.org/):~~
+> ~~Replace phpMyAdmin with Adminer and you will get a tidier user interface, better support for MySQL features, higher performance and more security.~~
+
+~~This kata uses the latest version of Adminer.[^5]~~
 
 ## Version Control Development Model
 
@@ -84,7 +99,7 @@ For this project, [main](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kat
 
 ### Why Trunk-Based Development?
 
-This model is easier to set up and iterate when the project team is small (i.e. it's only me who's working on it).[^4]
+This model is easier to set up and iterate when the project team is small (i.e. it's only me who's working on it).[^6]
 
 ## Installation
 
@@ -97,10 +112,11 @@ This project needs Docker Desktop and Git:
 
 The kata itself uses:
 
-- [Adminer](https://hub.docker.com/_/adminer) - see the section for [Adminer](#adminer) for reasons behind using this
+- ~~[Adminer](https://hub.docker.com/_/adminer) - see the section for [Adminer](#adminer) for reasons behind using this~~ not used for now
 - [Composer](https://getcomposer.org) - PHP dependency manager
-- [MariaDB 10.7.1](https://hub.docker.com/_/mariadb) - see the section for [MariaDB](#mariadb) for reasons behind using this
-- [PHP 8.0 FPM](https://www.php.net/downloads.php) - see the section for [PHP-FPM](#php-fpm) for reasons behind using this instead of regular PHP
+- [MariaDB](https://hub.docker.com/_/mariadb) - see the section for [MariaDB](#mariadb) for reasons behind using this
+- [NGINX](https://hub.docker.com/_/nginx) - see the section for [NGINX](#nginx) for reasons behind using this
+- [PHP-FPM](https://hub.docker.com/_/php) - see the section for [PHP-FPM](#php-fpm) for reasons behind using this instead of regular PHP
 - [Symfony](https://symfony.com/) - see the section for [Symfony](#symfony) for reasons behind using this
 
 Both of which are installed through Docker.
@@ -121,7 +137,7 @@ Build Docker container using `docker-compose`:
 docker-compose up -d --build
 ```
 
-The `-d` command option enables *Detached* mode: runs containers in the background and prints new container names. The `--build` command option builds images before starting the containers.[^5]
+The `-d` command option enables *Detached* mode: runs containers in the background and prints new container names. The `--build` command option builds images before starting the containers.[^7]
 
 Check if the container images have succesfully installed:
 
@@ -151,18 +167,27 @@ Create the schema for the database using a pre-made script once more through `co
 composer create-schema
 ```
 
+You can also run the current fixture summary script as well:
+
+```shell script
+php bin/console app:fixtures:print [-d days]
+```
+
 #### Adminer interface
 
-You can also access the MariaDB database via the default [Adminer localhost](http://localhost:8080/) while the Docker container is running. Log in with `admin` and `password`.
+Not used for now.
+
+~~You can also access the MariaDB database via the default [Adminer localhost](http://localhost:8080/) while the Docker container is running. Log in with `admin` and `password`.~~
 
 ## Container Images
 
 This project uses `docker-compose` to set up these images:
 - [PHP 8.0 FPM](https://hub.docker.com/_/php/) with [Composer 2.1](https://hub.docker.com/_/composer) - see [PHP-FPM](#php-fpm) for reasons behind using this instead of PHP
     - `git`, `zip` and `unzip` are installed along with the image
-    - `pdo` and `pdo_mysql` are installed to work along with [MariaDB 10.7.1](https://hub.docker.com/_/mariadb) and [Adminer latest](https://hub.docker.com/_/adminer)
+    - `pdo` and `pdo_mysql` are installed to work along with [MariaDB 10.7.1](https://hub.docker.com/_/mariadb) ~~and [Adminer latest](https://hub.docker.com/_/adminer)~~
 - [MariaDB 10.7.1](https://hub.docker.com/_/mariadb) - see the section for [MariaDB](#mariadb) for reasons behind using this
-- [Adminer latest](https://hub.docker.com/_/adminer) - see the section for [Adminer](#adminer) for reasons behind using this
+- [NGINX 1.21.4](https://hub.docker.com/_/nginx) - see the section for [NGINX](#nginx) for reasons behind using this
+- ~~[Adminer latest](https://hub.docker.com/_/adminer) - see the section for [Adminer](#adminer) for reasons behind using this~~ not used for now
 
 ## Dependencies
 
@@ -179,11 +204,12 @@ This project uses `composer install` to install these dev dependencies:
 
 - `app/` - main code lives here
     - `bin/console` - Symfony Console component entrypoint
-    - `config/` - contains yaml configuration files
+    - `config/` - contains *.yaml* and *.xml* project configuration files
+    - `public/` - NGINX *localhost* entrypoint
     - `migrations/` - any changes to the database schema are created here as PHP scripts via `php bin/console make:migration` or `composer create-schema` console commands
     - `src/` - source folder refactored to support Symfony
-    - `tests/` - contains all code tests for `src/`. Aims for 95% code coverage
-- `docker/` - categorized `Dockerfile` files live here
+    - `tests/` - contains all code tests for `src/`. Aims for 90% file coverage
+- `docker/` - categorized *Dockerfile* files live here
 - `docker-compose.yml` - main `docker-compose` file
 
 This structure does not include all files and folders, only ones which are relevant for the purposes of showcasing this kata.
@@ -217,7 +243,7 @@ browser.
 
 ## Code Standard
 
-Easy Coding Standard is configured for style and code standards as described by the [PSR-12](https://www.php-fig.org/psr/psr-12/) specification.[^6]
+Easy Coding Standard is configured for style and code standards as described by the [PSR-12](https://www.php-fig.org/psr/psr-12/) specification.[^8]
 
 ### Check Code
 
@@ -287,8 +313,10 @@ This project follows the [2.0 version of the Apache License](https://www.apache.
 See the [LICENSE file](https://github.com/ganiulis/Gilded-Rose-Refactoring-Kata-PHP/blob/main/LICENSE) for more information.
 
 [^1]: [Difference between PHP-CGI and PHP-FPM](https://www.basezap.com/difference-php-cgi-php-fpm/)
-[^2]: [MariaDB vs MySQL: What is the Difference Between MariaDB and MySQL](https://www.guru99.com/mariadb-vs-mysql.html)
-[^3]: Footnote: Adminer does not conflict with other parts of the kata regardless of the version.
-[^4]: [Trunk Based Development: Introduction](https://trunkbaseddevelopment.com/)
-[^5]: [`docker-compose up` specificaton](https://docs.docker.com/compose/reference/up/)
-[^6]: [PSR-12: Extended Coding Style](https://www.php-fig.org/psr/psr-12/)
+[^2]: [MariaDB vs MySQL: What is the Difference Between MariaDB and MySQL?](https://www.guru99.com/mariadb-vs-mysql.html)
+[^3]: [Docker Hub: What is nginx?](https://hub.docker.com/_/nginx)
+[^4]: [Nginx vs Apache: Web Server Showdown](https://kinsta.com/blog/nginx-vs-apache/)
+[^5]: Footnote: Adminer does not conflict with other parts of the kata regardless of the version.
+[^6]: [Trunk Based Development: Introduction](https://trunkbaseddevelopment.com/)
+[^7]: [`docker-compose up` specificaton](https://docs.docker.com/compose/reference/up/)
+[^8]: [PSR-12: Extended Coding Style](https://www.php-fig.org/psr/psr-12/)
