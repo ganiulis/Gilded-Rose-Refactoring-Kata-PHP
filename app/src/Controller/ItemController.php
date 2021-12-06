@@ -44,4 +44,44 @@ class ItemController extends AbstractController
 
         return new JsonResponse(["item" => $result]);
     }
+
+    /**
+    * @Route("/item/{id}/id", name="show_one_item_id")
+    */
+    public function showId(int $id, ItemRepository $itemRepository): JsonResponse
+    {
+        $item = $itemRepository->find($id);
+
+        return new JsonResponse(["id" => $item->getId()]);
+    }
+
+    /**
+    * @Route("/item/{id}/name", name="show_one_item_name")
+    */
+    public function showName(int $id, ItemRepository $itemRepository): JsonResponse
+    {
+        $item = $itemRepository->find($id);
+
+        return new JsonResponse(["name" => $item->getName()]);
+    }
+
+    /**
+    * @Route("/item/{id}/sell_in", name="show_one_item_sell_in")
+    */
+    public function showSellIn(int $id, ItemRepository $itemRepository): JsonResponse
+    {
+        $item = $itemRepository->find($id);
+
+        return new JsonResponse(["sell_in" => $item->getSellIn()]);
+    }
+
+    /**
+    * @Route("/item/{id}/quality", name="show_one_item_quality")
+    */
+    public function showQuality(int $id, ItemRepository $itemRepository): JsonResponse
+    {
+        $item = $itemRepository->find($id);
+
+        return new JsonResponse(["quality" => $item->getQuality()]);
+    }
 }

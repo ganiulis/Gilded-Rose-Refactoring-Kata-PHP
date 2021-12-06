@@ -9,3 +9,20 @@ show_all_items:
 show_one_item:
   path: /item/{id}
   controller: App\Controller\ItemController::show
+
+show_one_item_id:
+    path: /item/{id}/id
+    controller: App\Controller\ItemController::showId
+  
+show_one_item_name:
+    path: /item/{id}/name
+    controller: App\Controller\ItemController::showName
+  
+show_one_item_sell_in:
+    path: /item/{id}/sell_in
+    controller: App\Controller\ItemController::showSellIn
+
+show_one_item_quality:
+    path: /item/{id}/quality
+    controller: App\Controller\ItemController::showQuality
+  
