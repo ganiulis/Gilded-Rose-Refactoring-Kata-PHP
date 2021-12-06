@@ -16,12 +16,16 @@ class ItemController extends AbstractController
     {
         $items = $itemRepository->findAll();
 
+        $result = [];
+
         foreach ($items as $item) {
             $result[] = [
-                "id" => $item->getId(),
-                "name" => $item->getName(),
-                "sell_in" => $item->getSellIn(),
-                "quality" => $item->getQuality()
+                "item" => [
+                    "id" => $item->getId(),
+                    "name" => $item->getName(),
+                    "sell_in" => $item->getSellIn(),
+                    "quality" => $item->getQuality()
+                ]
             ];
         } 
 
