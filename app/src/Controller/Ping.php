@@ -18,9 +18,16 @@ class Ping extends AbstractController
         
         try {
             $em->getConnection()->connect();
-            return new Response('pong!', 200, ['Content-Type' => 'text/plain']);
         } catch (Exception $e) {
-            return new Response('something is wrong with the db connection.', 500, ['Content-Type' => 'text/plain']);
+            return new Response('there was an error while trying to connect to the db.', 500, ['Content-Type' => 'text/plain']);
         }
+
+        $connected = $em->getConnection()->isConnected();
+
+        if (!$connected) {
+            return new Response('db connection process did not produce any errors but is unavailable.', 503, ['Content-Type' => 'text/plain']);
+        }
+
+        return new Response('pong!', 200, ['Content-Type' => 'text/plain']);
     }
 }
