@@ -17,10 +17,15 @@ class ItemController extends AbstractController
         $items = $itemRepository->findAll();
 
         foreach ($items as $item) {
-            $output[] = [$item->getId() => $item->__toString()];
+            $result[] = [
+                "id" => $item->getId(),
+                "name" => $item->getName(),
+                "sell_in" => $item->getSellIn(),
+                "quality" => $item->getQuality()
+            ];
         } 
 
-        return new JsonResponse($output);
+        return new JsonResponse(["items" => $result]);
     }
 
     /**
@@ -30,6 +35,13 @@ class ItemController extends AbstractController
     {
         $item = $itemRepository->find($id);
 
-        return new JsonResponse($item->__toString());
+        $result = [
+            "id" => $item->getId(),
+            "name" => $item->getName(),
+            "sell_in" => $item->getSellIn(),
+            "quality" => $item->getQuality()
+        ];
+
+        return new JsonResponse(["item" => $result]);
     }
 }
