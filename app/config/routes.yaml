@@ -1,3 +1,11 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+show_all_items:
+  path: /item
+  controller: App\Controller\ItemController::showAll
+
+show_one_item:
+  path: /item/{id}
+  controller: App\Controller\ItemController::show
