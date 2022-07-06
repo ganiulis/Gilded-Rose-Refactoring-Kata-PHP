@@ -1,3 +1,7 @@
+check_health:
+    path: /ping
+    controller: App\Controller\Ping::checkHealth
+
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
@@ -25,4 +29,4 @@ show_one_item_sell_in:
 show_one_item_quality:
     path: /item/{id}/quality
     controller: App\Controller\ItemController::showQuality
-  
+    
