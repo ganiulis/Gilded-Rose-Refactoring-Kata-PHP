@@ -1,3 +1,32 @@
 check_health:
     path: /ping
     controller: App\Controller\Ping::checkHealth
+
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+show_all_items:
+  path: /item
+  controller: App\Controller\ItemController::showAll
+
+show_one_item:
+  path: /item/{id}
+  controller: App\Controller\ItemController::show
+
+show_one_item_id:
+    path: /item/{id}/id
+    controller: App\Controller\ItemController::showId
+  
+show_one_item_name:
+    path: /item/{id}/name
+    controller: App\Controller\ItemController::showName
+  
+show_one_item_sell_in:
+    path: /item/{id}/sell_in
+    controller: App\Controller\ItemController::showSellIn
+
+show_one_item_quality:
+    path: /item/{id}/quality
+    controller: App\Controller\ItemController::showQuality
+    
